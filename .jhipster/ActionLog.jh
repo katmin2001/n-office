@@ -1,0 +1,13 @@
+entity ActionLog {
+	id Long,
+    userId Long,
+    actionType String,
+    objectId Long,
+    objectName String,
+    note String,
+    issueDateTime Instant
+}
+dto ActionLog with mapstruct
+paginate ActionLog with pagination
+service ActionLog with serviceClass
+service ActionLog with serviceImpl

@@ -1,0 +1,9 @@
+entity BussinessType {
+	id Long,
+    status Long,
+    name String,
+}
+dto BussinessType with mapstruct
+paginate BussinessType with pagination
+service BussinessType with serviceClass
+service BussinessType with serviceImpl

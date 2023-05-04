@@ -1,0 +1,17 @@
+entity EvaluateAssignment {
+	id Long,
+    channelId String,
+    evaluaterId Long,
+    totalCall Long,
+    totalUserId Long,
+    startDate Instant,
+    endDate Instant,
+    createDatetime Instant,
+    createUser Long,
+    updateDatetime Instant,
+    updateUser Long
+}
+dto EvaluateAssignment with mapstruct
+paginate EvaluateAssignment with pagination
+service EvaluateAssignment with serviceClass
+service EvaluateAssignment with serviceImpl

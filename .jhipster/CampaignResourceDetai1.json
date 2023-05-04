@@ -1,0 +1,53 @@
+{
+  "name": "CampaignResourceDetai1",
+  "fields": [
+    {
+      "fieldName": "campaignResourceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "assignUserId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "groupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "callStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "campaignId",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210628081645",
+  "entityTableName": "campaign_resource_detai_1",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

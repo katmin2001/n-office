@@ -1,0 +1,14 @@
+entity ProcessTicketEntity {
+	processTicketId Long,
+	ticketId Long,
+    ticketRequestId Long,
+    content String,
+    departmentId Long,
+    createUser Long,
+    createDatetime Instant,
+    status String
+}
+dto ProcessTicketEntity with mapstruct
+paginate ProcessTicketEntity with pagination
+service ProcessTicketEntity with serviceClass
+service ProcessTicketEntity with serviceImpl

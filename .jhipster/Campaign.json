@@ -1,0 +1,65 @@
+{
+  "name": "Campaign",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "campaignScriptId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "campaignTemplateId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "groupUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "displayPhone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updateDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateUser",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210616015345",
+  "entityTableName": "campaign",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

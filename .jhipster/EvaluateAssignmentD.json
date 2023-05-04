@@ -1,0 +1,25 @@
+{
+  "name": "EvaluateAssignmentD",
+  "fields": [
+    {
+      "fieldName": "evaluateAssignmentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "userId",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210705044900",
+  "entityTableName": "evaluate_assignment_d",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

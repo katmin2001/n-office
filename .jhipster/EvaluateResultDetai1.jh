@@ -1,0 +1,11 @@
+entity EvaluateResultDetai1 {
+	id Long,
+    evaluateResultId Long,
+    criteriaDetailId Long,
+    content String,
+    createDatetime Instant
+}
+dto EvaluateResultDetai1 with mapstruct
+paginate EvaluateResultDetai1 with pagination
+service EvaluateResultDetai1 with serviceClass
+service EvaluateResultDetai1 with serviceImpl

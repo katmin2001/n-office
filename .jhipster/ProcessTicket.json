@@ -1,0 +1,49 @@
+{
+  "name": "ProcessTicket",
+  "fields": [
+    {
+      "fieldName": "processTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ticketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ticketRequestId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departmentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210105072451",
+  "entityTableName": "process_ticket",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

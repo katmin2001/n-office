@@ -1,0 +1,17 @@
+entity ConfigMenu {
+    id Long,
+    menuCode String,
+    menuName String,
+    domainCode String,
+    status Integer,
+    description String,
+    updateTime Instant,
+    updateUser String,
+    orderIndex Integer,
+    icon String,
+    url String
+}
+dto ConfigMenu with mapstruct
+paginate ConfigMenu with pagination
+service ConfigMenu with serviceClass
+service ConfigMenu with serviceImpl

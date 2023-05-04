@@ -1,0 +1,21 @@
+entity TicketRequest {
+	ticketRequestId Long,
+    ticketId String,
+    ticketRequestCode String,
+    requestType Long,
+    bussinessType Long,
+    departmentId Long,
+    status String,
+    deadline Instant,
+    content String,
+    confirmDate Instant,
+    timeNotify Long,
+    createUser Long,
+    createDatetime Instant,
+    satisfied String
+}
+dto TicketRequest with mapstruct
+paginate TicketRequest with pagination
+service TicketRequest with serviceClass
+service TicketRequest with serviceImpl
+

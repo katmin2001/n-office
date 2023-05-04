@@ -1,0 +1,57 @@
+{
+  "name": "EvaluateAssignment",
+  "fields": [
+    {
+      "fieldName": "channelId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "evaluaterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalCall",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalUserId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updateDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateUser",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210705043654",
+  "entityTableName": "evaluate_assignment",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

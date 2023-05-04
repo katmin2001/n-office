@@ -1,0 +1,9 @@
+entity GroupUser {
+	id Long,
+    name String,
+    status String
+}
+dto GroupUser with mapstruct
+paginate GroupUser with pagination
+service GroupUser with serviceClass
+service GroupUser with serviceImpl

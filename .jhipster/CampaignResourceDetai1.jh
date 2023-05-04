@@ -1,0 +1,16 @@
+entity CampaignResourceDetai1 {
+	id Long,
+    campaignResourceId Long,
+    phoneNumber String,
+    status String,
+    createDatetime Instant,
+    createUser Long,
+    assignUserId Long,
+    groupId Long,
+    callStatus String,
+    campaignId Long
+}
+dto CampaignResourceDetai1 with mapstruct
+paginate CampaignResourceDetai1 with pagination
+service CampaignResourceDetai1 with serviceClass
+service CampaignResourceDetai1 with serviceImpl

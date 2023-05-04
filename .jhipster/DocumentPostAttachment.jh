@@ -1,0 +1,15 @@
+entity DocumentPostAttachment {
+	id Long,
+    documentPostId Long,
+    fileName String,
+    fileNameEncrypt String,
+    capacity Double,
+    downloadTotal Double,
+    status String,
+    createDatetime Instant,
+    createUser Long
+}
+dto DocumentPostAttachment with mapstruct
+paginate DocumentPostAttachment with pagination
+service DocumentPostAttachment with serviceClass
+service DocumentPostAttachment with serviceImpl

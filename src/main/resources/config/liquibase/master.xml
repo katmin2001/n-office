@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, oracle"/>
+    <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
+    <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210612012310_added_entity_ApDomain.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210612012756_added_entity_BussinessType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210615043509_added_entity_CampainScript.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210615080404_added_entity_CampaignScript.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210616015345_added_entity_Campaign.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210619082531_added_entity_Notification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210626133019_added_entity_Document.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210626133048_added_entity_DocumentPost.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210626133120_added_entity_DocumentPostAttachment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210626133147_added_entity_DocumentPostBookmarks.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210626133434_added_entity_DocumentPostView.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210628081645_added_entity_CampaignResourceDetai1.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210630074333_added_entity_CampaignSmsBatch.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210705043654_added_entity_EvaluateAssignment.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

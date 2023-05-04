@@ -1,0 +1,23 @@
+entity EvaluateResult {
+	id Long,
+    objectId Long,
+    channelType String,
+    durations Double,
+    evaluaterId Long,
+    evaluatedId Long,
+    phoneNumber String,
+    criteriaRatingId Long,
+    totalCores Long,
+    criteriaRatingNewId Long,
+    totalScoresNew Long,
+    error1 String,
+    error2 String,
+    content String,
+    suggest String,
+    createDatetime Instant,
+    createDatetimeNew Instant
+}
+dto EvaluateResult with mapstruct
+paginate EvaluateResult with pagination
+service EvaluateResult with serviceClass
+service EvaluateResult with serviceImpl

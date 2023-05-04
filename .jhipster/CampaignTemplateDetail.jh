@@ -1,0 +1,20 @@
+entity CampaignTemplateDetail2 {
+	id Long,
+    campaignId Long,
+    type String,
+    code String,
+    name String,
+    defaultValue String,
+    ord Integer,
+    exportExcel String,
+    display String,
+    editable String,
+    optionValue String,
+    status String,
+    createDatetime Instant,
+    createUser Long,
+}
+dto CampaignTemplateDetail2 with mapstruct
+paginate CampaignTemplateDetail2 with pagination
+service CampaignTemplateDetail2 with serviceClass
+service CampaignTemplateDetail2 with serviceImpl

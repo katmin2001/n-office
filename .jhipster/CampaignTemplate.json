@@ -1,0 +1,36 @@
+{
+  "name": "CampaignTemplate",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "campaignName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "campaign_template",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210617124917"
+}

@@ -1,0 +1,53 @@
+{
+  "name": "CampaignSmsBatch",
+  "fields": [
+    {
+      "fieldName": "campaignSmsMarketingId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "batchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sendDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "responseBatch",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210630074333",
+  "entityTableName": "campaign_sms_batch",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

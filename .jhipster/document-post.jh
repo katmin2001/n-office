@@ -1,0 +1,19 @@
+entity DocumentPost {
+	id Long,
+    documentId Long,
+    name String,
+    title String,
+    content String,
+    status String,
+    tags String,
+    viewTotal Long,
+    createDatetime Instant,
+    createUser Long,
+    approveDatetime Instant,
+    approveUser Long
+}
+dto DocumentPost with mapstruct
+paginate DocumentPost with pagination
+service DocumentPost with serviceClass
+service DocumentPost with serviceImpl
+

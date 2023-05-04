@@ -1,0 +1,11 @@
+entity CampaignTemplate {
+	id Long,
+    campaignName String,
+    status String,
+    createDatetime String,
+    createUser Long,
+}
+dto CampaignTemplate with mapstruct
+paginate CampaignTemplate with pagination
+service CampaignTemplate with serviceClass
+service CampaignTemplate with serviceImpl

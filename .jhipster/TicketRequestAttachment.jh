@@ -1,0 +1,13 @@
+entity TicketRequestAttachment {
+	ticketRequestAttachmentId Long,
+    ticketRequestId Long,
+    fileName String,
+    fillNameEncrypt String,
+    createDatetime Instant,
+    createUser Long,
+    status String
+}
+dto TicketRequestAttachment with mapstruct
+paginate TicketRequestAttachment with pagination
+service TicketRequestAttachment with serviceClass
+service TicketRequestAttachment with serviceImpl

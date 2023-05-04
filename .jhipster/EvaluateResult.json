@@ -1,0 +1,81 @@
+{
+  "name": "EvaluateResult",
+  "fields": [
+    {
+      "fieldName": "objectId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "channelType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "durations",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "evaluaterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "evaluatedId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "criteriaRatingId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalCores",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "criteriaRatingNewId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "totalScoresNew",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "error1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "error2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "suggest",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createDatetimeNew",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210709023808",
+  "entityTableName": "evaluate_result",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

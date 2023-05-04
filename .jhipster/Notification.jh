@@ -1,0 +1,16 @@
+entity Notification {
+	id Long,
+    type String,
+    title String,
+    content String,
+    createDatetime Instant,
+    userId Long,
+    isRead String,
+    status String,
+    objectCode String
+    refId Long
+}
+dto Notification with mapstruct
+paginate Notification with pagination
+service Notification with serviceClass
+service Notification with serviceImpl

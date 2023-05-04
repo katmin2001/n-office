@@ -1,0 +1,19 @@
+entity ConfigMenuItem {
+    id Long,
+    menuId Long,
+    menuItemCode String,
+    menuItemName String,
+    isDefault Integer,
+    orderIndex Integer,
+    status Integer,
+    description String,
+    updateTime Instant,
+    updateUser String,
+    icon String,
+    url String,
+    parentId Long,
+}
+dto ConfigMenuItem with mapstruct
+paginate ConfigMenuItem with pagination
+service ConfigMenuItem with serviceClass
+service ConfigMenuItem with serviceImpl

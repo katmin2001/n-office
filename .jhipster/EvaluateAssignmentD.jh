@@ -1,0 +1,9 @@
+entity EvaluateAssignmentD {
+	id Long,
+	evaluateAssignmentId Long,
+    userId Long
+}
+dto EvaluateAssignmentD with mapstruct
+paginate EvaluateAssignmentD with pagination
+service EvaluateAssignmentD with serviceClass
+service EvaluateAssignmentD with serviceImpl

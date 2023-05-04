@@ -1,0 +1,11 @@
+entity EvaluateResultResponse {
+	id Long,
+    evaluateResultId Long,
+    content String,
+    createUser Long
+    createDatetime Instant
+}
+dto EvaluateResultResponse with mapstruct
+paginate EvaluateResultResponse with pagination
+service EvaluateResultResponse with serviceClass
+service EvaluateResultResponse with serviceImpl

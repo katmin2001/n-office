@@ -1,0 +1,13 @@
+entity ProcessTicketAttachment {
+	processTicketAttachmentId Long,
+    ticketRequestId Long,
+    fileName String,
+    fillNameEncrypt String,
+    createDatetime Instant,
+    createUser Long,
+    status String
+}
+dto ProcessTicketAttachment with mapstruct
+paginate ProcessTicketAttachment with pagination
+service ProcessTicketAttachment with serviceClass
+service ProcessTicketAttachment with serviceImpl

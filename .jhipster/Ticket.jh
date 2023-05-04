@@ -1,0 +1,16 @@
+entity Ticket {
+	ticketId Long,
+    channelType String,
+    ticketCode String,
+    customerId Long,
+    status String,
+    fcr String,
+    departmentId Long,
+    createUser Long,
+    createDatetime Instant,
+    updateDatetime Instant
+}
+dto Ticket with mapstruct
+paginate Ticket with pagination
+service Ticket with serviceClass
+service Ticket with serviceImpl

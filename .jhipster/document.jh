@@ -1,0 +1,12 @@
+entity Document {
+	id Long,
+    name String,
+    parentId String,
+    status String,
+    createDatetime Instant
+    createUser Long
+}
+dto Document with mapstruct
+paginate Document with pagination
+service Document with serviceClass
+service Document with serviceImpl

@@ -1,0 +1,16 @@
+entity CampaignScript {
+	id Long,
+    code String,
+    name String,
+    startContent String,
+    endContent String,
+    status String,
+    createDatetime Instant,
+    createUser Long,
+    updateDatetime Instant,
+    updateUser Long
+}
+dto CampaignScript with mapstruct
+paginate CampaignScript with pagination
+service CampaignScript with serviceClass
+service CampaignScript with serviceImpl

@@ -1,0 +1,126 @@
+{
+  "name": "TicketRequest",
+  "fields": [
+    {
+      "fieldName": "ticketRequestId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ticketId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ticketRequestCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "requestType",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "bussinessType",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "departmentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deadline",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "confirmDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "timeNotify",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210105072451",
+  "entityTableName": "ticket_request",
+  "name": "ConfigMenuItem",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "menuId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "menuItemCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "menuItemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isDefault",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "orderIndex",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updateTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateUser",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icon",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "parentId",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "config_menu_item",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210609024017"
+}

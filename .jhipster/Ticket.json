@@ -1,0 +1,61 @@
+{
+  "name": "Ticket",
+  "fields": [
+    {
+      "fieldName": "ticketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "channelType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ticketCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fcr",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departmentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updateDatetime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "satisfied",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210105072451",
+  "entityTableName": "ticket",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

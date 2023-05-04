@@ -1,0 +1,19 @@
+entity Campaign {
+	id Long,
+    name String,
+    campaignScriptId Long,
+    campaignTemplateId Long,
+    groupUser String,
+    displayPhone String,
+    startDate Instant,
+    endDate Instant,
+    status String,
+    createDatetime Instant,
+    createUser Long,
+    updateDatetime Instant,
+    updateUser Long
+}
+dto Campaign with mapstruct
+paginate Campaign with pagination
+service Campaign with serviceClass
+service Campaign with serviceImpl

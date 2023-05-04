@@ -1,0 +1,33 @@
+{
+  "name": "EvaluateResultDetai1",
+  "fields": [
+    {
+      "fieldName": "evaluateResultId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "criteriaDetailId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDatetime",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210709024309",
+  "entityTableName": "evaluate_result_detai_1",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

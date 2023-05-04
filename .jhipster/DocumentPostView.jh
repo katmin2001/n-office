@@ -1,0 +1,10 @@
+entity DocumentPostView {
+	id Long,
+    documentPostId Long,
+    userId Long,
+    createDatetime Instant
+}
+dto DocumentPostView with mapstruct
+paginate DocumentPostView with pagination
+service DocumentPostView with serviceClass
+service DocumentPostView with serviceImpl

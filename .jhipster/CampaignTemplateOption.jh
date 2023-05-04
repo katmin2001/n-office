@@ -1,0 +1,11 @@
+entity CampaignTemplateOption {
+	id Long,
+    campaignTemplateId Long,
+    code String,
+    name String,
+    status String,
+}
+dto CampaignTemplateOption with mapstruct
+paginate CampaignTemplateOption with pagination
+service CampaignTemplateOption with serviceClass
+service CampaignTemplateOption with serviceImpl

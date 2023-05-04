@@ -1,0 +1,10 @@
+entity DocumentPostBookmarks {
+	id Long,
+    documentPostId Long,
+    userId Long,
+    createDatetime Instant,
+}
+dto DocumentPostBookmarks with mapstruct
+paginate DocumentPostBookmarks with pagination
+service DocumentPostBookmarks with serviceClass
+service DocumentPostBookmarks with serviceImpl

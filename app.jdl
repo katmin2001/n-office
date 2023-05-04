@@ -1,0 +1,25 @@
+application {
+  config {
+    baseName CrmApi,
+    applicationType monolith,
+    packageName com.fis.crm,
+    serverPort 8080
+    prodDatabaseType oracle,
+    authenticationType jwt,
+    enableTranslation true,
+    buildTool maven,
+    enableSwaggerCodegen true,
+    skipClient true,
+    enableTranslation true,
+    nativeLanguage en,
+    languages [en, vi]
+  }
+  entities Users
+}
+
+entity Users {
+  id Long required,
+  userName String required,
+  userName String required,
+  fullName String required
+}

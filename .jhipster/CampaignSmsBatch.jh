@@ -1,0 +1,16 @@
+entity CampaignSmsBatch {
+    id Long,
+    campaignSmsMarketingId Long,
+    batchId Long,
+    phoneNumber String,
+    content String,
+    status String,
+    sendDate Instant,
+    responseBatch String,
+    createDatetime Instant,
+    createUser Long
+}
+dto CampaignSmsBatch with mapstruct
+paginate CampaignSmsBatch with pagination
+service CampaignSmsBatch with serviceClass
+service CampaignSmsBatch with serviceImpl
