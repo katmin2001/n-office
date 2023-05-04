@@ -34,8 +34,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=27.118.22.14)(PORT=1521))(CONNECT_DATA=(SID=orcl)))
-    username: crm_uat
-    password: crm_owner
+    username: CRM_UAT
+    password: CRM_OWNER
     hikari:
       poolName: Hikari
       auto-commit: false
