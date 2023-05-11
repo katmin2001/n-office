@@ -37,9 +37,9 @@ spring:
     timeZone: Asia/Ho_Chi_Minh
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.14.189.3)(PORT=1521))(CONNECT_DATA=(SID=orclg1)))
-    username: egp_uat_crm
-    password: crm@123456
+    url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=27.118.22.14)(PORT=1521))(CONNECT_DATA=(SID=orcl)))
+    username: CRM_UAT
+    password: CRM_OWNER
     hikari:
       poolName: Hikari
       auto-commit: false
