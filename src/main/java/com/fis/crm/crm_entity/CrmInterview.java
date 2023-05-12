@@ -30,6 +30,19 @@ public class CrmInterview {
     @OneToMany(mappedBy = "interview")
     private Set<CrmInterviewDetail> interviewDetails;
 
+    public CrmInterview() {
+    }
+
+    public CrmInterview(int interviewid, Date interviewDate, Boolean status, Date createDate, CrmCandidate candidate, CrmInterviewStatus interviewStatus, Set<CrmInterviewDetail> interviewDetails) {
+        this.interviewid = interviewid;
+        this.interviewDate = interviewDate;
+        this.status = status;
+        this.createDate = createDate;
+        this.candidate = candidate;
+        this.interviewStatus = interviewStatus;
+        this.interviewDetails = interviewDetails;
+    }
+
     public Set<CrmInterviewDetail> getInterviewDetails() {
         return interviewDetails;
     }

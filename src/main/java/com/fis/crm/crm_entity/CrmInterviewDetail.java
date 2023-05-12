@@ -17,6 +17,15 @@ public class CrmInterviewDetail {
     @JoinColumn(name = "INTERVIEWID")
     private CrmInterview interview;
 
+    public CrmInterviewDetail() {
+    }
+
+    public CrmInterviewDetail(int imid, CrmUser user, CrmInterview interview) {
+        this.imid = imid;
+        this.user = user;
+        this.interview = interview;
+    }
+
     public int getImid() {
         return imid;
     }
