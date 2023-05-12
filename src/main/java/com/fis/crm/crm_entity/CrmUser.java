@@ -37,11 +37,14 @@ public class CrmUser {
     private String status;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CrmUserRole> userRoles;
-
+    @OneToOne(mappedBy = "user")
+    private CrmCandidate candidate;
+    @OneToMany(mappedBy = "user")
+    private Set<CrmInterviewDetail> interviewDetails;
     public CrmUser() {
     }
 
-    public CrmUser(Long userid, String username, String password, String fullname, Date createdate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles) {
+    public CrmUser(Long userid, String username, String password, String fullname, Date createdate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles, CrmCandidate candidate, Set<CrmInterviewDetail> interviewDetails) {
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -52,6 +55,8 @@ public class CrmUser {
         this.address = address;
         this.status = status;
         this.userRoles = userRoles;
+        this.candidate = candidate;
+        this.interviewDetails = interviewDetails;
     }
 
     public Long getUserid() {return userid;}
@@ -130,5 +135,21 @@ public class CrmUser {
 
     public void setUserRoles(Set<CrmUserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public CrmCandidate getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(CrmCandidate candidate) {
+        this.candidate = candidate;
+    }
+
+    public Set<CrmInterviewDetail> getInterviewDetails() {
+        return interviewDetails;
+    }
+
+    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
+        this.interviewDetails = interviewDetails;
     }
 }
