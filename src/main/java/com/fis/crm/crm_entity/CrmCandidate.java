@@ -39,6 +39,22 @@ public class CrmCandidate {
     @JoinColumn(name = "MANAGEID")
     private CrmUser user;
 
+    public CrmCandidate() {
+    }
+
+    public CrmCandidate(int candidateid, String fullname, Integer phone, Date birthday, String address, Boolean status, Date createDate, CrmInterview interview, CrmInterviewStatus interviewStatus, CrmUser user) {
+        this.candidateid = candidateid;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.birthday = birthday;
+        this.address = address;
+        this.status = status;
+        this.createDate = createDate;
+        this.interview = interview;
+        this.interviewStatus = interviewStatus;
+        this.user = user;
+    }
+
     public CrmUser getUser() {
         return user;
     }

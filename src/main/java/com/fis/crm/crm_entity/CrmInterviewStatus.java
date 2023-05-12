@@ -18,6 +18,16 @@ public class CrmInterviewStatus {
     @OneToOne(mappedBy = "interviewStatus")
     private CrmCandidate candidate;
 
+    public CrmInterviewStatus() {
+    }
+
+    public CrmInterviewStatus(int isid, String statusName, String description, CrmCandidate candidate) {
+        this.isid = isid;
+        this.statusName = statusName;
+        this.description = description;
+        this.candidate = candidate;
+    }
+
     public int getIsid() {
         return isid;
     }
