@@ -1,4 +1,4 @@
 package com.fis.crm.crm_service;
 
-public interface UserService {
+public interface RoleService {
 }

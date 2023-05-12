@@ -13,6 +13,7 @@ public class UserRole implements Serializable {
     @Id
     @Column(name = "ID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JHI_USER_ROLE_GEN")
+    @Basic
     @SequenceGenerator(name = "JHI_USER_ROLE_GEN", sequenceName = "JHI_USER_ROLE_SEQ", allocationSize = 1)
     private Long id;
 
@@ -24,18 +25,23 @@ public class UserRole implements Serializable {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
+    @Basic
     @Column(name = "STATUS")
     private String status;
 
+    @Basic
     @Column(name = "CREATE_USER")
     private Long createUser;
 
+    @Basic
     @Column(name = "CREATE_DATETIME")
     private Date createDatetime;
 
+    @Basic
     @Column(name = "UPDATE_USER")
     private Long updateUser;
 
+    @Basic
     @Column(name = "UPDATE_DATETIME")
     private Date updateDatetime;
 
