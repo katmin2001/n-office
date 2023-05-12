@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -44,4 +45,6 @@ public class CrmProject {
     private List<CrmStage> stages;
     @OneToMany(mappedBy = "project")
     private List<CrmProjectMember> members;
+    @OneToMany(mappedBy = "projectTask")
+    private Set<CrmTask> taskProject;
 }

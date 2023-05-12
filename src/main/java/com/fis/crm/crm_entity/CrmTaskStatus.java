@@ -8,26 +8,29 @@ import java.util.Objects;
 public class CrmTaskStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "STATUSCODE")
-    private Long statuscode;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @Column(name = "STATUSNAME")
-    private String statusname;
+    @Column(name = "name")
+    private String name;
 
-    public Long getStatuscode() {
-        return statuscode;
+    @OneToOne(mappedBy = "taskStatus")
+    private CrmTask statusTask;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setStatuscode(Long statuscode) {
-        this.statuscode = statuscode;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getStatusname() {
-        return statusname;
+    public String getName() {
+        return name;
     }
 
-    public void setStatusname(String statusname) {
-        this.statusname = statusname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -35,11 +38,11 @@ public class CrmTaskStatus {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CrmTaskStatus that = (CrmTaskStatus) o;
-        return Objects.equals(statuscode, that.statuscode) && Objects.equals(statusname, that.statusname);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(statuscode, statusname);
+        return Objects.hash(id, name);
     }
 }

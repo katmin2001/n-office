@@ -3,60 +3,52 @@ package com.fis.crm.crm_entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "CRM_TASK", schema = "CRM_UAT", catalog = "")
 public class CrmTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "TASKID")
+    @Column(name = "TASKID", nullable = false)
     private Long taskid;
-    @Basic
+
     @Column(name = "TASKNAME")
     private String taskname;
-    @Basic
-    @Column(name = "STATUSCODE")
-    private Long statuscode;
-    @Basic
-    @Column(name = "GIVERTASKID")
-    private Long givertaskid;
-    @Basic
-    @Column(name = "RECEIVERTASKID")
-    private Long receivertaskid;
-    @Basic
+
     @Column(name = "STARTDATE")
     private Date startdate;
-    @Basic
+
     @Column(name = "ENDDATE")
     private Date enddate;
-    @Basic
-    @Column(name = "STAGEID")
-    private Long stageid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "statuscode")
-    private CrmTaskStatus crmTaskStatus;
+    private CrmTaskStatus taskStatus;
+    @ManyToOne
+    @JoinColumn(name = "givertaskid")
+    private CrmUser giverTask;
+    @ManyToOne
+    @JoinColumn(name = "receivertaskid")
+    private CrmUser receiverTask;
+    @ManyToOne
+    @JoinColumn(name = "stageid")
+    private CrmStage taskStage;
+    @ManyToOne
+    @JoinColumn(name = "projectid")
+    private CrmProject projectTask;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
-    private CrmUser crmUser;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private CrmStage crmStage;
+    @ManyToMany(mappedBy = "taskHistory")
+    private Set<CrmTaskHistory> taskHistories;
 
     public  CrmTask() {
     }
 
-    public CrmTask(Long taskid, String taskname, Long statuscode, Long givertaskid, Long receivertaskid, Date startdate, Date enddate, Long stageid) {
+    public CrmTask(Long taskid, String taskname, Date startdate, Date enddate) {
         this.taskid = taskid;
         this.taskname = taskname;
-        this.statuscode = statuscode;
-        this.givertaskid = givertaskid;
-        this.receivertaskid = receivertaskid;
         this.startdate = startdate;
         this.enddate = enddate;
-        this.stageid = stageid;
     }
 
     public Long getTaskid() {
@@ -75,30 +67,6 @@ public class CrmTask {
         this.taskname = taskname;
     }
 
-    public Long getStatuscode() {
-        return statuscode;
-    }
-
-    public void setStatuscode(Long statuscode) {
-        this.statuscode = statuscode;
-    }
-
-    public Long getGivertaskid() {
-        return givertaskid;
-    }
-
-    public void setGivertaskid(Long givertaskid) {
-        this.givertaskid = givertaskid;
-    }
-
-    public Long getReceivertaskid() {
-        return receivertaskid;
-    }
-
-    public void setReceivertaskid(Long receivertaskid) {
-        this.receivertaskid = receivertaskid;
-    }
-
     public Date getStartdate() {
         return startdate;
     }
@@ -115,24 +83,43 @@ public class CrmTask {
         this.enddate = enddate;
     }
 
-    public Long getStageid() {
-        return stageid;
+    public CrmTaskStatus getTaskStatus() {
+        return taskStatus;
     }
 
-    public void setStageid(Long stageid) {
-        this.stageid = stageid;
+    public void setTaskStatus(CrmTaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CrmTask crmTask = (CrmTask) o;
-        return Objects.equals(taskid, crmTask.taskid) && Objects.equals(taskname, crmTask.taskname) && Objects.equals(statuscode, crmTask.statuscode) && Objects.equals(givertaskid, crmTask.givertaskid) && Objects.equals(receivertaskid, crmTask.receivertaskid) && Objects.equals(startdate, crmTask.startdate) && Objects.equals(enddate, crmTask.enddate) && Objects.equals(stageid, crmTask.stageid);
+    public CrmUser getGiverTask() {
+        return giverTask;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(taskid, taskname, statuscode, givertaskid, receivertaskid, startdate, enddate, stageid);
+    public void setGiverTask(CrmUser giverTask) {
+        this.giverTask = giverTask;
+    }
+
+    public CrmUser getReceiverTask() {
+        return receiverTask;
+    }
+
+    public void setReceiverTask(CrmUser receiverTask) {
+        this.receiverTask = receiverTask;
+    }
+
+    public CrmStage getTaskStage() {
+        return taskStage;
+    }
+
+    public void setTaskStage(CrmStage taskStage) {
+        this.taskStage = taskStage;
+    }
+
+    public CrmProject getProjectTask() {
+        return projectTask;
+    }
+
+    public void setProjectTask(CrmProject projectTask) {
+        this.projectTask = projectTask;
     }
 }

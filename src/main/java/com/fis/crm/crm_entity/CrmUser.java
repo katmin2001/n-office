@@ -41,6 +41,13 @@ public class CrmUser {
     private CrmCandidate candidate;
     @OneToMany(mappedBy = "user")
     private Set<CrmInterviewDetail> interviewDetails;
+
+    //
+    @OneToMany(mappedBy = "giverTask")
+    private Set<CrmTask> giverTask;
+    @OneToMany(mappedBy = "receiverTask")
+    private Set<CrmTask> receiverTask;
+
     public CrmUser() {
     }
 

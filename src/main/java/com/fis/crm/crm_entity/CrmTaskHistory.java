@@ -13,11 +13,9 @@ public class CrmTaskHistory {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TASKID")
-    private Long taskid;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<CrmTask> crmTasks;
+    @ManyToMany
+    @JoinColumn(name = "taskid")
+    private Set<CrmTask> taskHistory;
 
     @Column(name = "STATUSPREV")
     private Long statusprev;
@@ -34,14 +32,6 @@ public class CrmTaskHistory {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTaskid() {
-        return taskid;
-    }
-
-    public void setTaskid(Long taskid) {
-        this.taskid = taskid;
     }
 
     public Long getStatusprev() {
@@ -68,16 +58,12 @@ public class CrmTaskHistory {
         this.timecreate = timecreate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CrmTaskHistory that = (CrmTaskHistory) o;
-        return Objects.equals(id, that.id) && Objects.equals(taskid, that.taskid) && Objects.equals(statusprev, that.statusprev) && Objects.equals(statuscurrent, that.statuscurrent) && Objects.equals(timecreate, that.timecreate);
+    public Set<CrmTask> getTaskHistory() {
+        return taskHistory;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, taskid, statusprev, statuscurrent, timecreate);
+    public void setTaskHistory(Set<CrmTask> taskHistory) {
+        this.taskHistory = taskHistory;
     }
+
 }
