@@ -1,6 +1,7 @@
-//package com.fis.crm.crm_repository.impl;
-//
-//import com.fis.crm.crm_repository.UserRepo;
-//
-//public class UserRepoImpl{
-//}
+package com.fis.crm.crm_repository.impl;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserRepoImpl{
+}
