@@ -2,8 +2,8 @@ package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
-import java.util.Set;
+
+import java.util.List;
 
 @Entity
 @Table(name = "CRM_TASK_HISTORY", schema = "CRM_UAT", catalog = "")
@@ -13,9 +13,9 @@ public class CrmTaskHistory {
     @Column(name = "ID")
     private Long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "taskid")
-    private Set<CrmTask> taskHistory;
+    private CrmTask taskHistory;
 
     @Column(name = "STATUSPREV")
     private Long statusprev;
@@ -58,12 +58,5 @@ public class CrmTaskHistory {
         this.timecreate = timecreate;
     }
 
-    public Set<CrmTask> getTaskHistory() {
-        return taskHistory;
-    }
-
-    public void setTaskHistory(Set<CrmTask> taskHistory) {
-        this.taskHistory = taskHistory;
-    }
 
 }

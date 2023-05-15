@@ -2,8 +2,8 @@ package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "CRM_TASK", schema = "CRM_UAT", catalog = "")
@@ -38,8 +38,8 @@ public class CrmTask {
     @JoinColumn(name = "projectid")
     private CrmProject projectTask;
 
-    @ManyToMany(mappedBy = "taskHistory")
-    private Set<CrmTaskHistory> taskHistories;
+    @OneToMany(mappedBy = "taskHistory")
+    private List<CrmTaskHistory> taskHistories;
 
     public  CrmTask() {
     }

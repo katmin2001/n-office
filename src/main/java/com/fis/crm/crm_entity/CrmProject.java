@@ -46,5 +46,5 @@ public class CrmProject {
     @OneToMany(mappedBy = "project")
     private List<CrmProjectMember> members;
     @OneToMany(mappedBy = "projectTask")
-    private Set<CrmTask> taskProject;
+    private List<CrmTask> taskProject;
 }
