@@ -2,6 +2,7 @@ package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,13 @@ public class CrmUser {
     private CrmCandidate candidate;
     @OneToMany(mappedBy = "user")
     private Set<CrmInterviewDetail> interviewDetails;
+
+    //
+    @OneToMany(mappedBy = "giverTask")
+    private List<CrmTask> giverTask;
+    @OneToMany(mappedBy = "receiverTask")
+    private List<CrmTask> receiverTask;
+
     public CrmUser() {
     }
 
