@@ -1,22 +1,32 @@
 package com.fis.crm.crm_entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
-
+import java.util.Optional;
 @Entity
 @Table(name = "CRM_CANDIDATE", schema = "CRM_UAT", catalog = "")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "candidateid")
 public class CrmCandidate {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "crm_candidate_Sequence")
+    @SequenceGenerator(name = "crm_candidate_Sequence", sequenceName = "CRM_CANDIDATE_SEQ", allocationSize = 1)
     @Id
     @Column(name = "CANDIDATEID")
-    private int candidateid;
+    private Long candidateid;
 
     @Basic
     @Column(name = "FULLNAME")
     private String fullname;
     @Basic
     @Column(name = "PHONE")
-    private Integer phone;
+    private String phone;
     @Basic
     @Column(name = "BIRTHDAY")
     private Date birthday;
@@ -32,17 +42,17 @@ public class CrmCandidate {
 
     @OneToOne(mappedBy = "candidate")
     private CrmInterview interview;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ISID")
     private CrmInterviewStatus interviewStatus;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "MANAGEID")
     private CrmUser user;
 
     public CrmCandidate() {
     }
 
-    public CrmCandidate(int candidateid, String fullname, Integer phone, Date birthday, String address, Boolean status, Date createDate, CrmInterview interview, CrmInterviewStatus interviewStatus, CrmUser user) {
+    public CrmCandidate(Long candidateid, String fullname, String phone, Date birthday, String address, Boolean status, Date createDate, CrmInterview interview, CrmInterviewStatus interviewStatus, CrmUser user) {
         this.candidateid = candidateid;
         this.fullname = fullname;
         this.phone = phone;
@@ -63,11 +73,11 @@ public class CrmCandidate {
         this.user = user;
     }
 
-    public int getCandidateid() {
+    public Long getCandidateid() {
         return candidateid;
     }
 
-    public void setCandidateid(int candidateid) {
+    public void setCandidateid(Long candidateid) {
         this.candidateid = candidateid;
     }
 
@@ -79,11 +89,11 @@ public class CrmCandidate {
         this.fullname = fullname;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
