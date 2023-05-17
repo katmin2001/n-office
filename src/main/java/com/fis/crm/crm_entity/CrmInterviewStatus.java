@@ -1,38 +1,41 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "CRM_INTERVIEW_STATUS", schema = "CRM_UAT", catalog = "")
 public class CrmInterviewStatus {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "crm_interview_status_Sequence")
+    @SequenceGenerator(name = "crm_interview_status_Sequence", sequenceName = "CRM_INTERVIEW_STATUS_SEQ", allocationSize = 1)
     @Id
     @Column(name = "ISID")
-    private int isid;
+    private Long isid;
     @Basic
     @Column(name = "STATUS_NAME")
     private String statusName;
     @Basic
     @Column(name = "DESCRIPTION")
     private String description;
-    @OneToOne(mappedBy = "interviewStatus")
-    private CrmCandidate candidate;
-
+    @OneToMany(mappedBy = "interviewStatus")
+    private Set<CrmCandidate> candidates;
+    @OneToMany(mappedBy = "interviewStatus")
+    private Set<CrmInterview> interviews;
     public CrmInterviewStatus() {
     }
 
-    public CrmInterviewStatus(int isid, String statusName, String description, CrmCandidate candidate) {
+    public CrmInterviewStatus(Long isid, String statusName, String description, CrmCandidate candidate) {
         this.isid = isid;
         this.statusName = statusName;
         this.description = description;
-        this.candidate = candidate;
+        this.candidates = candidates;
     }
 
-    public int getIsid() {
+    public Long getIsid() {
         return isid;
     }
 
-    public void setIsid(int isid) {
+    public void setIsid(Long isid) {
         this.isid = isid;
     }
 
@@ -52,11 +55,11 @@ public class CrmInterviewStatus {
         this.description = description;
     }
 
-    public CrmCandidate getCandidate() {
-        return candidate;
+    public Set<CrmCandidate> getCandidates() {
+        return candidates;
     }
 
-    public void setCandidate(CrmCandidate candidate) {
-        this.candidate = candidate;
+    public void setCandidates(Set<CrmCandidate> candidates) {
+        this.candidates = candidates;
     }
 }
