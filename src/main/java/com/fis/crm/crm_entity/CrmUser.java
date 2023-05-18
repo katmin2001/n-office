@@ -1,14 +1,14 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_USER", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_USER")
 public class CrmUser {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_USER_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_USER_SEQ_GEN", sequenceName = "CRM_USER_SEQ", allocationSize = 1)
     @Id
     @Column(name = "USERID")
     private Long userid;
@@ -36,18 +36,18 @@ public class CrmUser {
     @Basic
     @Column(name = "STATUS")
     private String status;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private Set<CrmUserRole> userRoles;
-    @OneToOne(mappedBy = "user")
-    private CrmCandidate candidate;
-    @OneToMany(mappedBy = "user")
-    private Set<CrmInterviewDetail> interviewDetails;
-
-    //
-    @OneToMany(mappedBy = "giverTask")
-    private List<CrmTask> giverTask;
-    @OneToMany(mappedBy = "receiverTask")
-    private List<CrmTask> receiverTask;
+//    @OneToOne(mappedBy = "user")
+//    private CrmCandidate candidate;
+//    @OneToMany(mappedBy = "user")
+//    private Set<CrmInterviewDetail> interviewDetails;
+//
+//    //
+//    @OneToMany(mappedBy = "giverTask")
+//    private List<CrmTask> giverTask;
+//    @OneToMany(mappedBy = "receiverTask")
+//    private List<CrmTask> receiverTask;
 
     public CrmUser() {
     }
@@ -63,8 +63,8 @@ public class CrmUser {
         this.address = address;
         this.status = status;
         this.userRoles = userRoles;
-        this.candidate = candidate;
-        this.interviewDetails = interviewDetails;
+//        this.candidate = candidate;
+//        this.interviewDetails = interviewDetails;
     }
 
     public Long getUserid() {return userid;}
@@ -145,19 +145,35 @@ public class CrmUser {
         this.userRoles = userRoles;
     }
 
-    public CrmCandidate getCandidate() {
-        return candidate;
-    }
-
-    public void setCandidate(CrmCandidate candidate) {
-        this.candidate = candidate;
-    }
-
-    public Set<CrmInterviewDetail> getInterviewDetails() {
-        return interviewDetails;
-    }
-
-    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
-        this.interviewDetails = interviewDetails;
-    }
+//    public CrmCandidate getCandidate() {
+//        return candidate;
+//    }
+//
+//    public void setCandidate(CrmCandidate candidate) {
+//        this.candidate = candidate;
+//    }
+//
+//    public Set<CrmInterviewDetail> getInterviewDetails() {
+//        return interviewDetails;
+//    }
+//
+//    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
+//        this.interviewDetails = interviewDetails;
+//    }
+//
+//    public List<CrmTask> getGiverTask() {
+//        return giverTask;
+//    }
+//
+//    public void setGiverTask(List<CrmTask> giverTask) {
+//        this.giverTask = giverTask;
+//    }
+//
+//    public List<CrmTask> getReceiverTask() {
+//        return receiverTask;
+//    }
+//
+//    public void setReceiverTask(List<CrmTask> receiverTask) {
+//        this.receiverTask = receiverTask;
+//    }
 }

@@ -1,19 +1,21 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
-@Table(name = "CRM_USER_ROLE", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_USER_ROLE")
 public class CrmUserRole {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_USER_ROLE_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_USER_ROLE_SEQ_GEN", sequenceName = "CRM_USER_ROLE_SEQ", allocationSize = 1)
     @Id
     @Column(name = "URID")
     private Long urid;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "USERID", referencedColumnName = "USERID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USERID")
     private CrmUser user;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "ROLEID", referencedColumnName = "ROLEID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLEID")
     private CrmRole role;
 
     public CrmUserRole() {
