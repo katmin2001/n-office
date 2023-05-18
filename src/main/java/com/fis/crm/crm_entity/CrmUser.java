@@ -38,16 +38,10 @@ public class CrmUser {
     private String status;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CrmUserRole> userRoles;
-    @OneToOne(mappedBy = "user")
-    private CrmCandidate candidate;
-    @OneToMany(mappedBy = "user")
-    private Set<CrmInterviewDetail> interviewDetails;
-
-    //
-    @OneToMany(mappedBy = "giverTask")
-    private List<CrmTask> giverTask;
-    @OneToMany(mappedBy = "receiverTask")
-    private List<CrmTask> receiverTask;
+//    @OneToOne(mappedBy = "user")
+//    private CrmCandidate candidate;
+//    @OneToMany(mappedBy = "user")
+//    private Set<CrmInterviewDetail> interviewDetails;
 
     public CrmUser() {
     }
@@ -63,8 +57,8 @@ public class CrmUser {
         this.address = address;
         this.status = status;
         this.userRoles = userRoles;
-        this.candidate = candidate;
-        this.interviewDetails = interviewDetails;
+//        this.candidate = candidate;
+//        this.interviewDetails = interviewDetails;
     }
 
     public Long getUserid() {return userid;}
@@ -145,19 +139,19 @@ public class CrmUser {
         this.userRoles = userRoles;
     }
 
-    public CrmCandidate getCandidate() {
-        return candidate;
-    }
-
-    public void setCandidate(CrmCandidate candidate) {
-        this.candidate = candidate;
-    }
-
-    public Set<CrmInterviewDetail> getInterviewDetails() {
-        return interviewDetails;
-    }
-
-    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
-        this.interviewDetails = interviewDetails;
-    }
+//    public CrmCandidate getCandidate() {
+//        return candidate;
+//    }
+//
+//    public void setCandidate(CrmCandidate candidate) {
+//        this.candidate = candidate;
+//    }
+//
+//    public Set<CrmInterviewDetail> getInterviewDetails() {
+//        return interviewDetails;
+//    }
+//
+//    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
+//        this.interviewDetails = interviewDetails;
+//    }
 }

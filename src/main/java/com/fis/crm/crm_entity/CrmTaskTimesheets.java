@@ -7,7 +7,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "CRM_TASK_TIMESHEETS", schema = "CRM_UAT", catalog = "")
 public class CrmTaskTimesheets {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_TASK_TIMESHEETS_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_TASK_TIMESHEETS_SEQ_GEN", sequenceName = "CRM_TASK_TIMESHEETS_SEQ", allocationSize = 1)
     @Id
     @Column(name = "ID")
     private Long id;
@@ -18,15 +19,17 @@ public class CrmTaskTimesheets {
     @Column(name = "DATETIMESHEETS")
     private Date datetimesheets;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "taskid")
-    private CrmTask crmTask;
+    @Column(name = "projectid")
+    private Long projectid;
+
+    @Column(name = "taskid")
+    private Long taskid;
     public CrmTaskTimesheets() {
 
     }
-    public CrmTaskTimesheets(Long id, CrmTask crmTask, String description, Date datetimesheets) {
+    public CrmTaskTimesheets(Long id, Long crmTask, String description, Date datetimesheets) {
         this.id = id;
-        this.crmTask = crmTask;
+        this.taskid = crmTask;
         this.description = description;
         this.datetimesheets = datetimesheets;
     }
@@ -55,16 +58,19 @@ public class CrmTaskTimesheets {
         this.datetimesheets = datetimesheets;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CrmTaskTimesheets that = (CrmTaskTimesheets) o;
-        return Objects.equals(id, that.id) && Objects.equals(description, that.description) && Objects.equals(datetimesheets, that.datetimesheets) && Objects.equals(crmTask, that.crmTask);
+    public Long getTaskid() {
+        return taskid;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, datetimesheets);
+    public void setTaskid(Long taskid) {
+        this.taskid = taskid;
+    }
+
+    public Long getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(Long projectid) {
+        this.projectid = projectid;
     }
 }

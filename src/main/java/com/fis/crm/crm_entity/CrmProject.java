@@ -45,6 +45,109 @@ public class CrmProject {
     private List<CrmStage> stages;
     @OneToMany(mappedBy = "project")
     private List<CrmProjectMember> members;
-    @OneToMany(mappedBy = "projectTask")
-    private List<CrmTask> taskProject;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
+    }
+
+    public CrmCustomer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CrmCustomer customer) {
+        this.customer = customer;
+    }
+
+    public CrmUser getManager() {
+        return manager;
+    }
+
+    public void setManager(CrmUser manager) {
+        this.manager = manager;
+    }
+
+    public CrmProjectPrivacy getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(CrmProjectPrivacy privacy) {
+        this.privacy = privacy;
+    }
+
+    public CrmProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CrmProjectStatus status) {
+        this.status = status;
+    }
+
+    public List<CrmStage> getStages() {
+        return stages;
+    }
+
+    public void setStages(List<CrmStage> stages) {
+        this.stages = stages;
+    }
+
+    public List<CrmProjectMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<CrmProjectMember> members) {
+        this.members = members;
+    }
+
 }
