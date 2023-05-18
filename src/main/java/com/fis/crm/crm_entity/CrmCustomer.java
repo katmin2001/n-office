@@ -8,10 +8,15 @@ public class CrmCustomer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_CUSTOMER_SEQ_GEN")
     @SequenceGenerator(name = "CRM_CUSTOMER_SEQ_GEN", sequenceName = "CRM_CUSTOMER_SEQ", allocationSize = 1)
     @Id
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "email")
     private String email;
+    @Column(name = "address")
     private String address;
 //    @OneToMany(mappedBy = "customer")
 //    private List<CrmProject> projects;

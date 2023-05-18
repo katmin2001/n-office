@@ -12,10 +12,26 @@ public class CrmProjectStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ID")
-    private char id;
+    private Byte id;
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "status")
-    private List<CrmProject> projects;
+//    @OneToMany(mappedBy = "status")
+//    private List<CrmProject> projects;
+
+    public Byte getId() {
+        return id;
+    }
+
+    public void setId(Byte id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
