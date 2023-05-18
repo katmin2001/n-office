@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CRM_ROLE_FUNCTION", schema = "CRM_UAT", catalog = "")
 public class CrmRoleFunction {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_ROLE_FUNC_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_ROLE_FUNC_SEQ_GEN", sequenceName = "CRM_ROLE_FUNC_SEQ", allocationSize = 1)
     @Id
     @Column(name = "RFID")
     private Long rfid;

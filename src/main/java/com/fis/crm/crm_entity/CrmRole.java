@@ -8,7 +8,8 @@ import java.util.Set;
 @Entity
 @Table(name = "CRM_ROLE", schema = "CRM_UAT", catalog = "")
 public class CrmRole {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_ROLE_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_ROLE_SEQ_GEN", sequenceName = "CRM_ROLE_SEQ", allocationSize = 1)
     @Id
     @Column(name = "ROLEID")
     private Long roleid;
@@ -16,9 +17,9 @@ public class CrmRole {
     @Column(name = "ROLENAME")
     private String rolename;
 
-    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
     private Set<CrmUserRole> roleUsers;
-    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
     private Set<CrmRoleFunction> roleFuncs;
 
     public CrmRole() {

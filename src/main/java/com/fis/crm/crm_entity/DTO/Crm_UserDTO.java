@@ -3,7 +3,8 @@ package com.fis.crm.crm_entity.DTO;
 import java.util.Date;
 
 public class Crm_UserDTO {
-    private String userName;
+    private Long userId;
+    private String username;
     private String fullName;
     private Date createDate;
     private String phone;
@@ -14,8 +15,9 @@ public class Crm_UserDTO {
     public Crm_UserDTO() {
     }
 
-    public Crm_UserDTO(String userName, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
-        this.userName = userName;
+    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
+        this.userId = userId;
+        this.username = username;
         this.fullName = fullName;
         this.createDate = createDate;
         this.phone = phone;
@@ -24,12 +26,20 @@ public class Crm_UserDTO {
         this.status = status;
     }
 
-    public String getUserName() {
-        return userName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFullName() {
