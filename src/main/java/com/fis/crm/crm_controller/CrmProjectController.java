@@ -39,4 +39,9 @@ public class CrmProjectController {
     public List<CrmProject> getProjectsByManagerId(@PathVariable Long managerId) {
         return crmProjectService.getProjectsByManagerId(managerId);
     }
+
+    @GetMapping("/customer/{customerId}")
+    public List<CrmProject> getProjectsByCustomerId(@PathVariable Long customerId) {
+        return crmProjectService.getProjectsByCustomerId(customerId);
+    }
 }

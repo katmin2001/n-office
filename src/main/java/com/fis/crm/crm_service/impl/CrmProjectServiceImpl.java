@@ -47,6 +47,7 @@ public class CrmProjectServiceImpl implements CrmProjectService {
         List<CrmProject> projects = projectRepo.findAll();
         List<CrmProject> projectsByCustomer = new ArrayList<>();
         for (CrmProject project : projects) {
+            if (project.getCustomer().getId() == null) continue;
             if (project.getCustomer().getId() == customerId) {
                 projectsByCustomer.add(project);
             }
