@@ -1,9 +1,9 @@
 package com.fis.crm.crm_repository;
 
-import com.fis.crm.crm_entity.CrmCustomer;
+import com.fis.crm.crm_entity.CrmInterview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<CrmCustomer, Long> {
+public interface InterviewRepo extends JpaRepository<CrmInterview,Long> {
 }

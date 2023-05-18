@@ -1,16 +1,26 @@
 package com.fis.crm.crm_entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "CRM_INTERVIEW", schema = "CRM_UAT", catalog = "")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "interviewid")
 public class CrmInterview {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "crm_interview_Sequence")
+    @SequenceGenerator(name = "crm_interview_Sequence", sequenceName = "CRM_INTERVIEW_SEQ", allocationSize = 1)
     @Id
     @Column(name = "INTERVIEWID")
-    private int interviewid;
+    private Long interviewid;
     @Basic
     @Column(name = "INTERVIEW_DATE")
     private Date interviewDate;
@@ -24,38 +34,40 @@ public class CrmInterview {
     @OneToOne
     @JoinColumn(name = "CANDIDATEID")
     private CrmCandidate candidate;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ISID")
     private CrmInterviewStatus interviewStatus;
-    @OneToMany(mappedBy = "interview")
-    private Set<CrmInterviewDetail> interviewDetails;
-
+    @ManyToMany
+    @JoinTable(name = "CRM_INTERVIEW_DETAIL",
+        joinColumns = @JoinColumn(name = "INTERVIEWID"),
+        inverseJoinColumns = @JoinColumn(name = "USERID"))
+    private Set<CrmUser> users;
     public CrmInterview() {
     }
 
-    public CrmInterview(int interviewid, Date interviewDate, Boolean status, Date createDate, CrmCandidate candidate, CrmInterviewStatus interviewStatus, Set<CrmInterviewDetail> interviewDetails) {
+    public CrmInterview(Long interviewid, Date interviewDate, Boolean status, Date createDate, CrmCandidate candidate, CrmInterviewStatus interviewStatus, Set<CrmUser> users) {
         this.interviewid = interviewid;
         this.interviewDate = interviewDate;
         this.status = status;
         this.createDate = createDate;
         this.candidate = candidate;
         this.interviewStatus = interviewStatus;
-        this.interviewDetails = interviewDetails;
+        this.users = users;
     }
 
-    public Set<CrmInterviewDetail> getInterviewDetails() {
-        return interviewDetails;
+    public Set<CrmUser> getUsers() {
+        return users;
     }
 
-    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
-        this.interviewDetails = interviewDetails;
+    public void setUsers(Set<CrmUser> users) {
+        this.users = users;
     }
 
-    public int getInterviewid() {
+    public Long getInterviewid() {
         return interviewid;
     }
 
-    public void setInterviewid(int interviewid) {
+    public void setInterviewid(Long interviewid) {
         this.interviewid = interviewid;
     }
 
