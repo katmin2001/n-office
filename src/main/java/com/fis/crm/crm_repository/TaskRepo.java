@@ -15,18 +15,18 @@ import java.util.List;
 @Repository
 public interface TaskRepo extends JpaRepository<CrmTask, Long> {
 
-    @Query("SELECT t FROM CrmTask t WHERE t.projectid = :id")
+    @Query("SELECT t FROM CrmTask t WHERE t.project.id = :id")
     List<CrmTask> findTasksByProjectId(@Param("id") Long id);
 
-    @Query("SELECT t FROM CrmTask t WHERE t.stageid = :id")
+    @Query("SELECT t FROM CrmTask t WHERE t.stage.id = :id")
     List<CrmTask> findTasksByStageId(@Param("id") Long id);
 
-    @Query("SELECT t FROM CrmTask t WHERE t.givertaskid = :id")
+    @Query("SELECT t FROM CrmTask t WHERE t.givertask.userid = :id")
     List<CrmTask> findTasksByGivertaskId(@Param("id") Long id);
 
-    @Query("SELECT t FROM CrmTask t WHERE t.receivertaskid = :id")
+    @Query("SELECT t FROM CrmTask t WHERE t.receivertask.userid = :id")
     List<CrmTask> findTasksByReceivertaskId(@Param("id") Long id);
 
-    @Query("SELECT t FROM CrmTask t WHERE t.statuscode = :id")
+    @Query("SELECT t FROM CrmTask t WHERE t.status.id = :id")
     List<CrmTask> findTasksByStatus(@Param("id") Long id);
 }

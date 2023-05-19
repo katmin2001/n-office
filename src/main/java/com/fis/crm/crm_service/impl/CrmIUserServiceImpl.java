@@ -67,6 +67,15 @@ public class CrmIUserServiceImpl implements IUserService {
         return mapper.userDtoMapper(user);
     }
 
+    /**
+     * @param userId
+     * @return
+     */
+    @Override
+    public CrmUser getUserById(Long userId) {
+        return IUserRepo.findCrmUserByUserid(userId);
+    }
+
     @Override
     public List<Crm_UserDTO> findUserByFunc(Long funcId) {
         return null;

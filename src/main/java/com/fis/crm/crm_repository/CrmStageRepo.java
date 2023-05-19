@@ -1,4 +1,4 @@
 package com.fis.crm.crm_repository;
 
-public interface ProjectMemberRepo {
+public interface CrmStageRepo {
 }

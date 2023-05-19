@@ -1,5 +1,8 @@
 package com.fis.crm.crm_entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -7,6 +10,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CRM_USER", schema = "CRM_UAT", catalog = "")
+//@JsonIdentityInfo(
+//    generator = ObjectIdGenerators.PropertyGenerator.class,
+//    property = "userid")
 public class CrmUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -38,15 +44,15 @@ public class CrmUser {
     private String status;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CrmUserRole> userRoles;
-//    @OneToOne(mappedBy = "user")
-//    private CrmCandidate candidate;
-//    @OneToMany(mappedBy = "user")
-//    private Set<CrmInterviewDetail> interviewDetails;
+    @OneToMany(mappedBy = "user")
+    private Set<CrmCandidate> candidates;
+    @ManyToMany(mappedBy = "users")
+    Set<CrmInterview> interviews;
 
     public CrmUser() {
     }
 
-    public CrmUser(Long userid, String username, String password, String fullname, Date createdate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles, CrmCandidate candidate, Set<CrmInterviewDetail> interviewDetails) {
+    public CrmUser(Long userid, String username, String password, String fullname, Date createdate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles, Set<CrmCandidate> candidates) {
         this.userid = userid;
         this.username = username;
         this.password = password;
@@ -57,8 +63,7 @@ public class CrmUser {
         this.address = address;
         this.status = status;
         this.userRoles = userRoles;
-//        this.candidate = candidate;
-//        this.interviewDetails = interviewDetails;
+        this.candidates = candidates;
     }
 
     public Long getUserid() {return userid;}
@@ -139,19 +144,12 @@ public class CrmUser {
         this.userRoles = userRoles;
     }
 
-//    public CrmCandidate getCandidate() {
-//        return candidate;
-//    }
-//
-//    public void setCandidate(CrmCandidate candidate) {
-//        this.candidate = candidate;
-//    }
-//
-//    public Set<CrmInterviewDetail> getInterviewDetails() {
-//        return interviewDetails;
-//    }
-//
-//    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
-//        this.interviewDetails = interviewDetails;
-//    }
+    public Set<CrmCandidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Set<CrmCandidate> candidates) {
+        this.candidates = candidates;
+    }
+
 }

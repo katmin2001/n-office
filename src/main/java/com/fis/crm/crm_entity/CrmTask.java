@@ -16,24 +16,27 @@ public class CrmTask {
     @Column(name = "TASKNAME")
     private String taskname;
 
-    @Column(name = "projectid")
-    private Long projectid;
+    @OneToOne
+    @JoinColumn(name = "projectid")
+    private CrmProject project;
+    @OneToOne
+    @JoinColumn(name = "GIVERTASKID")
+    private CrmUser givertask;
 
-    @Column(name = "GIVERTASKID")
-    private Long givertaskid;
-
-    @Column(name = "RECEIVERTASKID")
-    private Long receivertaskid;
+    @OneToOne
+    @JoinColumn(name = "RECEIVERTASKID")
+    private CrmUser receivertask;
     @Column(name = "STARTDATE")
     private Date startdate;
     @Column(name = "ENDDATE")
     private Date enddate;
 
-    @Column(name = "statuscode")
-    private Long statuscode;
-
-    @Column(name = "stageid")
-    private Long stageid;
+    @OneToOne
+    @JoinColumn(name = "statuscode")
+    private CrmTaskStatus status;
+    @OneToOne
+    @JoinColumn(name = "stageid")
+    private CrmStage stage;
 
     public  CrmTask() {
     }
@@ -72,56 +75,43 @@ public class CrmTask {
         this.enddate = enddate;
     }
 
-    public Long getProjectid() {
-        return projectid;
+    public CrmProject getProject() {
+        return project;
     }
 
-    public void setProjectid(Long projectid) {
-        this.projectid = projectid;
+    public void setProject(CrmProject project) {
+        this.project = project;
     }
 
-    public Long getGivertaskid() {
-        return givertaskid;
+    public CrmUser getGivertask() {
+        return givertask;
     }
 
-    public void setGivertaskid(Long givertaskid) {
-        this.givertaskid = givertaskid;
+    public void setGivertask(CrmUser givertask) {
+        this.givertask = givertask;
     }
 
-    public Long getReceivertaskid() {
-        return receivertaskid;
+    public CrmUser getReceivertask() {
+        return receivertask;
     }
 
-    public void setReceivertaskid(Long receivertaskid) {
-        this.receivertaskid = receivertaskid;
+    public void setReceivertask(CrmUser receivertask) {
+        this.receivertask = receivertask;
     }
 
-    public Long getStatuscode() {
-        return statuscode;
+    public CrmTaskStatus getStatus() {
+        return status;
     }
 
-    public void setStatuscode(Long statuscode) {
-        this.statuscode = statuscode;
+    public void setStatus(CrmTaskStatus status) {
+        this.status = status;
     }
 
-    public Long getStageid() {
-        return stageid;
+    public CrmStage getStage() {
+        return stage;
     }
 
-    public void setStageid(Long stageid) {
-        this.stageid = stageid;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CrmTask crmTask = (CrmTask) o;
-        return Objects.equals(taskid, crmTask.taskid) && Objects.equals(taskname, crmTask.taskname) && Objects.equals(projectid, crmTask.projectid) && Objects.equals(givertaskid, crmTask.givertaskid) && Objects.equals(receivertaskid, crmTask.receivertaskid) && Objects.equals(startdate, crmTask.startdate) && Objects.equals(enddate, crmTask.enddate) && Objects.equals(statuscode, crmTask.statuscode) && Objects.equals(stageid, crmTask.stageid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(taskid, taskname, projectid, givertaskid, receivertaskid, startdate, enddate, statuscode, stageid);
+    public void setStage(CrmStage stage) {
+        this.stage = stage;
     }
 }

@@ -1,35 +1,32 @@
 package com.fis.crm.crm_entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@Data
 @Entity
-@Table(name = "CRM_PROJECT")
+@Table(name = "crm_project")
 public class CrmProject {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "NAME")
+
+
     private String name;
-    @Column(name = "CODE")
+
     private String code;
-    @Column(name = "DESCRIPTION")
-    private String description;
-    @Column(name = "START_DATE")
-    private Date startDate;
-    @Column(name = "END_DATE")
-    private Date endDate;
-    @Column(name = "FINISH_DATE")
-    private Date finishDate;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private CrmCustomer customer;
+
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private CrmUser manager;
@@ -41,10 +38,20 @@ public class CrmProject {
     @ManyToOne
     @JoinColumn(name = "status_id")
     private CrmProjectStatus status;
-    @OneToMany(mappedBy = "project")
-    private List<CrmStage> stages;
-    @OneToMany(mappedBy = "project")
-    private List<CrmProjectMember> members;
+
+    private String description;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "finish_date")
+    private LocalDate finishDate;
+
+    // Getters and Setters
+
 
     public Long getId() {
         return id;
@@ -68,38 +75,6 @@ public class CrmProject {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Date finishDate) {
-        this.finishDate = finishDate;
     }
 
     public CrmCustomer getCustomer() {
@@ -134,20 +109,36 @@ public class CrmProject {
         this.status = status;
     }
 
-    public List<CrmStage> getStages() {
-        return stages;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStages(List<CrmStage> stages) {
-        this.stages = stages;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<CrmProjectMember> getMembers() {
-        return members;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setMembers(List<CrmProjectMember> members) {
-        this.members = members;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDate getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(LocalDate finishDate) {
+        this.finishDate = finishDate;
+    }
 }
+

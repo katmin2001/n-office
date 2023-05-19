@@ -1,24 +1,27 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.*;
-import com.fis.crm.crm_entity.DTO.TaskDTO;
+import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_repository.*;
 //import com.fis.crm.crm_repository.impl.TaskRepoImpl;
+import com.fis.crm.crm_service.IUserService;
 import com.fis.crm.crm_service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fis.crm.crm_service.TaskStatusService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-
     private final TaskRepo taskRepo;
+    private final IUserService userService;
+    private final TaskStatusService statusService;
 
-    public TaskServiceImpl(TaskRepo taskRepo) {
+    public TaskServiceImpl(TaskRepo taskRepo, CrmIUserServiceImpl userService, TaskStatusServiceImpl statusService) {
         this.taskRepo = taskRepo;
+        this.userService = userService;
+        this.statusService = statusService;
     }
 
     @Override
@@ -38,17 +41,16 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public CrmTask createTask(Long projectId, TaskDTO taskRequest) {
-        taskRequest.setProjecid(projectId);
+    public CrmTask createTask(Long projectId, TaskCreateDTO createDTO) {
+        createDTO.setProjecid(projectId);
         CrmTask task = new CrmTask();
-        task.setTaskname(taskRequest.getTaskname());
-        task.setProjectid(taskRequest.getProjecid());
-        task.setGivertaskid(taskRequest.getGivertaskid());
-        task.setReceivertaskid(taskRequest.getReceivertaskid());
-        task.setStartdate(taskRequest.getStartdate());
-        task.setEnddate(taskRequest.getEnddate());
-        task.setStatuscode(taskRequest.getStatuscode());
-        task.setStageid(taskRequest.getStageid());
+        task.setTaskname(createDTO.getTaskname());
+        task.setGivertask(userService.getUserById(createDTO.getGivertaskid()));
+        task.setReceivertask(userService.getUserById(createDTO.getReceivertaskid()));
+        task.setStartdate(createDTO.getStartdate());
+        task.setEnddate(createDTO.getEnddate());
+        task.setStatus(statusService.getStatusCode(createDTO.getStatuscode()));
+//        task.setStageid(createDTO.getStageid());
 
         return taskRepo.save(task);
     }

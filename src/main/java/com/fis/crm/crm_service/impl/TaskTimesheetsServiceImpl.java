@@ -35,13 +35,13 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
     @Override
     public CrmTaskTimesheets createTimesheets(Long taskId, CrmTaskTimesheets taskTimesheets) {
         taskTimesheets.setTaskid(taskId);
-        taskTimesheets.setProjectid(taskRepo.findById(taskId).get().getProjectid());
+//        taskTimesheets.setProjectid(taskRepo.findById(taskId).get().getProjectid());
 
         CrmTaskTimesheets timesheets = new CrmTaskTimesheets();
-        timesheets.setProjectid(taskTimesheets.getProjectid());
-        timesheets.setTaskid(taskTimesheets.getTaskid());
-        timesheets.setDatetimesheets(taskTimesheets.getDatetimesheets());
-        timesheets.setDescription(taskTimesheets.getDescription());
+//        timesheets.setProjectid(taskTimesheets.getProjectid());
+//        timesheets.setTaskid(taskTimesheets.getTaskid());
+//        timesheets.setDatetimesheets(taskTimesheets.getDatetimesheets());
+//        timesheets.setDescription(taskTimesheets.getDescription());
 
         return timesheetsRepo.save(timesheets);
     }
