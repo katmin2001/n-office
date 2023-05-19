@@ -8,12 +8,12 @@ public class InterviewDTO {
     private Boolean status;
     private Long candidateId;
     private Long ISID;
-    private Set<Long> userId;
+    private Long userId;
 
     public InterviewDTO() {
     }
 
-    public InterviewDTO(Date interviewDate, Boolean status, Long candidateId, Long ISID, Set<Long> userId) {
+    public InterviewDTO(Date interviewDate, Boolean status, Long candidateId, Long ISID, Long userId) {
         this.interviewDate = interviewDate;
         this.status = status;
         this.candidateId = candidateId;
@@ -53,11 +53,11 @@ public class InterviewDTO {
         this.ISID = ISID;
     }
 
-    public Set<Long> getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Set<Long> userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

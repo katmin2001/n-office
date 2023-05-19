@@ -3,6 +3,7 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmInterview;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.DTO.InterviewDTO;
+import com.fis.crm.crm_entity.DTO.SearchInterviewDTO;
 import com.fis.crm.crm_repository.CandidateRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.InterviewRepo;
@@ -53,10 +54,13 @@ public class InterviewServiceImpl implements InterviewService{
         interview.setInterviewDate(interviewDTO.getInterviewDate());
         interview.setCandidate(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null));
         interview.setInterviewStatus(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null).getInterviewStatus());
-        for(Long userid: interviewDTO.getUserId()){
-            users.add(userRepo.findById(userid).orElse(null));
+        if(userRepo.findById(interviewDTO.getUserId()).orElse(null) == null){
+            return null;
         }
-        interview.setUsers(users);
+        else {
+            users.add(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+            interview.setUsers(users);
+        }
         return interviewRepo.save(interview);
     }
 
@@ -66,7 +70,6 @@ public class InterviewServiceImpl implements InterviewService{
         if(interview == null){
             return null;
         }
-        Set<CrmUser> users = new HashSet<>();
         if(interviewDTO.getInterviewDate() != null){
             interview.setInterviewDate(interviewDTO.getInterviewDate());
         }
@@ -76,12 +79,43 @@ public class InterviewServiceImpl implements InterviewService{
         if(interviewDTO.getCandidateId() != null){
             interview.setCandidate(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null));
         }
-        for(Long userid: interviewDTO.getUserId()){
-            users.add(userRepo.findById(userid).orElse(null));
+        return interviewRepo.save(interview);
+    }
+
+    @Override
+    public CrmInterview addInterviewDetail(InterviewDTO interviewDTO, Long interviewId) {
+        CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
+        if(interview == null){
+            return null;
         }
-        if(users.isEmpty() == false){
-            interview.setUsers(users);
+        boolean check = true;
+        Set<CrmUser> users = interview.getUsers();
+        for(CrmUser user: users){
+            if(user.getUserid() == interviewDTO.getUserId()){
+                check = false;
+            }
         }
+        if(check == true){
+            users.add(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+        }
+        interview.setUsers(users);
+        return interviewRepo.save(interview);
+    }
+
+    @Override
+    public CrmInterview deleteInterviewDetail(InterviewDTO interviewDTO, Long interviewId) {
+        CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
+        if(interview == null){
+            return null;
+        }
+        Set<CrmUser> users = interview.getUsers();
+        for(CrmUser user: users){
+            if(user.getUserid() == interviewDTO.getUserId()){
+                users.remove(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+                break;
+            }
+        }
+        interview.setUsers(users);
         return interviewRepo.save(interview);
     }
 
@@ -103,5 +137,10 @@ public class InterviewServiceImpl implements InterviewService{
         interview.setInterviewStatus(interviewStatusRepo.findById(interviewDTO.getISID()).orElse(null));
         interview.getCandidate().setInterviewStatus(interviewStatusRepo.findById(interviewDTO.getISID()).orElse(null));
         return interviewRepo.save(interview);
+    }
+
+    @Override
+    public List<CrmInterview> searchInterview(SearchInterviewDTO searchInterviewDTO) {
+        return interviewRepo.searchInterview(searchInterviewDTO.getStartDay(),searchInterviewDTO.getEndDay(),searchInterviewDTO.getISID(),searchInterviewDTO.getInterviewer());
     }
 }
