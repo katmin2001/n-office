@@ -6,7 +6,8 @@ import java.util.Set;
 @Entity
 @Table(name = "CRM_FUNCTION", schema = "CRM_UAT", catalog = "")
 public class CrmFunction {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_FUNC_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_FUNC_SEQ_GEN", sequenceName = "CRM_FUNC_SEQ", allocationSize = 1)
     @Id
     @Column(name = "FUNCID")
     private Long funcid;

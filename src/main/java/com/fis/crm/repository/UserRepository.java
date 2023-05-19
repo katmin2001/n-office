@@ -53,7 +53,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUser(@Param("ct") Boolean createTicket, @Param("pt") Boolean processTicket, @Param("cft") Boolean confirmTicket, @Param("id") Long id);
 
     @Query(value = "SELECT ju FROM User ju " +
-        "WHERE (lower(ju.login) LIKE concat('%', concat(LOWER(:keyword), '%')) OR LOWER(ju.firstName) LIKE concat('%', concat(LOWER(:keyword) , '%')) OR :keyword is null)")
+        "WHERE (lower(ju.login) LIKE concat('%', concat(LOWER(:keyword), '%')) " +
+        "OR LOWER(ju.firstName) LIKE concat('%', concat(LOWER(:keyword) , '%')) OR :keyword is null)")
     Page<User> findUserByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     @Query(value = "SELECT ju FROM User ju " +
