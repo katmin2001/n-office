@@ -2,8 +2,7 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmInterview;
 import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.DTO.InterviewDTO;
-import com.fis.crm.crm_entity.DTO.SearchInterviewDTO;
+import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_repository.CandidateRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.InterviewRepo;
@@ -13,10 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+
 @Service
 @Transactional
 public class InterviewServiceImpl implements InterviewService{
@@ -33,57 +30,108 @@ public class InterviewServiceImpl implements InterviewService{
     }
 
     @Override
-    public List<CrmInterview> getAllInterview() {
-        return interviewRepo.findAll();
+    public List<InterviewDTO> getAllInterview() {
+        List<CrmInterview> crmInterviews = interviewRepo.findAll();
+        List<InterviewDTO> interviewDTOS = new ArrayList<>();
+        for(CrmInterview interview: crmInterviews){
+            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+            Set<CrmUser> crmUsers = interview.getUsers();
+            for (CrmUser crmUser: crmUsers){
+                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                    crmUser.getUsername(),
+                    crmUser.getFullname(),
+                    crmUser.getCreatedate(),
+                    crmUser.getPhone(),
+                    crmUser.getBirthday(),
+                    crmUser.getAddress(),
+                    crmUser.getStatus()
+                );
+                crmUserDTOS.add(crmUserDTO);
+            }
+            InterviewDTO interviewDTO = new InterviewDTO(
+                interview.getInterviewid(),
+                interview.getInterviewDate(),
+                interview.getStatus(),
+                interview.getCreateDate(),
+                interview.getCandidate().getFullname(),
+                interview.getInterviewStatus().getStatusName(),
+                crmUserDTOS
+            );
+            interviewDTOS.add(interviewDTO);
+        }
+        return interviewDTOS;
     }
 
     @Override
-    public Optional<CrmInterview> getInterviewById(Long interviewId) {
-        Optional<CrmInterview> interview = interviewRepo.findById(interviewId);
-        return interview;
+    public InterviewDTO getInterviewById(Long interviewId) {
+        CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
+        Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+        Set<CrmUser> crmUsers = interview.getUsers();
+        for (CrmUser crmUser: crmUsers){
+            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                crmUser.getUsername(),
+                crmUser.getFullname(),
+                crmUser.getCreatedate(),
+                crmUser.getPhone(),
+                crmUser.getBirthday(),
+                crmUser.getAddress(),
+                crmUser.getStatus()
+            );
+            crmUserDTOS.add(crmUserDTO);
+        }
+        InterviewDTO interviewDTO = new InterviewDTO(
+            interview.getInterviewid(),
+            interview.getInterviewDate(),
+            interview.getStatus(),
+            interview.getCreateDate(),
+            interview.getCandidate().getFullname(),
+            interview.getInterviewStatus().getStatusName(),
+            crmUserDTOS
+        );
+        return interviewDTO;
     }
 
     @Override
-    public CrmInterview addInterview(InterviewDTO interviewDTO) {
+    public CrmInterview addInterview(InterviewRequestDTO interviewRequestDTO) {
         CrmInterview interview = new CrmInterview();
         Set<CrmUser> users = new HashSet<>();
         long millis=System.currentTimeMillis();
         Date date=new Date(millis);
         interview.setCreateDate(date);
         interview.setStatus(true);
-        interview.setInterviewDate(interviewDTO.getInterviewDate());
-        interview.setCandidate(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null));
-        interview.setInterviewStatus(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null).getInterviewStatus());
-        if(userRepo.findById(interviewDTO.getUserId()).orElse(null) == null){
+        interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
+        interview.setCandidate(candidateRepo.findById(interviewRequestDTO.getCandidateId()).orElse(null));
+        interview.setInterviewStatus(interviewStatusRepo.findById(Long.valueOf(2)).orElse(null));
+        if(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null) == null){
             return null;
         }
         else {
-            users.add(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+            users.add(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
             interview.setUsers(users);
         }
         return interviewRepo.save(interview);
     }
 
     @Override
-    public CrmInterview updateInterview(InterviewDTO interviewDTO, Long interviewId) {
+    public CrmInterview updateInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
             return null;
         }
-        if(interviewDTO.getInterviewDate() != null){
-            interview.setInterviewDate(interviewDTO.getInterviewDate());
+        if(interviewRequestDTO.getInterviewDate() != null){
+            interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
         }
-        if(interviewDTO.getStatus()!= null){
-            interview.setStatus(interviewDTO.getStatus());
+        if(interviewRequestDTO.getStatus()!= null){
+            interview.setStatus(interviewRequestDTO.getStatus());
         }
-        if(interviewDTO.getCandidateId() != null){
-            interview.setCandidate(candidateRepo.findById(interviewDTO.getCandidateId()).orElse(null));
+        if(interviewRequestDTO.getCandidateId() != null){
+            interview.setCandidate(candidateRepo.findById(interviewRequestDTO.getCandidateId()).orElse(null));
         }
         return interviewRepo.save(interview);
     }
 
     @Override
-    public CrmInterview addInterviewDetail(InterviewDTO interviewDTO, Long interviewId) {
+    public CrmInterview addInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
             return null;
@@ -91,27 +139,27 @@ public class InterviewServiceImpl implements InterviewService{
         boolean check = true;
         Set<CrmUser> users = interview.getUsers();
         for(CrmUser user: users){
-            if(user.getUserid() == interviewDTO.getUserId()){
+            if(user.getUserid() == interviewRequestDTO.getUserId()){
                 check = false;
             }
         }
         if(check == true){
-            users.add(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+            users.add(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
         }
         interview.setUsers(users);
         return interviewRepo.save(interview);
     }
 
     @Override
-    public CrmInterview deleteInterviewDetail(InterviewDTO interviewDTO, Long interviewId) {
+    public CrmInterview deleteInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
             return null;
         }
         Set<CrmUser> users = interview.getUsers();
         for(CrmUser user: users){
-            if(user.getUserid() == interviewDTO.getUserId()){
-                users.remove(userRepo.findById(interviewDTO.getUserId()).orElse(null));
+            if(user.getUserid() == interviewRequestDTO.getUserId()){
+                users.remove(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
                 break;
             }
         }
@@ -129,18 +177,46 @@ public class InterviewServiceImpl implements InterviewService{
         return interviewRepo.save(interview);
     }
     @Override
-    public CrmInterview updateStatusInterview(InterviewDTO interviewDTO, Long interviewId){
+    public CrmInterview updateStatusInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId){
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
             return null;
         }
-        interview.setInterviewStatus(interviewStatusRepo.findById(interviewDTO.getISID()).orElse(null));
-        interview.getCandidate().setInterviewStatus(interviewStatusRepo.findById(interviewDTO.getISID()).orElse(null));
+        interview.setInterviewStatus(interviewStatusRepo.findById(interviewRequestDTO.getISID()).orElse(null));
+        interview.getCandidate().setInterviewStatus(interviewStatusRepo.findById(interviewRequestDTO.getISID()).orElse(null));
         return interviewRepo.save(interview);
     }
 
     @Override
-    public List<CrmInterview> searchInterview(SearchInterviewDTO searchInterviewDTO) {
-        return interviewRepo.searchInterview(searchInterviewDTO.getStartDay(),searchInterviewDTO.getEndDay(),searchInterviewDTO.getISID(),searchInterviewDTO.getInterviewer());
+    public List<InterviewDTO> searchInterview(SearchInterviewDTO searchInterviewDTO) {
+        List<CrmInterview> crmInterviews =  interviewRepo.searchInterview(searchInterviewDTO.getStartDay(),searchInterviewDTO.getEndDay(),searchInterviewDTO.getISID(),searchInterviewDTO.getInterviewer());
+        List<InterviewDTO> interviewDTOS = new ArrayList<>();
+        for(CrmInterview interview: crmInterviews){
+            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+            Set<CrmUser> crmUsers = interview.getUsers();
+            for (CrmUser crmUser: crmUsers){
+                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                    crmUser.getUsername(),
+                    crmUser.getFullname(),
+                    crmUser.getCreatedate(),
+                    crmUser.getPhone(),
+                    crmUser.getBirthday(),
+                    crmUser.getAddress(),
+                    crmUser.getStatus()
+                );
+                crmUserDTOS.add(crmUserDTO);
+            }
+            InterviewDTO interviewDTO = new InterviewDTO(
+                interview.getInterviewid(),
+                interview.getInterviewDate(),
+                interview.getStatus(),
+                interview.getCreateDate(),
+                interview.getCandidate().getFullname(),
+                interview.getInterviewStatus().getStatusName(),
+                crmUserDTOS
+            );
+            interviewDTOS.add(interviewDTO);
+        }
+        return interviewDTOS;
     }
 }

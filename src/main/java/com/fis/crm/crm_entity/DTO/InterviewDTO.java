@@ -4,21 +4,33 @@ import java.sql.Date;
 import java.util.Set;
 
 public class InterviewDTO {
+    private Long interviewId;
     private Date interviewDate;
     private Boolean status;
-    private Long candidateId;
-    private Long ISID;
-    private Long userId;
+    private Date createDate;
+    private String candidateName;
+    private String interviewStatus;
+    private Set<Crm_UserDTO> crmUserDTOS;
 
     public InterviewDTO() {
     }
 
-    public InterviewDTO(Date interviewDate, Boolean status, Long candidateId, Long ISID, Long userId) {
+    public InterviewDTO(Long interviewId, Date interviewDate, Boolean status, Date createDate, String candidateName, String interviewStatus, Set<Crm_UserDTO> crmUserDTOS) {
+        this.interviewId = interviewId;
         this.interviewDate = interviewDate;
         this.status = status;
-        this.candidateId = candidateId;
-        this.ISID = ISID;
-        this.userId = userId;
+        this.createDate = createDate;
+        this.candidateName = candidateName;
+        this.interviewStatus = interviewStatus;
+        this.crmUserDTOS = crmUserDTOS;
+    }
+
+    public Long getInterviewId() {
+        return interviewId;
+    }
+
+    public void setInterviewId(Long interviewId) {
+        this.interviewId = interviewId;
     }
 
     public Date getInterviewDate() {
@@ -37,27 +49,35 @@ public class InterviewDTO {
         this.status = status;
     }
 
-    public Long getCandidateId() {
-        return candidateId;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCandidateId(Long candidateId) {
-        this.candidateId = candidateId;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public Long getISID() {
-        return ISID;
+    public String getCandidateName() {
+        return candidateName;
     }
 
-    public void setISID(Long ISID) {
-        this.ISID = ISID;
+    public void setCandidateName(String candidateName) {
+        this.candidateName = candidateName;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getInterviewStatus() {
+        return interviewStatus;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setInterviewStatus(String interviewStatus) {
+        this.interviewStatus = interviewStatus;
+    }
+
+    public Set<Crm_UserDTO> getCrmUserDTOS() {
+        return crmUserDTOS;
+    }
+
+    public void setCrmUserDTOS(Set<Crm_UserDTO> crmUserDTOS) {
+        this.crmUserDTOS = crmUserDTOS;
     }
 }
