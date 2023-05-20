@@ -3,7 +3,7 @@ package com.fis.crm.crm_entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CRM_INTERVIEW_DETAIL", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_INTERVIEW_DETAIL")
 public class CrmInterviewDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

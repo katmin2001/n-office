@@ -1,20 +1,14 @@
 package com.fis.crm.crm_util;
 
-import com.fis.crm.crm_entity.CrmFunction;
-import com.fis.crm.crm_entity.CrmRole;
-import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.CrmUserRole;
-import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
-import com.fis.crm.crm_entity.DTO.CrmRoleDTO;
-import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
-import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
+import com.fis.crm.crm_entity.*;
+import com.fis.crm.crm_entity.DTO.*;
 
 public class DtoMapper {
 
     public Crm_UserDTO userDtoMapper(CrmUser user){
         Crm_UserDTO userDTO = new Crm_UserDTO();
             userDTO.setUserId(user.getUserid());
-            userDTO.setUsername(user.getUsername());
+            userDTO.setUsername(userDTO.getUsername());
             userDTO.setFullName(user.getFullname());
             userDTO.setCreateDate(user.getCreatedate());
             userDTO.setPhone(user.getPhone());
@@ -41,6 +35,13 @@ public class DtoMapper {
             userRoleDTO.setUserId(userRole.getUser().getUserid());
             userRoleDTO.setRoleId(userRole.getRole().getRoleid());
         return userRoleDTO;
+    }
+    public CrmRoleFuncDTO roleFuncDTOMapper(CrmRoleFunction roleFunction){
+        CrmRoleFuncDTO roleFuncDTO = new CrmRoleFuncDTO();
+            roleFuncDTO.setId(roleFunction.getRfid());
+            roleFuncDTO.setRoleId(roleFunction.getRole().getRoleid());
+            roleFuncDTO.setFuncId(roleFunction.getFunction().getFuncid());
+        return roleFuncDTO;
     }
 
 

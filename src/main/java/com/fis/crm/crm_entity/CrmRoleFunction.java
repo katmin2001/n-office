@@ -3,10 +3,10 @@ package com.fis.crm.crm_entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CRM_ROLE_FUNCTION", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_ROLE_FUNCTION")
 public class CrmRoleFunction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_ROLE_FUNC_SEQ_GEN")
-    @SequenceGenerator(name = "CRM_ROLE_FUNC_SEQ_GEN", sequenceName = "CRM_ROLE_FUNC_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "CRM_ROLE_FUNC_SEQ_GEN", sequenceName = "CRM_ROLE_FUNCTION_SEQ", allocationSize = 1)
     @Id
     @Column(name = "RFID")
     private Long rfid;

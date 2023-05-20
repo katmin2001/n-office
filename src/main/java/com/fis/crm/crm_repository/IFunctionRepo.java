@@ -13,4 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface IFunctionRepo extends JpaRepository<CrmFunction, Long> {
     @Query(value = "select u from CrmFunction u where u.funcname = :funcname")
     CrmFunction findCrmFunctionByRolename(@Param("funcname") String funcname);
+
+    @Query(value = "select u from CrmFunction u where u.funcid = :id")
+    CrmFunction findCrmFunctionByFuncId(@Param("id") Long id);
 }

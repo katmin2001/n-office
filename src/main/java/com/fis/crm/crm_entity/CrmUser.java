@@ -1,8 +1,5 @@
 package com.fis.crm.crm_entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +42,7 @@ public class CrmUser {
     @Basic
     @Column(name = "STATUS")
     private String status;
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private Set<CrmUserRole> userRoles;
 
 //    @OneToOne(mappedBy = "user")

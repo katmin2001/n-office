@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_INTERVIEW", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_INTERVIEW")
 @JsonIdentityInfo(
     generator = ObjectIdGenerators.PropertyGenerator.class,
     property = "interviewid")
