@@ -3,6 +3,7 @@ package com.fis.crm.crm_service;
 import com.fis.crm.crm_entity.CrmTask;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
+import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface TaskService {
     public CrmTask updateTask(CrmTask task);
 
     public void deleteTask(Long id);
+
+    public boolean checkStatus(TaskUpdateDTO updateDTO, CrmTask task);
 }

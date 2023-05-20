@@ -1,23 +1,33 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmTaskTimesheets;
-import com.fis.crm.crm_repository.TaskRepo;
+import com.fis.crm.crm_entity.DTO.TaskTimesheetsCreateDTO;
+import com.fis.crm.crm_repository.CrmProjectRepo;
 import com.fis.crm.crm_repository.TaskTimesheetsRepo;
+import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskTimesheetsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
 
+    private final TaskService taskService;
+
+    private final CrmProjectRepo projectRepo;
+
+    private final IUserService userService;
+
     private final TaskTimesheetsRepo timesheetsRepo;
 
-    private final TaskRepo taskRepo;
-
-    public TaskTimesheetsServiceImpl(TaskTimesheetsRepo timesheetsRepo, TaskRepo taskRepo) {
+    public TaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, TaskTimesheetsRepo timesheetsRepo) {
+        this.taskService = taskService;
+        this.projectRepo = projectRepo;
+        this.userService = userService;
         this.timesheetsRepo = timesheetsRepo;
-        this.taskRepo = taskRepo;
     }
 
     /**
@@ -28,21 +38,44 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
         return timesheetsRepo.findAll();
     }
 
+    @Override
+    public CrmTaskTimesheets createTimesheets(Long taskId, TaskTimesheetsCreateDTO timesheetsCreateDTO) {
+        timesheetsCreateDTO.setTaskid(taskId);
+        timesheetsCreateDTO.setProjectid(taskService.getTaskById(taskId).getProject().getId());
+        CrmTaskTimesheets timesheets = new CrmTaskTimesheets();
+
+        timesheets.setProject(projectRepo.findById(timesheetsCreateDTO.getProjectid()).get());
+        timesheets.setTask(taskService.getTaskById(timesheetsCreateDTO.getTaskid()));
+        timesheets.setDatetimesheets(timesheetsCreateDTO.getDatetimesheets());
+        timesheets.setDescription(timesheetsCreateDTO.getDescription());
+        timesheets.setUser(userService.findByCrmUserId(timesheetsCreateDTO.getCreatorid()).get());
+        timesheets.setDatecreated(new Date());
+        return timesheetsRepo.save(timesheets);
+    }
+
     /**
-     * @param taskTimesheets
+     * @param id
+     */
+    @Override
+    public void deleteTimesheets(Long id) {
+        timesheetsRepo.deleteById(id);
+    }
+
+    /**
+     * @param id
      * @return
      */
     @Override
-    public CrmTaskTimesheets createTimesheets(Long taskId, CrmTaskTimesheets taskTimesheets) {
-        taskTimesheets.setTaskid(taskId);
-//        taskTimesheets.setProjectid(taskRepo.findById(taskId).get().getProjectid());
+    public List<CrmTaskTimesheets> getTimesheetsByProjectId(Long id) {
+        return timesheetsRepo.findTimesheetsByProjectId(id);
+    }
 
-        CrmTaskTimesheets timesheets = new CrmTaskTimesheets();
-//        timesheets.setProjectid(taskTimesheets.getProjectid());
-//        timesheets.setTaskid(taskTimesheets.getTaskid());
-//        timesheets.setDatetimesheets(taskTimesheets.getDatetimesheets());
-//        timesheets.setDescription(taskTimesheets.getDescription());
-
-        return timesheetsRepo.save(timesheets);
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public List<CrmTaskTimesheets> getTimesheetsByUserId(Long id) {
+        return timesheetsRepo.findTimesheetsByUserId(id);
     }
 }

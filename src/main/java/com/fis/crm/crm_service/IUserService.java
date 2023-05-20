@@ -7,18 +7,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-@Service
 public interface IUserService {
-    public CrmUser registerUser(CrmUser user);                                 //xong
-    public CrmUser updateUser(Long userId, CrmUser user);                      //xong
-    public List<CrmUser> findUserDto(String fullName, Date create_date,
-                        String phone, Date birthday, String address,
-                        String status, int roleId);
-    public List<Crm_UserDTO> findAllUserDto();                                 //xong
-    public Crm_UserDTO getUserDetail(Long userId);                             //xong
+    public CrmUser registerUser(Crm_UserDTO userDTO, String password);          //xong da test
+    public CrmUser updateCrmUser(Long userId, CrmUser user);                    //xong  da test => chua hop li
+    public Optional<CrmUser>  findByCrmUserId(Long userId);                     //xong  da test
+    public List<Crm_UserDTO> findUserDto(Crm_UserDTO crmUser);                  //xong  da test => chua hop li
+    public List<Crm_UserDTO> findAllUserDto();                                  //xong  da test
+    public Crm_UserDTO getUserDetail(Long userId);                              //xong  da test
+    public Set<Crm_UserDTO> findUserByFunc(Long funcId);                        //xong  da test
+    public CrmUser changePassword(Long userId, String newPassword);             //xong  da test => chua hop li
+    public Set<Crm_UserDTO> findCrmUserDtoByRoleId(Long roleId);
     public CrmUser getUserById(Long userId);
-    public List<Crm_UserDTO> findUserByFunc(Long funcId);
-    public CrmUserRole updateUserRole(Long userId, Long roleId);
-    public CrmUser changePassword(Long userId, String newPassword);            //xong
+
 }

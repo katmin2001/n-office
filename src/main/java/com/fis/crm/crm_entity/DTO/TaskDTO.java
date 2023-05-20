@@ -1,7 +1,7 @@
 package com.fis.crm.crm_entity.DTO;
 
 import javax.persistence.Entity;
-import java.sql.Date;
+import java.util.Date;
 
 
 public class TaskDTO {

@@ -1,7 +1,7 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,19 +19,21 @@ public class CrmTaskTimesheets {
     @Column(name = "DATETIMESHEETS")
     private Date datetimesheets;
 
-    @Column(name = "projectid")
-    private Long projectid;
+    @Column(name = "datecreated")
+    private Date datecreated;
 
-    @Column(name = "taskid")
-    private Long taskid;
+    @OneToOne
+    @JoinColumn(name = "creator")
+    private CrmUser user;
+
+    @OneToOne
+    @JoinColumn(name = "projectid")
+    private CrmProject project;
+
+    @OneToOne
+    @JoinColumn(name = "taskid")
+    private CrmTask task;
     public CrmTaskTimesheets() {
-
-    }
-    public CrmTaskTimesheets(Long id, Long crmTask, String description, Date datetimesheets) {
-        this.id = id;
-        this.taskid = crmTask;
-        this.description = description;
-        this.datetimesheets = datetimesheets;
     }
 
     public Long getId() {
@@ -58,19 +60,35 @@ public class CrmTaskTimesheets {
         this.datetimesheets = datetimesheets;
     }
 
-    public Long getTaskid() {
-        return taskid;
+    public CrmProject getProject() {
+        return project;
     }
 
-    public void setTaskid(Long taskid) {
-        this.taskid = taskid;
+    public void setProject(CrmProject project) {
+        this.project = project;
     }
 
-    public Long getProjectid() {
-        return projectid;
+    public CrmTask getTask() {
+        return task;
     }
 
-    public void setProjectid(Long projectid) {
-        this.projectid = projectid;
+    public void setTask(CrmTask task) {
+        this.task = task;
+    }
+
+    public Date getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(Date datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public CrmUser getUser() {
+        return user;
+    }
+
+    public void setUser(CrmUser user) {
+        this.user = user;
     }
 }

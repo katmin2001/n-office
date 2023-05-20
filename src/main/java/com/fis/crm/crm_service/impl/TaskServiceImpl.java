@@ -2,6 +2,7 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.*;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
+import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_repository.*;
 //import com.fis.crm.crm_repository.impl.TaskRepoImpl;
 import com.fis.crm.crm_service.IUserService;
@@ -18,7 +19,7 @@ public class TaskServiceImpl implements TaskService {
     private final IUserService userService;
     private final TaskStatusService statusService;
 
-    public TaskServiceImpl(TaskRepo taskRepo, CrmIUserServiceImpl userService, TaskStatusServiceImpl statusService) {
+    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService) {
         this.taskRepo = taskRepo;
         this.userService = userService;
         this.statusService = statusService;
@@ -61,6 +62,20 @@ public class TaskServiceImpl implements TaskService {
 
     public void deleteTask(Long id) {
         taskRepo.deleteById(id);
+    }
+
+    /**
+     * @param updateDTO
+     * @param task
+     * @return
+     */
+    @Override
+    public boolean checkStatus(TaskUpdateDTO updateDTO, CrmTask task) {
+        boolean check = false;
+        if (updateDTO.getStatuscode() != task.getStatus().getId()) {
+            check = true;
+        }
+        return check;
     }
 
     /**

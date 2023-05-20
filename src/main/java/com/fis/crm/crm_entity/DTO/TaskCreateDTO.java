@@ -1,6 +1,7 @@
 package com.fis.crm.crm_entity.DTO;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class TaskCreateDTO {
     private Long taskid;

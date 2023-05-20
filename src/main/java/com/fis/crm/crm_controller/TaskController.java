@@ -1,13 +1,16 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmTask;
+import com.fis.crm.crm_entity.CrmTaskHistory;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
 import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.TaskHistoryService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
-import com.fis.crm.crm_service.impl.CrmIUserServiceImpl;
+import com.fis.crm.crm_service.impl.CrmUserServiceImpl;
+import com.fis.crm.crm_service.impl.TaskHistoryServiceImpl;
 import com.fis.crm.crm_service.impl.TaskServiceImpl;
 import com.fis.crm.crm_service.impl.TaskStatusServiceImpl;
 import com.fis.crm.crm_util.TaskMapper;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,13 +29,15 @@ public class TaskController {
     private final TaskService taskService;
     private final TaskStatusService statusService;
     private final IUserService userService;
+    private final TaskHistoryService historyService;
 //    private TaskRepo taskRepo;
 
-    public TaskController(TaskServiceImpl taskService, TaskStatusServiceImpl statusService, CrmIUserServiceImpl userService) {
+    public TaskController(TaskServiceImpl taskService, TaskStatusServiceImpl statusService, CrmUserServiceImpl userService, TaskHistoryServiceImpl historyService) {
         this.taskService = taskService;
 //        this.taskRepo = taskRepo;
         this.statusService = statusService;
         this.userService = userService;
+        this.historyService = historyService;
     }
 
     @GetMapping("/project/{id}")
@@ -44,6 +50,12 @@ public class TaskController {
             taskDTOs.add(taskDTO);
         }
         return taskDTOs;
+    }
+
+    @PostMapping("/searchByTaskId")
+    public CrmTask searchTaskByTaskId(@RequestBody Map<String, Long> requestBody) {
+        Long taskId = requestBody.get("taskId");
+        return taskService.getTaskById(taskId);
     }
 
     @PostMapping("/search")
@@ -130,19 +142,35 @@ public class TaskController {
     public ResponseEntity<?> updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateDTO taskUpdate) {
         try {
             CrmTask existingTask = taskService.getTaskById(taskId);
-            if (existingTask == null) {
-                return ResponseEntity.notFound().build();
+            boolean check = taskService.checkStatus(taskUpdate, existingTask);
+            CrmTaskHistory taskHistory = new CrmTaskHistory();
+            if (check) {
+                taskHistory.setTaskid(taskId);
+                taskHistory.setStatusprev(existingTask.getStatus());
             }
-
             // Cập nhật thông tin của task từ request body
-            existingTask.setTaskname(taskUpdate.getTaskname());
-            existingTask.setStartdate(taskUpdate.getStartdate());
-            existingTask.setEnddate(taskUpdate.getEnddate());
-            existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
-            existingTask.setReceivertask(userService.getUserById(taskUpdate.getReceivertaskid()));
+            if (taskUpdate.getTaskname() != null) {
+                existingTask.setTaskname(taskUpdate.getTaskname());
+            }
+            if (taskUpdate.getStartdate() != null) {
+                existingTask.setStartdate(taskUpdate.getStartdate());
+            }
+            if (taskUpdate.getEnddate() != null) {
+                existingTask.setEnddate(taskUpdate.getEnddate());
+            }
+            if (statusService.getStatusCode(taskUpdate.getStatuscode()) != null) {
+                existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
+            }
+            if (userService.getUserById(taskUpdate.getReceivertaskid()) != null) {
+                existingTask.setReceivertask(userService.getUserById(taskUpdate.getReceivertaskid()));
+            }
 //            existingTask.setStageid(taskUpdate.getStageid());
-
             CrmTask updatedTask = taskService.updateTask(existingTask);
+            if (check) {
+                taskHistory.setStatuscurrent(existingTask.getStatus());
+                taskHistory.setTimecreate(new Date());
+                historyService.saveTaskHistory(taskHistory);
+            }
             return ResponseEntity.ok(TaskMapper.toDTO(updatedTask));
 
         } catch (Exception e) {
@@ -159,12 +187,5 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete task");
         }
     }
-
-    @PostMapping("/searchByTaskId")
-    public CrmTask searchTaskByTaskId(@RequestBody Map<String, Long> requestBody) {
-        Long taskId = requestBody.get("taskId");
-        return taskService.getTaskById(taskId);
-    }
-
 
 }
