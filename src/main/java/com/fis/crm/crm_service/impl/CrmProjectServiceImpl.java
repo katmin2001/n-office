@@ -1,8 +1,11 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmProject;
+import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
+import com.fis.crm.crm_entity.DTO.CrmProjectRequestDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
 import com.fis.crm.crm_service.CrmProjectService;
+import com.fis.crm.crm_util.CrmProjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 @Transactional
 public class CrmProjectServiceImpl implements CrmProjectService {
     final CrmProjectRepo projectRepo;
+    final CrmProjectMapper projectMapper = new CrmProjectMapper();
 
     public CrmProjectServiceImpl(CrmProjectRepo projectRepo) {
         this.projectRepo = projectRepo;
@@ -31,25 +35,24 @@ public class CrmProjectServiceImpl implements CrmProjectService {
     }
 
     @Override
-    public List<CrmProject> getProjectsByManagerId(Long managerId) {
+    public List<CrmProjectDTO> getProjectsByManagerId(Long managerId) {
         List<CrmProject> projects = projectRepo.findAll();
-        List<CrmProject> projectsByManager = new ArrayList<>();
+        List<CrmProjectDTO> projectsByManager = new ArrayList<>();
         for (CrmProject project : projects) {
             if (project.getManager().getUserid() == managerId) {
-                projectsByManager.add(project);
+                projectsByManager.add(projectMapper.toDTO(project));
             }
         }
         return projectsByManager;
     }
 
     @Override
-    public List<CrmProject> getProjectsByCustomerId(Long customerId) {
+    public List<CrmProjectDTO> getProjectsByCustomerId(Long customerId) {
         List<CrmProject> projects = projectRepo.findAll();
-        List<CrmProject> projectsByCustomer = new ArrayList<>();
+        List<CrmProjectDTO> projectsByCustomer = new ArrayList<>();
         for (CrmProject project : projects) {
-            if (project.getCustomer().getId() == null) continue;
             if (project.getCustomer().getId() == customerId) {
-                projectsByCustomer.add(project);
+                projectsByCustomer.add(projectMapper.toDTO(project));
             }
         }
         return projectsByCustomer;
@@ -58,5 +61,10 @@ public class CrmProjectServiceImpl implements CrmProjectService {
     @Override
     public CrmProject getProjectsByCode(String projectCode) {
         return projectRepo.findCrmProjectByCode(projectCode);
+    }
+
+    @Override
+    public CrmProject createProject(CrmProject newProject) {
+        return projectRepo.save(newProject);
     }
 }

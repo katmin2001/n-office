@@ -2,6 +2,7 @@ package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.CrmProject;
+import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
 import com.fis.crm.crm_service.CrmProjectService;
 import com.fis.crm.crm_service.impl.CrmProjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,12 @@ public class CrmProjectController {
     }
 
     @GetMapping("/manager/{managerId}")
-    public List<CrmProject> getProjectsByManagerId(@PathVariable Long managerId) {
+    public List<CrmProjectDTO> getProjectsByManagerId(@PathVariable Long managerId) {
         return crmProjectService.getProjectsByManagerId(managerId);
     }
 
     @GetMapping("/customer/{customerId}")
-    public List<CrmProject> getProjectsByCustomerId(@PathVariable Long customerId) {
+    public List<CrmProjectDTO> getProjectsByCustomerId(@PathVariable Long customerId) {
         return crmProjectService.getProjectsByCustomerId(customerId);
     }
 }
