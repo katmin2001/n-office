@@ -1,25 +1,39 @@
-package com.fis.crm.crm_entity.DTO;
+package com.fis.crm.crm_entity;
 
-import com.fis.crm.crm_entity.CrmCustomer;
-import com.fis.crm.crm_entity.CrmProjectPrivacy;
-import com.fis.crm.crm_entity.CrmProjectStatus;
-
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class CrmProjectRequestDTO {
+@Entity
+@Table(name = "crm_project")
+public class CrmProjectRequest {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_PROJECT_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_PROJECT_SEQ_GEN", sequenceName = "CRM_PROJECT_SEQ", allocationSize = 1)
+    @Id
+    @Column(name = "id")
     private Long id;
     private String name;
     private String code;
+    @Column(name = "customer_id")
     private Long customerId;
+    @Column(name = "manager_id")
     private Long managerId;
+    @Column(name = "privacy_id")
     private Long privacyId;
+    @Column(name = "status_id")
     private Long statusId;
     private String description;
+    @Column(name = "start_date")
     private LocalDate startDate;
+    @Column(name = "end_date")
     private LocalDate endDate;
+    @Column(name = "finish_date")
     private LocalDate finishDate;
 
-    public CrmProjectRequestDTO(Long id, String name, String code, Long customerId, Long managerId, Long privacyId, Long statusId, String description, LocalDate startDate, LocalDate endDate, LocalDate finishDate) {
+    public CrmProjectRequest(Long id, String name, String code, Long customerId, Long managerId, Long privacyId, Long statusId, String description, LocalDate startDate, LocalDate endDate, LocalDate finishDate) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -33,7 +47,7 @@ public class CrmProjectRequestDTO {
         this.finishDate = finishDate;
     }
 
-    public CrmProjectRequestDTO() {
+    public CrmProjectRequest() {
     }
 
     public Long getId() {

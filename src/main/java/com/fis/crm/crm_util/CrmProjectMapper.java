@@ -6,7 +6,7 @@ import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
 import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
 
 public class CrmProjectMapper {
-    private final UserDtoMapper userDtoMapper = new UserDtoMapper();
+    private final DtoMapper DtoMapper = new DtoMapper();
 
     public CrmProjectDTO toDTO(CrmProject project) {
         CrmProjectDTO dto = new CrmProjectDTO();
@@ -14,7 +14,7 @@ public class CrmProjectMapper {
         dto.setName(project.getName());
         dto.setCode(project.getCode());
         dto.setCustomer(project.getCustomer());
-        dto.setManager(userDtoMapper.userDtoMapper(project.getManager()));
+        dto.setManager(DtoMapper.userDtoMapper(project.getManager()));
         dto.setPrivacy(project.getPrivacy());
         dto.setStatus(project.getStatus());
         dto.setDescription(project.getDescription());

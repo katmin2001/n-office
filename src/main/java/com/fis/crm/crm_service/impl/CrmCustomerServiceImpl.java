@@ -2,15 +2,11 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
-import com.fis.crm.crm_entity.DTO.CrmCustomerRequestDTO;
 import com.fis.crm.crm_repository.CrmCustomerRepo;
 import com.fis.crm.crm_service.CrmCustomerService;
 import com.fis.crm.crm_util.CrmCustomerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +44,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     }
 
     @Override
-    public CrmCustomer createCustomer(CrmCustomerRequestDTO crmCustomerRequestDTO) {
+    public CrmCustomer createCustomer(CrmCustomerDTO crmCustomerRequestDTO) {
         CrmCustomer crmCustomer = new CrmCustomer();
         crmCustomer.setName(crmCustomerRequestDTO.getName());
         crmCustomer.setPhone(crmCustomerRequestDTO.getPhone());
@@ -58,13 +54,13 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     }
 
     @Override
-    public CrmCustomer updateCustomer(Long customerId, CrmCustomerRequestDTO crmCustomerRequestDTO) {
+    public CrmCustomer updateCustomer(Long customerId, CrmCustomerDTO crmCustomerRequest) {
         CrmCustomer existingCustomer = customerRepo.findById(customerId).orElse(null);
         if (existingCustomer != null) {
-            existingCustomer.setName(crmCustomerRequestDTO.getName());
-            existingCustomer.setEmail(crmCustomerRequestDTO.getEmail());
-            existingCustomer.setPhone(crmCustomerRequestDTO.getPhone());
-            existingCustomer.setAddress(crmCustomerRequestDTO.getAddress());
+            if (crmCustomerRequest.getName() != null) existingCustomer.setName(crmCustomerRequest.getName());
+            if (crmCustomerRequest.getEmail() != null) existingCustomer.setEmail(crmCustomerRequest.getEmail());
+            if (crmCustomerRequest.getPhone() != null) existingCustomer.setPhone(crmCustomerRequest.getPhone());
+            if (crmCustomerRequest.getAddress() != null) existingCustomer.setAddress(crmCustomerRequest.getAddress());
             return customerRepo.save(existingCustomer);
         }
         return null;

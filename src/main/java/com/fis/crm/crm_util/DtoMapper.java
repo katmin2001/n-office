@@ -1,13 +1,7 @@
 package com.fis.crm.crm_util;
 
-import com.fis.crm.crm_entity.CrmFunction;
-import com.fis.crm.crm_entity.CrmRole;
-import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.CrmUserRole;
-import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
-import com.fis.crm.crm_entity.DTO.CrmRoleDTO;
-import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
-import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
+import com.fis.crm.crm_entity.*;
+import com.fis.crm.crm_entity.DTO.*;
 
 public class DtoMapper {
 
@@ -43,6 +37,36 @@ public class DtoMapper {
         return userRoleDTO;
     }
 
+    public CrmProjectDTO crmProjectDTOMapper(CrmProject project) {
+        CrmProjectDTO dto = new CrmProjectDTO();
+        dto.setId(project.getId());
+        dto.setName(project.getName());
+        dto.setCode(project.getCode());
+        dto.setCustomer(project.getCustomer());
+        dto.setManager(userDtoMapper(project.getManager()));
+        dto.setPrivacy(project.getPrivacy());
+        dto.setStatus(project.getStatus());
+        dto.setDescription(project.getDescription());
+        dto.setStartDate(project.getStartDate());
+        dto.setEndDate(project.getEndDate());
+        dto.setFinishDate(project.getFinishDate());
+        return dto;
+    }
 
+    public CrmProjectDTO projectMemberPDTOMapper(CrmProjectMember projectMember) {
+        return null;
+    }
 
+    public Crm_UserDTO projectMemberMDTOMapper(CrmProjectMember projectMember) {
+        Crm_UserDTO dto = new Crm_UserDTO();
+//        dto.setUserId(projectMember.getMember().getUserid());
+//        dto.setUsername(projectMember.getMember().getUsername());
+//        dto.setFullName(projectMember.getMember().getFullname());
+//        dto.setCreateDate(projectMember.getMember().getCreatedate());
+//        dto.setPhone(projectMember.getMember().getPhone());
+//        dto.setBirthday(projectMember.getMember().getBirthday());
+//        dto.setAddress(projectMember.getMember().getAddress());
+//        dto.setStatus(projectMember.getMember().getStatus());
+        return dto;
+    }
 }

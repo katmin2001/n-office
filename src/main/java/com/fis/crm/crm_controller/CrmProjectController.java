@@ -1,11 +1,10 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.CrmProject;
+import com.fis.crm.crm_entity.CrmProjectRequest;
 import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
 import com.fis.crm.crm_service.CrmProjectService;
 import com.fis.crm.crm_service.impl.CrmProjectServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +19,7 @@ public class CrmProjectController {
     public CrmProjectController(CrmProjectServiceImpl crmProjectService) {
         this.crmProjectService = crmProjectService;
     }
+
     @GetMapping("/")
     public List<CrmProject> getAllProjects() {
         List<CrmProject> projects = crmProjectService.getAllProjects();
@@ -44,5 +44,15 @@ public class CrmProjectController {
     @GetMapping("/customer/{customerId}")
     public List<CrmProjectDTO> getProjectsByCustomerId(@PathVariable Long customerId) {
         return crmProjectService.getProjectsByCustomerId(customerId);
+    }
+
+    @PostMapping("/")
+    public CrmProjectRequest createProject(@RequestBody CrmProjectRequest newProject) {
+        return crmProjectService.createProject(newProject);
+    }
+
+    @PutMapping("/{projectId}")
+    public CrmProjectRequest updateProject(@PathVariable Long projectId, @RequestBody CrmProjectRequest projectUpdate) {
+        return crmProjectService.updateProjectById(projectId, projectUpdate);
     }
 }
