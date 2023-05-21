@@ -128,4 +128,9 @@ public class CrmRoleFuncServiceImpl implements IRoleFuncService {
         }
         return dtoList;
     }
+
+    @Override
+    public List<CrmRoleFunction> testGetAll() {
+        return roleFuncRepo.findAll();
+    }
 }

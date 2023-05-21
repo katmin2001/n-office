@@ -10,10 +10,10 @@ public class CrmRoleFunction {
     @Id
     @Column(name = "RFID")
     private Long rfid;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLEID", referencedColumnName = "ROLEID")
     private CrmRole role;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FUNCID", referencedColumnName = "FUNCID")
     private CrmFunction function;
 

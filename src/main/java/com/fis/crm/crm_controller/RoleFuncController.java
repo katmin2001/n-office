@@ -49,6 +49,11 @@ public class RoleFuncController {
         return ResponseEntity.ok(roleFuncService.findRoleByFuncId(funcId));
     };
 
+    @GetMapping("/test")
+    public List<CrmRoleFunction> getAll(){
+        return roleFuncService.testGetAll();
+    }
+
 }
 
 
