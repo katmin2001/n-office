@@ -2,38 +2,42 @@ package com.fis.crm.crm_entity.DTO;
 
 import java.sql.Date;
 
-public class CandidateDTO {
-    private Long candidateId;
+public class CandidateRequestDTO {
     private String fullname;
-    private String phone;
-    private Date birthday;
-    private String address;
-    private Boolean status;
-    private Date createDate;
-    private InterviewStatusDTO interviewStatusDTO;
-    private Crm_UserDTO crmUserDTO;
 
-    public CandidateDTO() {
+    private String phone;
+
+    private Date birthday;
+
+    private String address;
+
+    private Boolean status;
+
+    private Date createDate;
+    private Long manageId;
+    private Long ISID;
+
+    public CandidateRequestDTO() {
     }
 
-    public CandidateDTO(Long candidateId, String fullname, String phone, Date birthday, String address, Boolean status, Date createDate, InterviewStatusDTO interviewStatusDTO, Crm_UserDTO crmUserDTO) {
-        this.candidateId = candidateId;
+    public CandidateRequestDTO(String fullname, String phone, Date birthday, String address, Boolean status, Date createDate, Long manageId, Long ISID) {
         this.fullname = fullname;
         this.phone = phone;
         this.birthday = birthday;
         this.address = address;
         this.status = status;
         this.createDate = createDate;
-        this.interviewStatusDTO = interviewStatusDTO;
-        this.crmUserDTO = crmUserDTO;
+        this.manageId = manageId;
+        this.ISID = ISID;
     }
 
-    public Long getCandidateId() {
-        return candidateId;
+
+    public Long getISID() {
+        return ISID;
     }
 
-    public void setCandidateId(Long candidateId) {
-        this.candidateId = candidateId;
+    public void setISID(Long ISID) {
+        this.ISID = ISID;
     }
 
     public String getFullname() {
@@ -84,19 +88,11 @@ public class CandidateDTO {
         this.createDate = createDate;
     }
 
-    public InterviewStatusDTO getInterviewStatusDTO() {
-        return interviewStatusDTO;
+    public Long getManageId() {
+        return manageId;
     }
 
-    public void setInterviewStatusDTO(InterviewStatusDTO interviewStatusDTO) {
-        this.interviewStatusDTO = interviewStatusDTO;
-    }
-
-    public Crm_UserDTO getCrmUserDTO() {
-        return crmUserDTO;
-    }
-
-    public void setCrmUserDTO(Crm_UserDTO crmUserDTO) {
-        this.crmUserDTO = crmUserDTO;
+    public void setManageId(Long manageId) {
+        this.manageId = manageId;
     }
 }
