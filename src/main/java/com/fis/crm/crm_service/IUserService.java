@@ -20,6 +20,5 @@ public interface IUserService {
     public Set<Crm_UserDTO> findUserByFunc(Long funcId);                        //xong  da test
     public CrmUser changePassword(Long userId, String newPassword);             //xong  da test => chua hop li
     public Set<Crm_UserDTO> findCrmUserDtoByRoleId(Long roleId);
-    public CrmUser getUserById(Long userId);
 
 }
