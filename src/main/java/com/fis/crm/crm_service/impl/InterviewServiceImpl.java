@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.*;
 
+
+
 @Service
 @Transactional
 public class InterviewServiceImpl implements InterviewService{
@@ -101,6 +103,12 @@ public class InterviewServiceImpl implements InterviewService{
         Date date=new Date(millis);
         interview.setCreateDate(date);
         interview.setStatus(true);
+        if(interviewRequestDTO.getInterviewDate().compareTo(date) >= 0){
+            interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
+        }
+        else {
+            return null;
+        }
         interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
         interview.setCandidate(candidateRepo.findById(interviewRequestDTO.getCandidateId()).orElse(null));
         interview.setInterviewStatus(interviewStatusRepo.findById(Long.valueOf(2)).orElse(null));
@@ -120,8 +128,16 @@ public class InterviewServiceImpl implements InterviewService{
         if(interview == null){
             return null;
         }
+        long millis=System.currentTimeMillis();
+        Date date=new Date(millis);
+        interview.setCreateDate(date);
         if(interviewRequestDTO.getInterviewDate() != null){
-            interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
+            if(interviewRequestDTO.getInterviewDate().compareTo(date) >= 0){
+                interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
+            }
+            else {
+                return null;
+            }
         }
         if(interviewRequestDTO.getStatus()!= null){
             interview.setStatus(interviewRequestDTO.getStatus());

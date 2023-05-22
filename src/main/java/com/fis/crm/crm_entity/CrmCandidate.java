@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Optional;
 @Entity
 @Table(name = "CRM_CANDIDATE")

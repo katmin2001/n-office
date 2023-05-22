@@ -9,7 +9,9 @@ import com.fis.crm.crm_service.CandidateService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,9 @@ public class CandidateServiceImpl implements CandidateService {
         this.interviewStatusRepo = interviewStatusRepo;
     }
 
-
+    public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static DateFormat dateFormatHour = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    public static DateFormat dateFormatDB = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public List<CandidateDTO> getAllCandidate() {
         List<CrmCandidate> crmCandidates = candidateRepo.findAll();
@@ -44,10 +48,10 @@ public class CandidateServiceImpl implements CandidateService {
             CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
                 candidate.getFullname(),
                 candidate.getPhone(),
-                candidate.getBirthday(),
+                dateFormat.format(candidate.getBirthday()),
                 candidate.getAddress(),
                 candidate.getStatus(),
-                candidate.getCreateDate(),
+                dateFormatHour.format(candidate.getCreateDate()),
                 interviewStatusDTO,
                 crmUserDTO
                 );
@@ -72,16 +76,28 @@ public class CandidateServiceImpl implements CandidateService {
         CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
             candidate.getFullname(),
             candidate.getPhone(),
-            candidate.getBirthday(),
+            dateFormat.format(candidate.getBirthday()),
             candidate.getAddress(),
             candidate.getStatus(),
-            candidate.getCreateDate(),
+            dateFormatHour.format(candidate.getCreateDate()),
             interviewStatusDTO,
             crmUserDTO
         );
         return candidateDTO;
     }
-
+//    final static String DATE_FORMAT = "dd/mm/yyyy";
+//
+//    public static boolean isDateValid(String date)
+//    {
+//        try {
+//            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+//            df.setLenient(false);
+//            df.parse(date);
+//            return true;
+//        } catch (ParseException e) {
+//            return false;
+//        }
+//    }
     @Override
     public CrmCandidate addCandidate(CandidateRequestDTO candidateDTO) {
         candidateDTO.setISID(Long.valueOf(1));
@@ -90,7 +106,6 @@ public class CandidateServiceImpl implements CandidateService {
         candidate.setFullname(candidateDTO.getFullname());
         candidate.setPhone(candidateDTO.getPhone());
         candidate.setBirthday(candidateDTO.getBirthday());
-
         long millis=System.currentTimeMillis();
         Date date=new Date(millis);
         candidate.setCreateDate(date);
@@ -117,7 +132,6 @@ public class CandidateServiceImpl implements CandidateService {
             candidate.setPhone(candidateDTO.getPhone());
         }
         if(candidateDTO.getBirthday() != null){
-            candidate.setBirthday(candidateDTO.getBirthday());
         }
         if(candidateDTO.getStatus() != null){
             candidate.setStatus(candidateDTO.getStatus());
@@ -156,10 +170,10 @@ public class CandidateServiceImpl implements CandidateService {
             CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
                 candidate.getFullname(),
                 candidate.getPhone(),
-                candidate.getBirthday(),
+                dateFormat.format(candidate.getBirthday()),
                 candidate.getAddress(),
                 candidate.getStatus(),
-                candidate.getCreateDate(),
+                dateFormatHour.format(candidate.getCreateDate()),
                 interviewStatusDTO,
                 crmUserDTO
             );
