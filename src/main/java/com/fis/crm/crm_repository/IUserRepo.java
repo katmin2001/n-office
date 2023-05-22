@@ -16,12 +16,12 @@ import java.util.List;
 public interface IUserRepo extends JpaRepository<CrmUser, Long> {
 
     @Query(value = "SELECT u FROM CrmUser u "+
-                    "where (:fullname is null or lower(u.fullname) like %:fullname%)  " +
-                    "and (:createdate is null or u.createdate   = :createdate)  " +
-                    "and (:phone is null or lower(u.phone) like %:phone%)  " +
-                    "and (:birthday is null or u.birthday = :birthday)  " +
-                    "and (:address is null or lower(u.address) like %:address%)  " +
-                    "and (:status is null or lower(u.status) like %:status%) "
+        "where (:fullname is null or lower(u.fullname) like %:fullname%)  " +
+        "and (:createdate is null or u.createdate   = :createdate)  " +
+        "and (:phone is null or lower(u.phone) like %:phone%)  " +
+        "and (:birthday is null or u.birthday = :birthday)  " +
+        "and (:address is null or lower(u.address) like %:address%)  " +
+        "and (:status is null or lower(u.status) like %:status%) "
     )
     List<CrmUser> findCrmUsersByKeyword(@Param("fullname") String fullname,
                                         @Param("createdate") Date createdate,

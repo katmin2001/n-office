@@ -2,8 +2,6 @@ package com.fis.crm.crm_entity.DTO;
 
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
 public class CrmCustomerDTO {
     private Long id;
     private String name;
@@ -49,5 +47,16 @@ public class CrmCustomerDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public CrmCustomerDTO(Long id, String name, String phone, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public CrmCustomerDTO() {
     }
 }

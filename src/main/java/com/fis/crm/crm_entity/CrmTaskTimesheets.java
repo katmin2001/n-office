@@ -1,13 +1,14 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "CRM_TASK_TIMESHEETS", schema = "CRM_UAT", catalog = "")
 public class CrmTaskTimesheets {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_TASK_TIMESHEETS_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_TASK_TIMESHEETS_SEQ_GEN", sequenceName = "CRM_TASK_TIMESHEETS_SEQ", allocationSize = 1)
     @Id
     @Column(name = "ID")
     private Long id;
@@ -18,17 +19,21 @@ public class CrmTaskTimesheets {
     @Column(name = "DATETIMESHEETS")
     private Date datetimesheets;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "taskid")
-    private CrmTask crmTask;
-    public CrmTaskTimesheets() {
+    @Column(name = "datecreated")
+    private Date datecreated;
 
-    }
-    public CrmTaskTimesheets(Long id, CrmTask crmTask, String description, Date datetimesheets) {
-        this.id = id;
-        this.crmTask = crmTask;
-        this.description = description;
-        this.datetimesheets = datetimesheets;
+    @OneToOne
+    @JoinColumn(name = "creator")
+    private CrmUser user;
+
+    @OneToOne
+    @JoinColumn(name = "projectid")
+    private CrmProject project;
+
+    @OneToOne
+    @JoinColumn(name = "taskid")
+    private CrmTask task;
+    public CrmTaskTimesheets() {
     }
 
     public Long getId() {
@@ -55,16 +60,35 @@ public class CrmTaskTimesheets {
         this.datetimesheets = datetimesheets;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CrmTaskTimesheets that = (CrmTaskTimesheets) o;
-        return Objects.equals(id, that.id) && Objects.equals(description, that.description) && Objects.equals(datetimesheets, that.datetimesheets) && Objects.equals(crmTask, that.crmTask);
+    public CrmProject getProject() {
+        return project;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, datetimesheets);
+    public void setProject(CrmProject project) {
+        this.project = project;
+    }
+
+    public CrmTask getTask() {
+        return task;
+    }
+
+    public void setTask(CrmTask task) {
+        this.task = task;
+    }
+
+    public Date getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(Date datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public CrmUser getUser() {
+        return user;
+    }
+
+    public void setUser(CrmUser user) {
+        this.user = user;
     }
 }

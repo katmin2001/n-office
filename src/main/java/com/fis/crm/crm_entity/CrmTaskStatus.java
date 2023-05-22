@@ -8,14 +8,12 @@ import java.util.Objects;
 public class CrmTaskStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "statuscode", nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "statusname")
     private String name;
 
-    @OneToOne(mappedBy = "taskStatus")
-    private CrmTask statusTask;
 
     public Long getId() {
         return id;
