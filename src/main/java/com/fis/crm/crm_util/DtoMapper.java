@@ -8,7 +8,7 @@ public class DtoMapper {
     public Crm_UserDTO userDtoMapper(CrmUser user){
         Crm_UserDTO userDTO = new Crm_UserDTO();
             userDTO.setUserId(user.getUserid());
-            userDTO.setUsername(userDTO.getUsername());
+            userDTO.setUsername(user.getUsername());
             userDTO.setFullName(user.getFullname());
             userDTO.setCreateDate(user.getCreatedate());
             userDTO.setPhone(user.getPhone());
@@ -43,8 +43,8 @@ public class DtoMapper {
             roleFuncDTO.setId(roleFunction.getRfid());
             roleFuncDTO.setRoleId(roleFunction.getRole().getRoleid());
             roleFuncDTO.setRoleName(roleFunction.getRole().getRolename());
-//            roleFuncDTO.setFuncId(roleFunction.getFunction().getFuncid());
-//            roleFuncDTO.setFuncName(roleFunction.getFunction().getFuncname());
+            roleFuncDTO.setFuncId(roleFunction.getFunction().getFuncid());
+            roleFuncDTO.setFuncName(roleFunction.getFunction().getFuncname());
         return roleFuncDTO;
     }
 

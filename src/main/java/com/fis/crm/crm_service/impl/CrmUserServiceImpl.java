@@ -62,10 +62,7 @@ public class CrmUserServiceImpl implements IUserService {
 
     @Override
     public CrmUser updateCrmUser(Long userId,CrmUser user) {
-        CrmUser crmUser = userService.findByCrmUserId(userId).orElse(null);
-        if (crmUser==null){
-            return null;
-        }
+        CrmUser crmUser = IUserRepo.findCrmUserByUserid(userId);
         crmUser.setFullname(user.getFullname());
         crmUser.setAddress(user.getAddress());
         crmUser.setBirthday(user.getBirthday());
@@ -76,8 +73,9 @@ public class CrmUserServiceImpl implements IUserService {
     }
 
     @Override
-    public Optional<CrmUser> findByCrmUserId(Long userId) {
-        return IUserRepo.findById(userId);
+    public Crm_UserDTO findByCrmUserId(Long userId) {
+        CrmUser crmUser = IUserRepo.findById(userId).orElseThrow(NullPointerException::new);
+        return mapper.userDtoMapper(crmUser);
     }
 
     @Override
@@ -109,10 +107,7 @@ public class CrmUserServiceImpl implements IUserService {
 
     @Override
     public Crm_UserDTO getUserDetail(Long userId) {
-        CrmUser user = IUserRepo.findById(userId).orElse(null);
-        if (user==null){
-            return null;
-        }
+        CrmUser user = IUserRepo.findById(userId).orElseThrow(NullPointerException::new);
         return mapper.userDtoMapper(user);
     }
 
@@ -141,16 +136,6 @@ public class CrmUserServiceImpl implements IUserService {
             }
         }
         return set;
-    }
-
-    @Override
-    public CrmUser changePassword(Long userId, String newPassword) {
-        CrmUser user = IUserRepo.findById(userId).orElse(null);
-        if (user==null){
-            return null;
-        }
-        user.setPassword(newPassword);
-        return IUserRepo.save(user);
     }
 
     @Override

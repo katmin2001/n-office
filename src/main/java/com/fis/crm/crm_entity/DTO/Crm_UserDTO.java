@@ -1,15 +1,25 @@
 package com.fis.crm.crm_entity.DTO;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class Crm_UserDTO {
     private Long userId;
+    @NotNull(message = "Tên tài khoản không được bỏ trống")
     private String username;
+    @NotNull(message = "Họ tên không được bỏ trống")
     private String fullName;
+    @NotNull(message = "Ngày tạo không được bỏ trống")
     private Date createDate;
+    @NotNull(message = "Số điện thoại không được bỏ trống")
+    @Pattern(regexp = "^(?:\\+?84|0)(?:\\d{9})$", message = "Nhập không đúng định dạng")
     private String phone;
+    @NotNull(message = "Ngày tạo không được bỏ trống")
     private Date birthday;
+    @NotNull(message = "Địa chỉ không được bỏ trống")
     private String address;
+    @NotNull(message = "Trạng thái không được bỏ trống")
     private String status;
 
     public Crm_UserDTO() {

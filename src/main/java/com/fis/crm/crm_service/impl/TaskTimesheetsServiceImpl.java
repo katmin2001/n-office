@@ -48,7 +48,7 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
         timesheets.setTask(taskService.getTaskById(timesheetsCreateDTO.getTaskid()));
         timesheets.setDatetimesheets(timesheetsCreateDTO.getDatetimesheets());
         timesheets.setDescription(timesheetsCreateDTO.getDescription());
-        timesheets.setUser(userService.findByCrmUserId(timesheetsCreateDTO.getCreatorid()).get());
+        timesheets.setUser(userService.findByCrmUserId(timesheetsCreateDTO.getCreatorid()));
         timesheets.setDatecreated(new Date());
         return timesheetsRepo.save(timesheets);
     }
