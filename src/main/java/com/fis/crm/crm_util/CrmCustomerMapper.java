@@ -1,10 +1,10 @@
-package com.fis.crm.crm_entity.mapper;
+package com.fis.crm.crm_util;
 
 import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
 
 public class CrmCustomerMapper {
-    public CrmCustomerDTO toDTO(CrmCustomer customer) {
+    public static CrmCustomerDTO toDTO(CrmCustomer customer) {
         CrmCustomerDTO dto = new CrmCustomerDTO();
         dto.setId(customer.getId());
         dto.setName(customer.getName());
@@ -14,7 +14,7 @@ public class CrmCustomerMapper {
         return dto;
     }
 
-    public CrmCustomer toEntity(CrmCustomer dto) {
+    public static CrmCustomer toEntity(CrmCustomerDTO dto) {
         CrmCustomer customer = new CrmCustomer();
         customer.setId(dto.getId());
         customer.setName(dto.getName());

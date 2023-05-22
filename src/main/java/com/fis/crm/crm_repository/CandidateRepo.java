@@ -1,13 +1,11 @@
 package com.fis.crm.crm_repository;
 
 import com.fis.crm.crm_entity.CrmCandidate;
-import com.fis.crm.crm_entity.DTO.CandidateDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -26,4 +24,7 @@ public interface CandidateRepo extends JpaRepository<CrmCandidate, Long> {
                                        @Param("endDay") String endDay,
                                        @Param("ISID") String ISID,
                                        @Param("manageId") String manageId);
+
+
 }
+

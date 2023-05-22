@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_USER")
+@Table(name = "CRM_USER", schema = "CRM_UAT", catalog = "")
 
 //@JsonIdentityInfo(
 //    generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -60,13 +60,6 @@ public class CrmUser {
     private Set<CrmCandidate> candidates;
     @ManyToMany(mappedBy = "users")
     Set<CrmInterview> interviews;
-
-    //
-    @OneToMany(mappedBy = "giverTask")
-    private List<CrmTask> giverTask;
-    @OneToMany(mappedBy = "receiverTask")
-    private List<CrmTask> receiverTask;
-
 
     public CrmUser() {
     }

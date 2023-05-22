@@ -166,4 +166,13 @@ public class CrmUserServiceImpl implements IUserService {
         }
         return set;
     }
+
+    /**
+     * @param userId
+     * @return
+     */
+    @Override
+    public CrmUser getUserById(Long userId) {
+        return IUserRepo.findCrmUserByUserid(userId);
+    }
 }

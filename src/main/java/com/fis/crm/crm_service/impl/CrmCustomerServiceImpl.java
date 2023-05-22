@@ -1,32 +1,50 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCustomer;
+import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
 import com.fis.crm.crm_entity.DTO.CrmCustomerRequestDTO;
 import com.fis.crm.crm_repository.CrmCustomerRepo;
 import com.fis.crm.crm_service.CrmCustomerService;
+import com.fis.crm.crm_util.CrmCustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+//@Transactional
 public class CrmCustomerServiceImpl implements CrmCustomerService {
-    @Autowired
-    CrmCustomerRepo customerRepo;
+    private final CrmCustomerRepo customerRepo;
 
-    @Override
-    public List<CrmCustomer> getAllCustomers() {
-        return customerRepo.findAll();
+    public CrmCustomerServiceImpl(CrmCustomerRepo customerRepo) {
+        this.customerRepo = customerRepo;
     }
 
     @Override
-    public CrmCustomer getCustomerById(Long customerId) {
+    public List<CrmCustomerDTO> getAllCustomers() {
+        List<CrmCustomer> customers = customerRepo.findAll();
+        List<CrmCustomerDTO> customerDTOs = new ArrayList<>();
+
+        for (CrmCustomer customer : customers) {
+            customerDTOs.add(CrmCustomerMapper.toDTO(customer));
+        }
+
+        return customerDTOs;
+    }
+
+    @Override
+    public CrmCustomerDTO getCustomerById(Long customerId) {
         Optional<CrmCustomer> optionalCustomer = customerRepo.findById(customerId);
-        return optionalCustomer.orElse(null);
+        if (optionalCustomer.isPresent()) {
+            CrmCustomer customer = optionalCustomer.get();
+            return CrmCustomerMapper.toDTO(customer);
+        }
+
+        return null;
     }
 
     @Override
@@ -41,16 +59,14 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
 
     @Override
     public CrmCustomer updateCustomer(Long customerId, CrmCustomerRequestDTO crmCustomerRequestDTO) {
-        // Kiểm tra xem khách hàng có tồn tại hay không
-        CrmCustomer existingCustomer = customerRepo.findById(customerId)
-            .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy khách hàng với ID: " + customerId));
-
-        existingCustomer.setName(crmCustomerRequestDTO.getName());
-        existingCustomer.setEmail(crmCustomerRequestDTO.getEmail());
-        existingCustomer.setPhone(crmCustomerRequestDTO.getPhone());
-        existingCustomer.setAddress(crmCustomerRequestDTO.getAddress());
-
-        // Lưu thông tin khách hàng đã được cập nhật vào cơ sở dữ liệu
-        return customerRepo.save(existingCustomer);
+        CrmCustomer existingCustomer = customerRepo.findById(customerId).orElse(null);
+        if (existingCustomer != null) {
+            existingCustomer.setName(crmCustomerRequestDTO.getName());
+            existingCustomer.setEmail(crmCustomerRequestDTO.getEmail());
+            existingCustomer.setPhone(crmCustomerRequestDTO.getPhone());
+            existingCustomer.setAddress(crmCustomerRequestDTO.getAddress());
+            return customerRepo.save(existingCustomer);
+        }
+        return null;
     }
 }

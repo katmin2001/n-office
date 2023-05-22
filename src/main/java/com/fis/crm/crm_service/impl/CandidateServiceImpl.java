@@ -1,9 +1,7 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCandidate;
-import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.DTO.CandidateDTO;
-import com.fis.crm.crm_entity.DTO.SearchCandidateDTO;
+import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_repository.CandidateRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.InterviewStatusRepo;
@@ -12,9 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -30,17 +27,59 @@ public class CandidateServiceImpl implements CandidateService {
 
 
     @Override
-    public List<CrmCandidate> getAllCandidate() {
-        return candidateRepo.findAll();
+    public List<CandidateDTO> getAllCandidate() {
+        List<CrmCandidate> crmCandidates = candidateRepo.findAll();
+        List<CandidateDTO> candidateDTOS = new ArrayList<>();
+        for(CrmCandidate candidate:crmCandidates){
+            InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
+            Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+                candidate.getUser().getFullname(),
+                candidate.getUser().getCreatedate(),
+                candidate.getUser().getPhone(),
+                candidate.getUser().getBirthday(),
+                candidate.getUser().getAddress(),
+                candidate.getUser().getStatus());
+            CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
+                candidate.getFullname(),
+                candidate.getPhone(),
+                candidate.getBirthday(),
+                candidate.getAddress(),
+                candidate.getStatus(),
+                candidate.getCreateDate(),
+                interviewStatusDTO,
+                crmUserDTO
+                );
+            candidateDTOS.add(candidateDTO);
+        }
+        return candidateDTOS;
     }
 
     @Override
-    public Optional<CrmCandidate> getCandidateById(Long candidateId) {
-        return candidateRepo.findById(candidateId);
+    public CandidateDTO getCandidateById(Long candidateId) {
+        CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
+        InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
+        Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+            candidate.getUser().getFullname(),
+            candidate.getUser().getCreatedate(),
+            candidate.getUser().getPhone(),
+            candidate.getUser().getBirthday(),
+            candidate.getUser().getAddress(),
+            candidate.getUser().getStatus());
+        CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
+            candidate.getFullname(),
+            candidate.getPhone(),
+            candidate.getBirthday(),
+            candidate.getAddress(),
+            candidate.getStatus(),
+            candidate.getCreateDate(),
+            interviewStatusDTO,
+            crmUserDTO
+        );
+        return candidateDTO;
     }
 
     @Override
-    public CrmCandidate addCandidate(CandidateDTO candidateDTO) {
+    public CrmCandidate addCandidate(CandidateRequestDTO candidateDTO) {
         candidateDTO.setISID(Long.valueOf(1));
         CrmCandidate candidate = new CrmCandidate();
         candidate.setAddress(candidateDTO.getAddress());
@@ -59,7 +98,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CrmCandidate updateCandidate(CandidateDTO candidateDTO, Long candidateId) {
+    public CrmCandidate updateCandidate(CandidateRequestDTO candidateDTO, Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
             return null;
@@ -96,8 +135,31 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CrmCandidate> searchCandidate(SearchCandidateDTO searchCandidateDTO) {
-       return candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
+    public List<CandidateDTO> searchCandidate(SearchCandidateDTO searchCandidateDTO) {
+       List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
+        List<CandidateDTO> candidateDTOS = new ArrayList<>();
+        for(CrmCandidate candidate:crmCandidates){
+            InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
+            Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+                candidate.getUser().getFullname(),
+                candidate.getUser().getCreatedate(),
+                candidate.getUser().getPhone(),
+                candidate.getUser().getBirthday(),
+                candidate.getUser().getAddress(),
+                candidate.getUser().getStatus());
+            CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
+                candidate.getFullname(),
+                candidate.getPhone(),
+                candidate.getBirthday(),
+                candidate.getAddress(),
+                candidate.getStatus(),
+                candidate.getCreateDate(),
+                interviewStatusDTO,
+                crmUserDTO
+            );
+            candidateDTOS.add(candidateDTO);
+        }
+        return candidateDTOS;
     }
 
 }
