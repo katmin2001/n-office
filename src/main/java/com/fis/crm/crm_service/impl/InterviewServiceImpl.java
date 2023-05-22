@@ -38,6 +38,7 @@ public class InterviewServiceImpl implements InterviewService{
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
                 Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                    crmUser.getUserid(),
                     crmUser.getUsername(),
                     crmUser.getFullname(),
                     crmUser.getCreatedate(),
@@ -69,6 +70,7 @@ public class InterviewServiceImpl implements InterviewService{
         Set<CrmUser> crmUsers = interview.getUsers();
         for (CrmUser crmUser: crmUsers){
             Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                crmUser.getUserid(),
                 crmUser.getUsername(),
                 crmUser.getFullname(),
                 crmUser.getCreatedate(),
@@ -196,6 +198,7 @@ public class InterviewServiceImpl implements InterviewService{
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
                 Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                    crmUser.getUserid(),
                     crmUser.getUsername(),
                     crmUser.getFullname(),
                     crmUser.getCreatedate(),

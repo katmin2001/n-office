@@ -161,8 +161,8 @@ public class TaskController {
             if (statusService.getStatusCode(taskUpdate.getStatuscode()) != null) {
                 existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
             }
-            if (userService.getUserById(taskUpdate.getReceivertaskid()) != null) {
-                existingTask.setReceivertask(userService.getUserById(taskUpdate.getReceivertaskid()));
+            if (userService.findByCrmUserId(taskUpdate.getReceivertaskid()) != null) {
+                existingTask.setReceivertask(userService.findByCrmUserId(taskUpdate.getReceivertaskid()).orElse(null));
             }
 //            existingTask.setStageid(taskUpdate.getStageid());
             CrmTask updatedTask = taskService.updateTask(existingTask);

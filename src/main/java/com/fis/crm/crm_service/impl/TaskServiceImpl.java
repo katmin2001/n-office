@@ -46,8 +46,8 @@ public class TaskServiceImpl implements TaskService {
         createDTO.setProjecid(projectId);
         CrmTask task = new CrmTask();
         task.setTaskname(createDTO.getTaskname());
-        task.setGivertask(userService.getUserById(createDTO.getGivertaskid()));
-        task.setReceivertask(userService.getUserById(createDTO.getReceivertaskid()));
+        task.setGivertask(userService.findByCrmUserId(createDTO.getGivertaskid()).orElse(null));
+        task.setReceivertask(userService.findByCrmUserId(createDTO.getReceivertaskid()).orElse(null));
         task.setStartdate(createDTO.getStartdate());
         task.setEnddate(createDTO.getEnddate());
         task.setStatus(statusService.getStatusCode(createDTO.getStatuscode()));

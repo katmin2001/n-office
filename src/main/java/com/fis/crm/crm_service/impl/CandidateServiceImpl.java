@@ -32,7 +32,9 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                candidate.getUser().getUserid(),
+                candidate.getUser().getUsername(),
                 candidate.getUser().getFullname(),
                 candidate.getUser().getCreatedate(),
                 candidate.getUser().getPhone(),
@@ -58,7 +60,9 @@ public class CandidateServiceImpl implements CandidateService {
     public CandidateDTO getCandidateById(Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-        Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+        Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+            candidate.getUser().getUserid(),
+            candidate.getUser().getUsername(),
             candidate.getUser().getFullname(),
             candidate.getUser().getCreatedate(),
             candidate.getUser().getPhone(),
@@ -140,7 +144,9 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(candidate.getUser().getUsername(),
+            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                candidate.getUser().getUserid(),
+                candidate.getUser().getUsername(),
                 candidate.getUser().getFullname(),
                 candidate.getUser().getCreatedate(),
                 candidate.getUser().getPhone(),
