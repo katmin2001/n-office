@@ -52,27 +52,32 @@ public class CrmUserController {
     };
 
     @PutMapping("/update-user/{userId}")
-    public ResponseEntity<CrmUser>  updateCrmUser(@PathVariable("userId") Long userId, @RequestBody CrmUser crmUser){
-        return ResponseEntity.ok(userService.updateCrmUser(userId, crmUser)) ;
+    public ResponseEntity<Result>  updateCrmUser(@PathVariable("userId") Long userId, @RequestBody CrmUser crmUser){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Result("OK", "Update thành công",userService.updateCrmUser(userId, crmUser)));
     };
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Crm_UserDTO>  findByCrmUserId(@PathVariable Long userId){
-        return ResponseEntity.ok(userService.findByCrmUserId(userId)) ;
+    public ResponseEntity<Result>  findByCrmUserId(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK", " Tìm kiếm thành công",userService.findByCrmUserId(userId)));
     }
 
     @GetMapping("/user-detail/{userId}")
-    public ResponseEntity<Crm_UserDTO>  getUserDetail(@PathVariable Long userId){
-        return ResponseEntity.ok(userService.getUserDetail(userId)) ;
+    public ResponseEntity<Result>  getUserDetail(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK", " Tìm kiếm thành công",userService.getUserDetail(userId)));
     };
 
     @PostMapping("/find-user-by-func/{funcId}")
-    public ResponseEntity<Set<Crm_UserDTO>>  findUserByFunc(@PathVariable Long funcId){
-        return ResponseEntity.ok(userService.findUserByFunc(funcId));
+    public ResponseEntity<Result>  findUserByFunc(@PathVariable Long funcId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK", " Tìm kiếm thành công",userService.findUserByFunc(funcId)));
     };
 
     @GetMapping("/find-by-roleid/{roleId}")
-    public Set<Crm_UserDTO> findCrmUserDtoByRoleId(@PathVariable Long roleId){
-        return userService.findCrmUserDtoByRoleId(roleId);
+    public ResponseEntity<Result> findCrmUserDtoByRoleId(@PathVariable Long roleId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK", " Tìm kiếm thành công",userService.findCrmUserDtoByRoleId(roleId)));
     };
 }

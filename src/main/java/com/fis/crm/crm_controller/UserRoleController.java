@@ -2,10 +2,12 @@ package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
+import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
 import com.fis.crm.crm_service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,32 +21,38 @@ public class UserRoleController {
     private IUserRoleService userRoleService;
 
     @GetMapping("/get-all-user-role")
-    public ResponseEntity<List<CrmUserRoleDTO>>  getAllUserRole(){
-        return ResponseEntity.ok(userRoleService.getAllUserRole());
+    public ResponseEntity<Result>  getAllUserRole(){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Tìm kiếm thành công",userRoleService.getAllUserRole()));
     };
 
     @PostMapping("/add-user-role")
-    public ResponseEntity<CrmUserRole> addUserRole(@RequestBody CrmUserRoleDTO userRoleDTO){
-        return ResponseEntity.ok(userRoleService.addUserRole(userRoleDTO));
+    public ResponseEntity<Result> addUserRole(@RequestBody CrmUserRoleDTO userRoleDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(new Result("OK","Thêm mới thành công",userRoleService.addUserRole(userRoleDTO)));
     };
 
     @PostMapping("/find-user-role-by-role/{roleId}")
-    public ResponseEntity<List<CrmUserRoleDTO>> findUserByRole(@PathVariable Long roleId){
-        return ResponseEntity.ok(userRoleService.findUserByRole(roleId));
+    public ResponseEntity<Result> findUserByRole(@PathVariable Long roleId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Tìm kiếm thành công",userRoleService.findUserByRole(roleId)));
     }
 
     @PostMapping("/find-user-role-by-user/{userId}")
-    public ResponseEntity<List<CrmUserRoleDTO>> findUserByUser(@PathVariable Long userId){
-        return ResponseEntity.ok(userRoleService.findRoleByUser(userId));
+    public ResponseEntity<Result> findUserByUser(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Tìm kiếm thành công",userRoleService.findRoleByUser(userId)));
     }
 
     @PutMapping("/update-user-role")
-    public ResponseEntity<CrmUserRole> updateUserRole(@RequestBody UpdateNewRoleForUser newRoleForUser){
-        return ResponseEntity.ok(userRoleService.updateUserRole(newRoleForUser));
+    public ResponseEntity<Result> updateUserRole(@RequestBody UpdateNewRoleForUser newRoleForUser){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Cập nhật thành công",userRoleService.updateUserRole(newRoleForUser)));
     };
 
     @DeleteMapping("/delete-user-role")
-    public ResponseEntity<CrmUserRole> deleteUserRoleForUser(@RequestBody CrmUserRoleDTO userRoleDTO){
-        return ResponseEntity.ok(userRoleService.deleteUserRoleForUser(userRoleDTO));
+    public ResponseEntity<Result> deleteUserRoleForUser(@RequestBody CrmUserRoleDTO userRoleDTO){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Xoá thành công",userRoleService.deleteUserRoleForUser(userRoleDTO)));
     };
 }

@@ -1,8 +1,11 @@
 package com.fis.crm.crm_entity.DTO;
 
+import com.fis.crm.crm_entity.CrmUserRole;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.Set;
 
 public class Crm_UserDTO {
     private Long userId;
@@ -22,10 +25,12 @@ public class Crm_UserDTO {
     @NotNull(message = "Trạng thái không được bỏ trống")
     private String status;
 
+    private Set<CrmUserRole> userRoles;
+
     public Crm_UserDTO() {
     }
 
-    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
+    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles) {
         this.userId = userId;
         this.username = username;
         this.fullName = fullName;
@@ -34,6 +39,7 @@ public class Crm_UserDTO {
         this.birthday = birthday;
         this.address = address;
         this.status = status;
+        this.userRoles = userRoles;
     }
 
     public Long getUserId() {
@@ -98,5 +104,13 @@ public class Crm_UserDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<CrmUserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<CrmUserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

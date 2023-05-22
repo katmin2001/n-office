@@ -11,6 +11,8 @@ import com.fis.crm.crm_repository.IUserRoleRepo;
 import com.fis.crm.crm_service.IRoleFuncService;
 import com.fis.crm.crm_service.IUserService;
 import com.fis.crm.crm_util.DtoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +40,7 @@ public class CrmUserServiceImpl implements IUserService {
     IUserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
+    private final Logger log = LoggerFactory.getLogger(CrmUserServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 
     @Override

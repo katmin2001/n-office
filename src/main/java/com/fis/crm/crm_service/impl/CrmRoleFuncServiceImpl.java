@@ -10,6 +10,9 @@ import com.fis.crm.crm_repository.IRoleFuncRepo;
 import com.fis.crm.crm_repository.IRoleRepo;
 import com.fis.crm.crm_service.IRoleFuncService;
 import com.fis.crm.crm_util.DtoMapper;
+import com.fis.crm.service.impl.TicketServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,7 @@ public class CrmRoleFuncServiceImpl implements IRoleFuncService {
     IRoleRepo roleRepo;
     @Autowired
     IFunctionRepo functionRepo;
+    private final Logger log = LoggerFactory.getLogger(CrmRoleFuncServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     @Override
     public Set<CrmRole> findRoleByFunc(Long funcId) {
@@ -57,7 +61,7 @@ public class CrmRoleFuncServiceImpl implements IRoleFuncService {
         }
         CrmFunction newFunc = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getNewFuncId());
         if (newFunc==null){
-            return null;
+            throw new NullPointerException();
         }
         if (crmRoleFunction!=null){
             crmRoleFunction.setFunction(newFunc);

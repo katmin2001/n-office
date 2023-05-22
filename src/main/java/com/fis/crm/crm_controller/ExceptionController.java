@@ -14,4 +14,9 @@ public class ExceptionController {
         return new Result("404","NOT FOUND","");
     }
 
+    @ExceptionHandler(Exception.class)
+    public Result exception(Exception e){
+        e.printStackTrace();
+        return new Result("500","Unknow error","");
+    }
 }

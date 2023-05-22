@@ -15,6 +15,7 @@ public class DtoMapper {
             userDTO.setBirthday(user.getBirthday());
             userDTO.setAddress(user.getAddress());
             userDTO.setStatus(user.getStatus());
+            userDTO.setUserRoles(user.getUserRoles());
         return userDTO;
     }
     public CrmRoleDTO roleDtoMapper(CrmRole role){
