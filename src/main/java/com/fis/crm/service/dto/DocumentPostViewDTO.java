@@ -7,7 +7,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.fis.crm.domain.DocumentPostView} entity.
  */
 public class DocumentPostViewDTO implements Serializable {
-    
+
     private Long id;
 
     private Long documentPostId;
@@ -16,7 +16,7 @@ public class DocumentPostViewDTO implements Serializable {
 
     private Instant createDatetime;
 
-    
+
     public Long getId() {
         return id;
     }

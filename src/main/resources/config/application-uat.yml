@@ -62,7 +62,7 @@ spring:
 
 server:
   host: 27.118.22.7
-  port: 4205
+  port: 8035
 
 # ===================================================================
 # JHipster specific properties

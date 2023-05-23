@@ -7,7 +7,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.fis.crm.domain.ProcessTicketEntity} entity.
  */
 public class ProcessTicketEntityDTO implements Serializable {
-    
+
     private Long id;
 
     private Long processTicketId;
@@ -26,7 +26,7 @@ public class ProcessTicketEntityDTO implements Serializable {
 
     private String status;
 
-    
+
     public Long getId() {
         return id;
     }
