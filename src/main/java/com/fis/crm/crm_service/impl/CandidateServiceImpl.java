@@ -50,7 +50,7 @@ public class CandidateServiceImpl implements CandidateService {
                 candidate.getCreateDate(),
                 interviewStatusDTO,
                 crmUserDTO
-                );
+            );
             candidateDTOS.add(candidateDTO);
         }
         return candidateDTOS;
@@ -140,7 +140,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public List<CandidateDTO> searchCandidate(SearchCandidateDTO searchCandidateDTO) {
-       List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
+        List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
@@ -167,5 +167,4 @@ public class CandidateServiceImpl implements CandidateService {
         }
         return candidateDTOS;
     }
-
 }

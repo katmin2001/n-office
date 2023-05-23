@@ -3,6 +3,7 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmTaskTimesheets;
 import com.fis.crm.crm_entity.DTO.TaskTimesheetsCreateDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
+import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.TaskTimesheetsRepo;
 import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_service.TaskService;
@@ -23,11 +24,14 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
 
     private final TaskTimesheetsRepo timesheetsRepo;
 
-    public TaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, TaskTimesheetsRepo timesheetsRepo) {
+    private final IUserRepo IUserRepo;
+
+    public TaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, TaskTimesheetsRepo timesheetsRepo, IUserRepo iUserRepo) {
         this.taskService = taskService;
         this.projectRepo = projectRepo;
         this.userService = userService;
         this.timesheetsRepo = timesheetsRepo;
+        this.IUserRepo = iUserRepo;
     }
 
     /**
@@ -48,7 +52,7 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
         timesheets.setTask(taskService.getTaskById(timesheetsCreateDTO.getTaskid()));
         timesheets.setDatetimesheets(timesheetsCreateDTO.getDatetimesheets());
         timesheets.setDescription(timesheetsCreateDTO.getDescription());
-        timesheets.setUser(userService.findByCrmUserId(timesheetsCreateDTO.getCreatorid()));
+        timesheets.setUser(IUserRepo.findById(timesheetsCreateDTO.getCreatorid()).orElseThrow(NullPointerException::new));
         timesheets.setDatecreated(new Date());
         return timesheetsRepo.save(timesheets);
     }

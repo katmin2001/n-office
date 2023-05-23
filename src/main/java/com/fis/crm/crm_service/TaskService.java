@@ -3,6 +3,7 @@ package com.fis.crm.crm_service;
 import com.fis.crm.crm_entity.CrmTask;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
+import com.fis.crm.crm_entity.DTO.TaskSearchDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,7 @@ public interface TaskService {
 
     public List<CrmTask> getTasksByProjectId(Long id);
 
-    public List<CrmTask> getTaskByStageId(Long stageId);
-
-    public List<CrmTask> getTasksByGivertaskId(Long userId);
-
-    public List<CrmTask> getTasksByReceivertaskId(Long userId);
-
-    public List<CrmTask> getTasksByStatus(Long status);
+    public List<TaskDTO> searchTasks(TaskSearchDTO taskSearchDTO);
 
     public CrmTask createTask(Long projectId, TaskCreateDTO createDTO);
 
