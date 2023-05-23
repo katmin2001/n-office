@@ -1,16 +1,13 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_USER", schema = "CRM_UAT", catalog = "")
-
-//@JsonIdentityInfo(
-//    generator = ObjectIdGenerators.PropertyGenerator.class,
-//    property = "userid")
+@Table(name = "CRM_USER")
 
 public class CrmUser {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_USER_SEQ_GEN")
@@ -19,7 +16,7 @@ public class CrmUser {
     @Column(name = "USERID")
     private Long userid;
     @Basic
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", unique = true)
     private String username;
     @Basic
     @Column(name = "PASSWORD")
@@ -45,17 +42,6 @@ public class CrmUser {
     @OneToMany(mappedBy = "user")
     private Set<CrmUserRole> userRoles;
 
-//    @OneToOne(mappedBy = "user")
-//    private CrmCandidate candidate;
-//    @OneToMany(mappedBy = "user")
-//    private Set<CrmInterviewDetail> interviewDetails;
-//
-//    //
-//    @OneToMany(mappedBy = "giverTask")
-//    private List<CrmTask> giverTask;
-//    @OneToMany(mappedBy = "receiverTask")
-//    private List<CrmTask> receiverTask;
-
     @OneToMany(mappedBy = "user")
     private Set<CrmCandidate> candidates;
     @ManyToMany(mappedBy = "users")
@@ -75,10 +61,6 @@ public class CrmUser {
         this.address = address;
         this.status = status;
         this.userRoles = userRoles;
-
-//        this.candidate = candidate;
-//        this.interviewDetails = interviewDetails;
-
         this.candidates = candidates;
 
     }
@@ -160,39 +142,6 @@ public class CrmUser {
     public void setUserRoles(Set<CrmUserRole> userRoles) {
         this.userRoles = userRoles;
     }
-
-
-//    public CrmCandidate getCandidate() {
-//        return candidate;
-//    }
-//
-//    public void setCandidate(CrmCandidate candidate) {
-//        this.candidate = candidate;
-//    }
-//
-//    public Set<CrmInterviewDetail> getInterviewDetails() {
-//        return interviewDetails;
-//    }
-//
-//    public void setInterviewDetails(Set<CrmInterviewDetail> interviewDetails) {
-//        this.interviewDetails = interviewDetails;
-//    }
-//
-//    public List<CrmTask> getGiverTask() {
-//        return giverTask;
-//    }
-//
-//    public void setGiverTask(List<CrmTask> giverTask) {
-//        this.giverTask = giverTask;
-//    }
-//
-//    public List<CrmTask> getReceiverTask() {
-//        return receiverTask;
-//    }
-//
-//    public void setReceiverTask(List<CrmTask> receiverTask) {
-//        this.receiverTask = receiverTask;
-//    }
 
     public Set<CrmCandidate> getCandidates() {
         return candidates;

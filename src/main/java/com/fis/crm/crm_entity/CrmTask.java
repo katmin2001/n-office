@@ -22,7 +22,6 @@ public class CrmTask {
     @OneToOne
     @JoinColumn(name = "GIVERTASKID")
     private CrmUser givertask;
-
     @OneToOne
     @JoinColumn(name = "RECEIVERTASKID")
     private CrmUser receivertask;

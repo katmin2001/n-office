@@ -8,8 +8,10 @@ import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
 import com.fis.crm.crm_repository.IFunctionRepo;
 import com.fis.crm.crm_repository.IRoleFuncRepo;
 import com.fis.crm.crm_repository.IRoleRepo;
-import com.fis.crm.crm_service.IRoleFuncService;
+import com.fis.crm.crm_service.CrmRoleFuncService;
 import com.fis.crm.crm_util.DtoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,14 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class CrmRoleFuncServiceImpl implements IRoleFuncService {
+public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
     @Autowired
     IRoleFuncRepo roleFuncRepo;
     @Autowired
     IRoleRepo roleRepo;
     @Autowired
     IFunctionRepo functionRepo;
+    private final Logger log = LoggerFactory.getLogger(CrmRoleFuncServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     @Override
     public Set<CrmRole> findRoleByFunc(Long funcId) {
@@ -57,7 +60,7 @@ public class CrmRoleFuncServiceImpl implements IRoleFuncService {
         }
         CrmFunction newFunc = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getNewFuncId());
         if (newFunc==null){
-            return null;
+            throw new NullPointerException();
         }
         if (crmRoleFunction!=null){
             crmRoleFunction.setFunction(newFunc);
