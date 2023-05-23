@@ -48,7 +48,7 @@ public class CrmUserServiceImpl implements CrmUserService {
         //kiem tra username da ton tai chua
         CrmUser user = IUserRepo.findCrmUserByUsername(userDTO.getUsername());
         if (user!=null){
-            return null;
+            throw new IllegalArgumentException();
         }
         CrmUser newUser = new CrmUser();
         String encryptPassword = passwordEncoder.encode(password);

@@ -39,7 +39,7 @@ public class CrmUser {
     @Basic
     @Column(name = "STATUS")
     private String status;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<CrmUserRole> userRoles;
 
     @OneToMany(mappedBy = "user")

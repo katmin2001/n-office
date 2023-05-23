@@ -48,7 +48,10 @@ public class DtoMapper {
         roleFuncDTO.setFuncName(roleFunction.getFunction().getFuncname());
         return roleFuncDTO;
     }
-
-
-
+    public CrmUserRoleDTO userRoleDTOMapper1(CrmUserRole userRole){
+        CrmUserRoleDTO userRoleDTO = new CrmUserRoleDTO();
+        userRoleDTO.setRoleId(userRole.getRole().getRoleid());
+        userRoleDTO.setRoleName(userRole.getRole().getRolename());
+        return userRoleDTO;
+    }
 }

@@ -31,37 +31,36 @@ public class InterviewServiceImpl implements InterviewService{
 
     @Override
     public List<InterviewDTO> getAllInterview() {
-//        List<CrmInterview> crmInterviews = interviewRepo.findAll();
-//        List<InterviewDTO> interviewDTOS = new ArrayList<>();
-//        for(CrmInterview interview: crmInterviews){
-//            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
-//            Set<CrmUser> crmUsers = interview.getUsers();
-//            for (CrmUser crmUser: crmUsers){
-//                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
-//                    crmUser.getUserid(),
-//                    crmUser.getUsername(),
-//                    crmUser.getFullname(),
-//                    crmUser.getCreatedate(),
-//                    crmUser.getPhone(),
-//                    crmUser.getBirthday(),
-//                    crmUser.getAddress(),
-//                    crmUser.getStatus()
-//                );
-//                crmUserDTOS.add(crmUserDTO);
-//            }
-//            InterviewDTO interviewDTO = new InterviewDTO(
-//                interview.getInterviewid(),
-//                interview.getInterviewDate(),
-//                interview.getStatus(),
-//                interview.getCreateDate(),
-//                interview.getCandidate().getFullname(),
-//                interview.getInterviewStatus().getStatusName(),
-//                crmUserDTOS
-//            );
-//            interviewDTOS.add(interviewDTO);
-//        }
-//        return interviewDTOS;
-        return null;
+        List<CrmInterview> crmInterviews = interviewRepo.findAll();
+        List<InterviewDTO> interviewDTOS = new ArrayList<>();
+        for(CrmInterview interview: crmInterviews){
+            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+            Set<CrmUser> crmUsers = interview.getUsers();
+            for (CrmUser crmUser: crmUsers){
+                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                    crmUser.getUserid(),
+                    crmUser.getUsername(),
+                    crmUser.getFullname(),
+                    crmUser.getCreatedate(),
+                    crmUser.getPhone(),
+                    crmUser.getBirthday(),
+                    crmUser.getAddress(),
+                    crmUser.getStatus()
+                );
+                crmUserDTOS.add(crmUserDTO);
+            }
+            InterviewDTO interviewDTO = new InterviewDTO(
+                interview.getInterviewid(),
+                interview.getInterviewDate(),
+                interview.getStatus(),
+                interview.getCreateDate(),
+                interview.getCandidate().getFullname(),
+                interview.getInterviewStatus().getStatusName(),
+                crmUserDTOS
+            );
+            interviewDTOS.add(interviewDTO);
+        }
+        return interviewDTOS;
     }
 
     @Override

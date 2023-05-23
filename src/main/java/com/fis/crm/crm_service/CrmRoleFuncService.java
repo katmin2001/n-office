@@ -20,6 +20,6 @@ public interface CrmRoleFuncService {
     public List<CrmRoleFuncDTO> findFuncByRoleId(Long roleId);                              //xong
     public List<CrmRoleFuncDTO> findRoleByFuncId(Long funcId);                              //XONG
     public List<CrmRoleFuncDTO > getAllRoleFunc();                                          //xong
-    public List<CrmRoleFunction> testGetAll();
+
 
 }

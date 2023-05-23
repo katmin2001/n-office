@@ -22,13 +22,20 @@ public class CrmUserController {
 
 
     @GetMapping("/get-all-users")
-    public List<Crm_UserDTO> findAllUserDto(){
-        return userService.findAllUserDto();
+    public ResponseEntity<Result>  findAllUserDto(){
+        return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Result("OK","Tìm kiếm thành công",userService.findAllUserDto()));
     };
 
     @PostMapping("/find-user")
-    public ResponseEntity<List<Crm_UserDTO>>  findUserDto(@RequestBody Crm_UserDTO crmUser){
-        return ResponseEntity.ok(userService.findUserDto(crmUser)) ;
+    public ResponseEntity<Result>  findUserDto(@RequestBody Crm_UserDTO crmUser){
+        List<Crm_UserDTO> list = userService.findUserDto(crmUser);
+        if (list.size()==0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Result("NOT_FOUND","Không tồn tại đối tượng cần tìm",""));
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Result("OK","Tìm kiếm thành công",list));
     }
 
     @PostMapping("/register-user")

@@ -47,7 +47,7 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         }
         CrmRole newRole = roleRepo.findCrmRoleByRoleid(newRoleForUser.getNewRoleId());
         if (newRole==null){
-            return null;
+            throw new NullPointerException();
         }
         userRole.setRole(newRole);
         return userRoleRepo.save(userRole);
@@ -61,9 +61,9 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         CrmRole role = roleRepo.findCrmRoleByRoleid(userRoleDTO.getRoleId());
         //tìm userrole theo user và role
         CrmUserRole userRole = userRoleRepo.findCrmUserRoleByRoleAndUser(user,role);
-        //nếu userrole đã tồn tại => return null
+        //nếu userrole đã tồn tại => return báo lỗi
         if (userRole!= null){
-            return null;
+            throw new IllegalArgumentException();
         }
         //nếu không tồn tại thì tao mới 1 đối tươnng userrole, gán dữ liệu user và role cho newuserrole và lưu
         CrmUserRole newUserRole = new CrmUserRole();
@@ -83,7 +83,7 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         if (userRole!=null){
             userRoleRepo.delete(userRole);
         }
-        return null;
+        throw new NullPointerException();
     }
 
     @Override

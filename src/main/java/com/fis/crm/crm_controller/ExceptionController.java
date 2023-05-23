@@ -41,4 +41,10 @@ public class ExceptionController {
         e.printStackTrace();
         return new Result("400","Lỗi khi truy vấn dữ liệu","");
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result illegalArgument(Exception e){
+        e.printStackTrace();
+        return new Result("400","Đối tượng đã tồn tại","");
+    }
 }

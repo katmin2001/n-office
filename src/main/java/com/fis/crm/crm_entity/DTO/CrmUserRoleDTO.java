@@ -18,6 +18,10 @@ public class CrmUserRoleDTO {
         this.roleName = roleName;
     }
 
+    public CrmUserRoleDTO(Long roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+    }
     public CrmUserRoleDTO(Long id, Long userId, Long roleId) {
         this.id = id;
         this.userId = userId;

@@ -76,10 +76,11 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
         CrmFunction function = functionRepo.findCrmFunctionByFuncId(roleFuncDTO.getFuncId());
         //tìm rolefunc theo role và func vừa tìm đc
         CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
+
         if (crmRoleFunction!=null){
             roleFuncRepo.delete(crmRoleFunction);
         }
-        return null;
+        throw new NullPointerException();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
         //tìm rolefunc theo role và func vừa tìm đc
         CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
         if (crmRoleFunction!=null){
-            return null;
+            throw new IllegalArgumentException();
         }
         //nếu rolefunc không tồn tại thì tạo mới 1 đối tượng rolefunc gán giá trị của role và func vào và lưu mới
         CrmRoleFunction newRoleFunc = new CrmRoleFunction();
@@ -132,8 +133,4 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
         return dtoList;
     }
 
-    @Override
-    public List<CrmRoleFunction> testGetAll() {
-        return roleFuncRepo.findAll();
-    }
 }

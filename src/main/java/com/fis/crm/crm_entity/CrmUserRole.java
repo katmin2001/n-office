@@ -11,10 +11,10 @@ public class CrmUserRole {
     @Id
     @Column(name = "URID")
     private Long urid;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USERID")
     private CrmUser user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLEID")
     private CrmRole role;
 
