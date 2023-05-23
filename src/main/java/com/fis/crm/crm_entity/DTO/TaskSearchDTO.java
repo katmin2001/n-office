@@ -7,8 +7,8 @@ public class TaskSearchDTO {
     private String statusname;
     private String givertaskname;
     private String receivertaskname;
-    private String stagename;
     private String projectname;
+    private String taskProcess;
 
     public String getTaskname() {
         return taskname;
@@ -42,19 +42,19 @@ public class TaskSearchDTO {
         this.receivertaskname = receivertaskname;
     }
 
-    public String getStagename() {
-        return stagename;
-    }
-
-    public void setStagename(String stagename) {
-        this.stagename = stagename;
-    }
-
     public String getProjectname() {
         return projectname;
     }
 
     public void setProjectname(String projectname) {
         this.projectname = projectname;
+    }
+
+    public String getTaskProcess() {
+        return taskProcess;
+    }
+
+    public void setTaskProcess(String taskProcess) {
+        this.taskProcess = taskProcess;
     }
 }

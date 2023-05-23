@@ -35,10 +35,6 @@ public class TaskMapper {
             dto.setReceivertaskname(crmTask.getReceivertask().getFullname());
         }
 
-        if (crmTask.getStage() != null) {
-            dto.setStagename(crmTask.getStage().getName());
-            dto.setStageid(crmTask.getStage().getId());
-        }
         return dto;
     }
 

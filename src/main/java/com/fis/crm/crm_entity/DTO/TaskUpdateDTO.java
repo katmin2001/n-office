@@ -9,7 +9,6 @@ public class TaskUpdateDTO {
     private Long receivertaskid;
     private Date startdate;
     private Date enddate;
-    private Long stageid;
     private Long projecid;
 
     public TaskUpdateDTO() {
@@ -54,14 +53,6 @@ public class TaskUpdateDTO {
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
-    }
-
-    public Long getStageid() {
-        return stageid;
-    }
-
-    public void setStageid(Long stageid) {
-        this.stageid = stageid;
     }
 
     public Long getProjecid() {

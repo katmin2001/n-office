@@ -19,21 +19,21 @@ public interface TaskRepo extends JpaRepository<CrmTask, Long> {
         "         LEFT JOIN CRM_PROJECT CP ON t.PROJECTID = CP.ID\n" +
         "         LEFT JOIN CRM_TASK_STATUS CTS ON CTS.STATUSCODE = t.STATUSCODE\n" +
         "         LEFT JOIN CRM_USER U ON U.USERID = t.GIVERTASKID AND U.USERID = t.RECEIVERTASKID\n" +
-        "         LEFT JOIN CRM_STAGE CS ON CP.ID = CS.PROJECT_ID\n" +
         "WHERE (:taskname IS NULL OR lower(t.taskname) LIKE '%' || lower(:taskname) || '%')\n" +
         "  AND (:statusname IS NULL OR lower(CTS.STATUSNAME) LIKE '%' || lower(:statusname) || '%')\n" +
         "  AND (:givertaskname IS NULL OR lower(U.fullname) LIKE '%' || lower(:givertaskname) || '%')\n" +
         "  AND (:receivertaskname IS NULL OR lower(U.fullname) LIKE '%' || lower(:receivertaskname) || '%')\n" +
-        "  AND (:stagename IS NULL OR lower(CS.name) LIKE '%' || lower(:stagename) || '%')\n" +
-        "  AND (:projectname IS NULL OR lower(CP.name) LIKE '%' || lower(:projectname) || '%')",
+        "  AND (:projectname IS NULL OR lower(CP.name) LIKE '%' || lower(:projectname) || '%')\n" +
+        "  AND ((:taskProcess IS NULL)\n" +
+        "  OR (lower(:taskProcess) = 'trong hạn' AND T.STARTDATE >= CURRENT_DATE)\n" +
+        "  OR (lower(:taskProcess) = 'quá hạn' AND T.ENDDATE < CURRENT_DATE))",
         nativeQuery = true)
     List<CrmTask> findTaskByKeyword(@Param("taskname") String taskname,
-                             @Param("statusname") String statusname,
-                             @Param("givertaskname") String givertaskname,
-                             @Param("receivertaskname") String receivertaskname,
-                             @Param("stagename") String stagename,
-                             @Param("projectname") String projectname);
-
+                                    @Param("statusname") String statusname,
+                                    @Param("givertaskname") String givertaskname,
+                                    @Param("receivertaskname") String receivertaskname,
+                                    @Param("projectname") String projectname,
+                                    @Param("taskProcess") String taskProcess);
     @Query("SELECT t FROM CrmTask t WHERE t.taskid = :taskid")
     CrmTask findByTaskId(@Param("taskid") Long taskid);
 }

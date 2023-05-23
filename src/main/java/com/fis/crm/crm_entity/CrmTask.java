@@ -33,9 +33,6 @@ public class CrmTask {
     @OneToOne
     @JoinColumn(name = "statuscode")
     private CrmTaskStatus status;
-    @OneToOne
-    @JoinColumn(name = "stageid")
-    private CrmStage stage;
 
     public  CrmTask() {
     }
@@ -106,11 +103,4 @@ public class CrmTask {
         this.status = status;
     }
 
-    public CrmStage getStage() {
-        return stage;
-    }
-
-    public void setStage(CrmStage stage) {
-        this.stage = stage;
-    }
 }
