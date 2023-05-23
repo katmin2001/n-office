@@ -3,6 +3,8 @@ package com.fis.crm.crm_service;
 import com.fis.crm.crm_entity.CrmProject;
 import com.fis.crm.crm_entity.CrmProjectRequest;
 import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
+import com.fis.crm.crm_entity.DTO.CrmProjectSearchDTO;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,5 +24,5 @@ public interface CrmProjectService {
     public CrmProjectRequest createProject(CrmProjectRequest newProject);
     public CrmProjectRequest updateProjectById(Long projectId, CrmProjectRequest project);
 
-    public CrmProject searchProject(CrmProjectRequest projectRequest);
+    public List<CrmProjectDTO> searchProject(CrmProjectSearchDTO keyword);
 }

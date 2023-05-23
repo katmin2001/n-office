@@ -3,6 +3,7 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmProject;
 import com.fis.crm.crm_entity.CrmProjectRequest;
 import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
+import com.fis.crm.crm_entity.DTO.CrmProjectSearchDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
 import com.fis.crm.crm_repository.CrmProjectRequestRepo;
 import com.fis.crm.crm_service.CrmProjectService;
@@ -10,7 +11,9 @@ import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ public class CrmProjectServiceImpl implements CrmProjectService {
     final CrmProjectRequestRepo projectRequestRepo;
 
     final DtoMapper dtoMapper = new DtoMapper();
+
     public CrmProjectServiceImpl(CrmProjectRepo projectRepo, CrmProjectRequestRepo projectRequestRepo) {
         this.projectRepo = projectRepo;
         this.projectRequestRepo = projectRequestRepo;
@@ -92,7 +96,19 @@ public class CrmProjectServiceImpl implements CrmProjectService {
     }
 
     @Override
-    public CrmProject searchProject(CrmProjectRequest projectRequest) {
-        return null;
+    public List<CrmProjectDTO> searchProject(CrmProjectSearchDTO keyword) {
+        List<CrmProject> projects = projectRepo.searchProjects(
+            keyword.getProjectCode(),
+            keyword.getProjectName(),
+            keyword.getProjectStatus(),
+            keyword.getProjectProcess(),
+            keyword.getManagerName(),
+            keyword.getMemberName()
+        );
+        List<CrmProjectDTO> result = new ArrayList<>();
+        for (CrmProject project : projects) {
+            result.add(dtoMapper.projectDTOMapper(project));
+        }
+        return result;
     }
 }

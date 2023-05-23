@@ -3,6 +3,7 @@ package com.fis.crm.crm_controller;
 import com.fis.crm.crm_entity.CrmProject;
 import com.fis.crm.crm_entity.CrmProjectRequest;
 import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
+import com.fis.crm.crm_entity.DTO.CrmProjectSearchDTO;
 import com.fis.crm.crm_service.CrmProjectService;
 import com.fis.crm.crm_service.impl.CrmProjectServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -54,5 +55,10 @@ public class CrmProjectController {
     @PutMapping("/{projectId}")
     public CrmProjectRequest updateProject(@PathVariable Long projectId, @RequestBody CrmProjectRequest projectUpdate) {
         return crmProjectService.updateProjectById(projectId, projectUpdate);
+    }
+
+    @PostMapping("/search")
+    public List<CrmProjectDTO > searchProject(@RequestBody CrmProjectSearchDTO keyword) {
+        return crmProjectService.searchProject(keyword);
     }
 }
