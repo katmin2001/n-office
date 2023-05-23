@@ -3,17 +3,17 @@ package com.fis.crm.crm_entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CRM_ROLE_FUNCTION", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_ROLE_FUNCTION")
 public class CrmRoleFunction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_ROLE_FUNC_SEQ_GEN")
-    @SequenceGenerator(name = "CRM_ROLE_FUNC_SEQ_GEN", sequenceName = "CRM_ROLE_FUNC_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "CRM_ROLE_FUNC_SEQ_GEN", sequenceName = "CRM_ROLE_FUNCTION_SEQ", allocationSize = 1)
     @Id
     @Column(name = "RFID")
     private Long rfid;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLEID", referencedColumnName = "ROLEID")
     private CrmRole role;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FUNCID", referencedColumnName = "FUNCID")
     private CrmFunction function;
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_FUNCTION", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_FUNCTION")
 public class CrmFunction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_FUNC_SEQ_GEN")
     @SequenceGenerator(name = "CRM_FUNC_SEQ_GEN", sequenceName = "CRM_FUNC_SEQ", allocationSize = 1)
@@ -14,7 +14,7 @@ public class CrmFunction {
     @Basic
     @Column(name = "FUNCNAME")
     private String funcname;
-    @OneToMany(mappedBy = "function",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "function")
     private Set<CrmRoleFunction> funcRoles;
 
     public CrmFunction() {

@@ -12,23 +12,24 @@ import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
 import com.fis.crm.crm_util.TaskMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepo taskRepo;
     private final IUserService userService;
     private final TaskStatusService statusService;
+    private final IUserRepo IUserRepo;
 
-    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService) {
+    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService, IUserRepo iUserRepo) {
         this.taskRepo = taskRepo;
         this.userService = userService;
         this.statusService = statusService;
+        this.IUserRepo = iUserRepo;
     }
 
     @Override
@@ -38,7 +39,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public CrmTask getTaskById(Long taskId) {
-        return taskRepo.findById(taskId).get();
+        CrmTask task = taskRepo.findByTaskId(taskId);
+        return task;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class TaskServiceImpl implements TaskService {
         String receivertaskname = taskSearchDTO.getReceivertaskname();
         String stagename = taskSearchDTO.getStagename();
         String projectname = taskSearchDTO.getProjectname();
-        List<CrmTask> taskList = taskRepo.searchTask(taskname, statusname, givertaskname, receivertaskname, stagename, projectname);
+        List<CrmTask> taskList = taskRepo.findTaskByKeyword(taskname, statusname, givertaskname, receivertaskname, stagename, projectname);
         List<TaskDTO> taskDTOList = new ArrayList<>();
 
         for (CrmTask crmTask : taskList) {
@@ -68,23 +70,14 @@ public class TaskServiceImpl implements TaskService {
         return taskDTOList;
     }
 
-    /**
-     * @param name
-     * @return
-     */
-    @Override
-    public List<CrmTask> searchTasksByName(String name) {
-        return taskRepo.searchTaskByName(name);
-    }
-
     @Override
     @Transactional
     public CrmTask createTask(Long projectId, TaskCreateDTO createDTO) {
         createDTO.setProjecid(projectId);
         CrmTask task = new CrmTask();
         task.setTaskname(createDTO.getTaskname());
-        task.setGivertask(userService.findByCrmUserId(createDTO.getGivertaskid()).orElse(null));
-        task.setReceivertask(userService.findByCrmUserId(createDTO.getReceivertaskid()).orElse(null));
+        task.setGivertask(IUserRepo.findById(createDTO.getReceivertaskid()).orElseThrow(NullPointerException::new));
+        task.setReceivertask(IUserRepo.findById(createDTO.getGivertaskid()).orElseThrow(NullPointerException::new));
         task.setStartdate(createDTO.getStartdate());
         task.setEnddate(createDTO.getEnddate());
         task.setStatus(statusService.getStatusCode(createDTO.getStatuscode()));

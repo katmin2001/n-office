@@ -20,8 +20,6 @@ public interface TaskService {
 
     public List<TaskDTO> searchTasks(TaskSearchDTO taskSearchDTO);
 
-    public  List<CrmTask> searchTasksByName(String name);
-
     public CrmTask createTask(Long projectId, TaskCreateDTO createDTO);
 
     public CrmTask updateTask(CrmTask task);

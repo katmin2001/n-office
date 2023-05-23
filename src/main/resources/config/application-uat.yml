@@ -22,6 +22,8 @@ logging:
   file:
     name: ../logs/crm_app.log
 spring:
+  #  jpa:
+  #    show-sql: true
   devtools:
     restart:
       enabled: true

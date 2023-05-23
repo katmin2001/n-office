@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CRM_TASK", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_TASK")
 public class CrmTask {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_TASK_SEQ_GEN")
     @SequenceGenerator(name = "CRM_TASK_SEQ_GEN", sequenceName = "CRM_TASK_SEQ", allocationSize = 1)

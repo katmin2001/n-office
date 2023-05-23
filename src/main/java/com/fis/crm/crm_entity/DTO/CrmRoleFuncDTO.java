@@ -1,27 +1,27 @@
 package com.fis.crm.crm_entity.DTO;
 
-public class CrmUserRoleDTO {
+public class CrmRoleFuncDTO {
     private Long id;
-    private Long userId;
     private Long roleId;
-    private String fullName;
+    private Long funcId;
     private String roleName;
+    private String funcName;
 
-    public CrmUserRoleDTO() {
+    public CrmRoleFuncDTO() {
     }
 
-    public CrmUserRoleDTO(Long id, Long userId, Long roleId, String fullName, String roleName) {
+    public CrmRoleFuncDTO(Long id, Long roleId, String roleName,  Long funcId,  String funcName) {
         this.id = id;
-        this.userId = userId;
         this.roleId = roleId;
-        this.fullName = fullName;
+        this.funcId = funcId;
         this.roleName = roleName;
+        this.funcName = funcName;
     }
 
-    public CrmUserRoleDTO(Long id, Long userId, Long roleId) {
+    public CrmRoleFuncDTO(Long id, Long roleId, Long funcId) {
         this.id = id;
-        this.userId = userId;
         this.roleId = roleId;
+        this.funcId = funcId;
     }
 
     public Long getId() {
@@ -32,14 +32,6 @@ public class CrmUserRoleDTO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Long getRoleId() {
         return roleId;
     }
@@ -48,12 +40,12 @@ public class CrmUserRoleDTO {
         this.roleId = roleId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Long getFuncId() {
+        return funcId;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFuncId(Long funcId) {
+        this.funcId = funcId;
     }
 
     public String getRoleName() {
@@ -62,5 +54,13 @@ public class CrmUserRoleDTO {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public String getFuncName() {
+        return funcName;
+    }
+
+    public void setFuncName(String funcName) {
+        this.funcName = funcName;
     }
 }

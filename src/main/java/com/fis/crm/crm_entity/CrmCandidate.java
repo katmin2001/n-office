@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Optional;
 @Entity
-@Table(name = "CRM_CANDIDATE", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_CANDIDATE")
 @JsonIdentityInfo(
     generator = ObjectIdGenerators.PropertyGenerator.class,
     property = "candidateid")

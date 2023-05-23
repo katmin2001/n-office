@@ -10,6 +10,8 @@ import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.IUserRoleRepo;
 import com.fis.crm.crm_service.IUserRoleService;
 import com.fis.crm.crm_util.DtoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class CrmUserRoleServiceImpl implements IUserRoleService {
     IUserRepo userRepo;
     @Autowired
     IRoleRepo roleRepo;
+    private final Logger log = LoggerFactory.getLogger(CrmUserRoleServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 
     @Override

@@ -2,10 +2,12 @@ package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.DTO.CrmRoleDTO;
+import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_service.IRoleService;
 import oracle.jdbc.proxy.annotation.Pre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +21,22 @@ public class RoleController {
     @Autowired
     private IRoleService roleService;
     @PostMapping("/register-role")
-    public ResponseEntity<CrmRole>  registerRole(@RequestBody CrmRoleDTO role){
-        return ResponseEntity.ok(roleService.registerRole(role));
+    public ResponseEntity<Result>  registerRole(@RequestBody CrmRoleDTO role){
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(new Result("OK","Khởi tạo thành công",roleService.registerRole(role)));
     }
 
     @GetMapping("/get-all-roles")
-    public ResponseEntity<List<CrmRoleDTO>> getAllRoles(){
-        return ResponseEntity.ok(roleService.getAllRoles());
+    public ResponseEntity<Result> getAllRoles(){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Tim kiếm thành công",roleService.getAllRoles()));
     };
 
     @DeleteMapping("/delete-role-by-rolename")
-    public void deleteRoleByRoleName(@RequestBody CrmRoleDTO roleDTO){
+    public ResponseEntity<Result> deleteRoleByRoleName(@RequestBody CrmRoleDTO roleDTO){
         roleService.deleteRoleByRoleName(roleDTO);
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Xoá thành công",""));
+
     }
 }
