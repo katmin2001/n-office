@@ -5,7 +5,7 @@ import com.fis.crm.crm_entity.DTO.TaskTimesheetsCreateDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.TaskTimesheetsRepo;
-import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskTimesheetsService;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
 
     private final CrmProjectRepo projectRepo;
 
-    private final IUserService userService;
+    private final CrmUserService userService;
 
     private final TaskTimesheetsRepo timesheetsRepo;
 

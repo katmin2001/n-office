@@ -4,21 +4,19 @@ import com.fis.crm.crm_entity.CrmRoleFunction;
 import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
-import com.fis.crm.crm_service.IRoleFuncService;
+import com.fis.crm.crm_service.CrmRoleFuncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/role-func")
 public class RoleFuncController {
     @Qualifier("crmRoleFuncServiceImpl")
     @Autowired
-    private IRoleFuncService roleFuncService;
+    private CrmRoleFuncService roleFuncService;
 
     @GetMapping("/get-all-user-role")
     public ResponseEntity<Result>  getAllRoleFunc(){

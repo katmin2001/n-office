@@ -166,7 +166,5 @@ public class CandidateServiceImpl implements CandidateService {
             candidateDTOS.add(candidateDTO);
         }
         return candidateDTOS;
-        return null;
     }
-
 }

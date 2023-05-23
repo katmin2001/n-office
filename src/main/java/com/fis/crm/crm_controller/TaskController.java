@@ -7,7 +7,6 @@ import com.fis.crm.crm_entity.DTO.TaskSearchDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
 import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_service.IUserService;
 import com.fis.crm.crm_service.TaskHistoryService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
@@ -118,7 +117,6 @@ public class TaskController {
         if (statusService.getStatusCode(taskUpdate.getStatuscode()) != null) {
             existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
         }
-
         if (IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null) != null) {
             existingTask.setReceivertask(IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null));
         }

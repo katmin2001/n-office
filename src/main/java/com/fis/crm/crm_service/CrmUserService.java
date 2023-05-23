@@ -1,15 +1,13 @@
 package com.fis.crm.crm_service;
 
 import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 
-public interface IUserService {
+public interface CrmUserService {
     public CrmUser registerUser(Crm_UserDTO userDTO, String password);          //xong da test
     public CrmUser updateCrmUser(Long userId, CrmUser user);                    //xong  da test => chua hop li
     public Crm_UserDTO  findByCrmUserId(Long userId);                           //xong  da test
