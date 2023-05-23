@@ -1,6 +1,8 @@
 package com.fis.crm.crm_service;
 
 import com.fis.crm.crm_entity.CrmProject;
+import com.fis.crm.crm_entity.CrmProjectRequest;
+import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +16,11 @@ public interface CrmProjectService {
 
     public Optional<CrmProject> getProjectById(Long projectId);
 
-    public List<CrmProject> getProjectsByManagerId(Long managerId);
-    public List<CrmProject> getProjectsByCustomerId(Long customerId);
+    public List<CrmProjectDTO> getProjectsByManagerId(Long managerId);
+    public List<CrmProjectDTO> getProjectsByCustomerId(Long customerId);
     public CrmProject getProjectsByCode(String projectCode);
+    public CrmProjectRequest createProject(CrmProjectRequest newProject);
+    public CrmProjectRequest updateProjectById(Long projectId, CrmProjectRequest project);
+
+    public CrmProject searchProject(CrmProjectRequest projectRequest);
 }
