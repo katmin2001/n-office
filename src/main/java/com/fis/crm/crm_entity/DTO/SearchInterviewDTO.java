@@ -1,7 +1,7 @@
 package com.fis.crm.crm_entity.DTO;
 
 
-public class SearchInterviewDTO {
+public class    SearchInterviewDTO {
     private String startDay;
     private String endDay;
     private String ISID;

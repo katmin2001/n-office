@@ -1,10 +1,7 @@
 package com.fis.crm.crm_service;
 
 import com.fis.crm.crm_entity.CrmInterview;
-import com.fis.crm.crm_entity.DTO.InterviewDTO;
-import com.fis.crm.crm_entity.DTO.InterviewRequestDTO;
-import com.fis.crm.crm_entity.DTO.InterviewStatusDTO;
-import com.fis.crm.crm_entity.DTO.SearchInterviewDTO;
+import com.fis.crm.crm_entity.DTO.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +9,11 @@ import java.util.Optional;
 public interface InterviewService {
     public List<InterviewDTO> getAllInterview();
     public InterviewDTO getInterviewById(Long interviewId);
-    public CrmInterview addInterview(InterviewRequestDTO interview);
-    public CrmInterview updateInterview(InterviewRequestDTO interview, Long interviewId);
-    public CrmInterview addInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId);
-    public CrmInterview deleteInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId);
-    public CrmInterview deleteInterview(Long interviewId);
-    public CrmInterview updateStatusInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId);
-    public List<InterviewDTO> searchInterview(SearchInterviewDTO searchInterviewDTO);
+    public Result addInterview(InterviewRequestDTO interview);
+    public Result updateInterview(InterviewRequestDTO interview, Long interviewId);
+    public Result addInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId);
+    public Result deleteInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId);
+    public Result deleteInterview(Long interviewId);
+    public Result updateStatusInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId);
+    public Result searchInterview(SearchInterviewDTO searchInterviewDTO);
 }
