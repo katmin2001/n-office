@@ -4,8 +4,18 @@ public class CrmUserRoleDTO {
     private Long id;
     private Long userId;
     private Long roleId;
+    private String fullName;
+    private String roleName;
 
     public CrmUserRoleDTO() {
+    }
+
+    public CrmUserRoleDTO(Long id, Long userId, Long roleId, String fullName, String roleName) {
+        this.id = id;
+        this.userId = userId;
+        this.roleId = roleId;
+        this.fullName = fullName;
+        this.roleName = roleName;
     }
 
     public CrmUserRoleDTO(Long id, Long userId, Long roleId) {
@@ -38,4 +48,19 @@ public class CrmUserRoleDTO {
         this.roleId = roleId;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }

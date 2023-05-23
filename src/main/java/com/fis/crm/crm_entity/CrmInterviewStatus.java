@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_INTERVIEW_STATUS", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_INTERVIEW_STATUS")
 public class CrmInterviewStatus {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "crm_interview_status_Sequence")
     @SequenceGenerator(name = "crm_interview_status_Sequence", sequenceName = "CRM_INTERVIEW_STATUS_SEQ", allocationSize = 1)

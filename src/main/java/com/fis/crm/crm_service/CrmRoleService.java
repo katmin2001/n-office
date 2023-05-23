@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public interface IRoleService {
+public interface CrmRoleService {
     public CrmRole registerRole(CrmRoleDTO role);               //xong      da test
     public List<CrmRoleDTO> getAllRoles();                      //xong      da test
     public void deleteRoleByRoleName(CrmRoleDTO roleDTO);          //xong      da test

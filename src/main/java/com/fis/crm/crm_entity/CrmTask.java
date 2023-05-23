@@ -1,54 +1,43 @@
 package com.fis.crm.crm_entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CRM_TASK", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_TASK")
 public class CrmTask {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_TASK_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_TASK_SEQ_GEN", sequenceName = "CRM_TASK_SEQ", allocationSize = 1)
     @Id
-    @Column(name = "TASKID", nullable = false)
+    @Column(name = "TASKID")
     private Long taskid;
-
     @Column(name = "TASKNAME")
     private String taskname;
 
+    @OneToOne
+    @JoinColumn(name = "projectid")
+    private CrmProject project;
+    @OneToOne
+    @JoinColumn(name = "GIVERTASKID")
+    private CrmUser givertask;
+    @OneToOne
+    @JoinColumn(name = "RECEIVERTASKID")
+    private CrmUser receivertask;
     @Column(name = "STARTDATE")
     private Date startdate;
-
     @Column(name = "ENDDATE")
     private Date enddate;
 
     @OneToOne
     @JoinColumn(name = "statuscode")
-    private CrmTaskStatus taskStatus;
-    @ManyToOne
-    @JoinColumn(name = "givertaskid")
-    private CrmUser giverTask;
-    @ManyToOne
-    @JoinColumn(name = "receivertaskid")
-    private CrmUser receiverTask;
-    @ManyToOne
+    private CrmTaskStatus status;
+    @OneToOne
     @JoinColumn(name = "stageid")
-    private CrmStage taskStage;
-    @ManyToOne
-    @JoinColumn(name = "projectid")
-    private CrmProject projectTask;
-
-    @OneToMany(mappedBy = "taskHistory")
-    private List<CrmTaskHistory> taskHistories;
+    private CrmStage stage;
 
     public  CrmTask() {
-    }
-
-    public CrmTask(Long taskid, String taskname, Date startdate, Date enddate) {
-        this.taskid = taskid;
-        this.taskname = taskname;
-        this.startdate = startdate;
-        this.enddate = enddate;
     }
 
     public Long getTaskid() {
@@ -67,6 +56,8 @@ public class CrmTask {
         this.taskname = taskname;
     }
 
+
+
     public Date getStartdate() {
         return startdate;
     }
@@ -83,43 +74,43 @@ public class CrmTask {
         this.enddate = enddate;
     }
 
-    public CrmTaskStatus getTaskStatus() {
-        return taskStatus;
+    public CrmProject getProject() {
+        return project;
     }
 
-    public void setTaskStatus(CrmTaskStatus taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setProject(CrmProject project) {
+        this.project = project;
     }
 
-    public CrmUser getGiverTask() {
-        return giverTask;
+    public CrmUser getGivertask() {
+        return givertask;
     }
 
-    public void setGiverTask(CrmUser giverTask) {
-        this.giverTask = giverTask;
+    public void setGivertask(CrmUser givertask) {
+        this.givertask = givertask;
     }
 
-    public CrmUser getReceiverTask() {
-        return receiverTask;
+    public CrmUser getReceivertask() {
+        return receivertask;
     }
 
-    public void setReceiverTask(CrmUser receiverTask) {
-        this.receiverTask = receiverTask;
+    public void setReceivertask(CrmUser receivertask) {
+        this.receivertask = receivertask;
     }
 
-    public CrmStage getTaskStage() {
-        return taskStage;
+    public CrmTaskStatus getStatus() {
+        return status;
     }
 
-    public void setTaskStage(CrmStage taskStage) {
-        this.taskStage = taskStage;
+    public void setStatus(CrmTaskStatus status) {
+        this.status = status;
     }
 
-    public CrmProject getProjectTask() {
-        return projectTask;
+    public CrmStage getStage() {
+        return stage;
     }
 
-    public void setProjectTask(CrmProject projectTask) {
-        this.projectTask = projectTask;
+    public void setStage(CrmStage stage) {
+        this.stage = stage;
     }
 }

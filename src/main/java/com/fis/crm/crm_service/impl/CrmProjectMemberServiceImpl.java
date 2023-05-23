@@ -34,7 +34,7 @@ public class CrmProjectMemberServiceImpl implements CrmProjectMemberService {
         List<CrmProjectMember> projectMembers = projectMemberRepo.findAllByProjectId(projectId);
         CrmProjectMemberMDTO result = new CrmProjectMemberMDTO();
         for (CrmProjectMember projectMember : projectMembers) {
-            result.getMembers().add(dtoMapper.userDtoMapper(userService.findByCrmUserId(projectMember.getMemberId()).get()));
+            result.getMembers().add(userService.findByCrmUserId(projectMember.getMemberId()));
         }
         result.setProject(dtoMapper.projectDTOMapper(projectService.getProjectById(projectId).get()));
         return result;
@@ -47,7 +47,7 @@ public class CrmProjectMemberServiceImpl implements CrmProjectMemberService {
         for (CrmProjectMember projectMember : projectMembers) {
             result.getProjects().add(dtoMapper.projectDTOMapper(projectService.getProjectById(projectMember.getProjectId()).get()));
         }
-        result.setMember(dtoMapper.userDtoMapper(userService.findByCrmUserId(memberId).get()));
+        result.setMember(userService.findByCrmUserId(memberId));
         return result;
     }
 

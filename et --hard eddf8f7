@@ -1,0 +1,12 @@
+[33meddf8f7[m[33m ([m[1;36mHEAD -> [m[1;32mtupd[m[33m)[m HEAD@{0}: pull origin main: Merge made by the 'recursive' strategy.
+[33m8cdc258[m[33m ([m[1;31morigin/tupd[m[33m)[m HEAD@{1}: commit (merge): update api taskHistory, taskTimesheets
+[33m7ad2af5[m HEAD@{2}: commit (merge): update taskDTO
+[33ma175c89[m HEAD@{3}: commit: update api task
+[33m9143a78[m HEAD@{4}: commit (merge): update entity task
+[33m3c51be4[m HEAD@{5}: commit: update entity task
+[33mfe7912e[m HEAD@{6}: commit: update entity: task, task_history
+[33m924888b[m HEAD@{7}: commit: update entity task
+[33mf7085b3[m HEAD@{8}: commit: update TaskEntity
+[33mac7ddc7[m HEAD@{9}: pull origin main: Merge made by the 'recursive' strategy.
+[33m3adcd82[m HEAD@{10}: checkout: moving from main to tupd
+[33m703c64e[m[33m ([m[1;32mmain[m[33m)[m HEAD@{11}: clone: from gitlab.nodo.vn:thanglh/intern-crm.git

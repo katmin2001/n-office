@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "CRM_ROLE", schema = "CRM_UAT", catalog = "")
+@Table(name = "CRM_ROLE")
 public class CrmRole {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_ROLE_SEQ_GEN")
     @SequenceGenerator(name = "CRM_ROLE_SEQ_GEN", sequenceName = "CRM_ROLE_SEQ", allocationSize = 1)
@@ -17,9 +17,9 @@ public class CrmRole {
     @Column(name = "ROLENAME")
     private String rolename;
 
-    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role")
     private Set<CrmUserRole> roleUsers;
-    @OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role")
     private Set<CrmRoleFunction> roleFuncs;
 
     public CrmRole() {
