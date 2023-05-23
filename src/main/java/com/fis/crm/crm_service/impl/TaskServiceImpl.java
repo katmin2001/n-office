@@ -5,7 +5,7 @@ import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_repository.*;
 //import com.fis.crm.crm_repository.impl.TaskRepoImpl;
-import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepo taskRepo;
-    private final IUserService userService;
+    private final CrmUserService userService;
     private final TaskStatusService statusService;
 
     public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService) {

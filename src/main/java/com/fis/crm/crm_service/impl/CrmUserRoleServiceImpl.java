@@ -8,7 +8,7 @@ import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
 import com.fis.crm.crm_repository.IRoleRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.IUserRoleRepo;
-import com.fis.crm.crm_service.IUserRoleService;
+import com.fis.crm.crm_service.CrmUserRoleService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CrmUserRoleServiceImpl implements IUserRoleService {
+public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     @Autowired
     IUserRoleRepo userRoleRepo;
     @Autowired

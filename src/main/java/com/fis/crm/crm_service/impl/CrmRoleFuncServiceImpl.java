@@ -8,9 +8,8 @@ import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
 import com.fis.crm.crm_repository.IFunctionRepo;
 import com.fis.crm.crm_repository.IRoleFuncRepo;
 import com.fis.crm.crm_repository.IRoleRepo;
-import com.fis.crm.crm_service.IRoleFuncService;
+import com.fis.crm.crm_service.CrmRoleFuncService;
 import com.fis.crm.crm_util.DtoMapper;
-import com.fis.crm.service.impl.TicketServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class CrmRoleFuncServiceImpl implements IRoleFuncService {
+public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
     @Autowired
     IRoleFuncRepo roleFuncRepo;
     @Autowired

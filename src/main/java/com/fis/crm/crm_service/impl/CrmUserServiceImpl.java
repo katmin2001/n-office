@@ -8,8 +8,8 @@ import com.fis.crm.crm_repository.IRoleFuncRepo;
 import com.fis.crm.crm_repository.IRoleRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.IUserRoleRepo;
-import com.fis.crm.crm_service.IRoleFuncService;
-import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.CrmRoleFuncService;
+import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import java.util.*;
 
 @Service
 @Transactional
-public class CrmUserServiceImpl implements IUserService {
+public class CrmUserServiceImpl implements CrmUserService {
     @Autowired
     IUserRepo IUserRepo;
     @Autowired
@@ -33,11 +33,11 @@ public class CrmUserServiceImpl implements IUserService {
     IUserRoleRepo userRoleRepo;
     @Qualifier("crmRoleFuncServiceImpl")
     @Autowired
-    IRoleFuncService roleFuncService;
+    CrmRoleFuncService roleFuncService;
     @Autowired
     IRoleRepo roleRepo;
     @Autowired
-    IUserService userService;
+    CrmUserService userService;
     @Autowired
     PasswordEncoder passwordEncoder;
     private final Logger log = LoggerFactory.getLogger(CrmUserServiceImpl.class);

@@ -1,24 +1,21 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
-import com.fis.crm.crm_service.IUserRoleService;
+import com.fis.crm.crm_service.CrmUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/user-role")
 public class UserRoleController {
     @Qualifier("crmUserRoleServiceImpl")
     @Autowired
-    private IUserRoleService userRoleService;
+    private CrmUserRoleService userRoleService;
 
     @GetMapping("/get-all-user-role")
     public ResponseEntity<Result>  getAllUserRole(){

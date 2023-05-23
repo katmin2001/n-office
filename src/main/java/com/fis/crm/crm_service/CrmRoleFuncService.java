@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public interface IRoleFuncService {
+public interface CrmRoleFuncService {
     public Set<CrmRole> findRoleByFunc(Long funcId);
     public CrmRoleFunction updateRoleFuncByRoleId(UpdateNewFuncForRole newFuncForRole);     //xong
     public CrmRoleFunction deleteRoleFuncByRoleId(CrmRoleFuncDTO roleFuncDTO);              //xong

@@ -5,7 +5,7 @@ import com.fis.crm.crm_entity.CrmTaskHistory;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
-import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_service.TaskHistoryService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class TaskController {
     private final TaskService taskService;
     private final TaskStatusService statusService;
-    private final IUserService userService;
+    private final CrmUserService userService;
     private final TaskHistoryService historyService;
 //    private TaskRepo taskRepo;
 
@@ -162,7 +162,7 @@ public class TaskController {
                 existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
             }
             if (userService.findByCrmUserId(taskUpdate.getReceivertaskid()) != null) {
-                existingTask.setReceivertask(userService.findByCrmUserId(taskUpdate.getReceivertaskid()).orElse(null));
+                existingTask.setReceivertask(userService.findByCrmUserId(taskUpdate.getReceivertaskid());
             }
 //            existingTask.setStageid(taskUpdate.getStageid());
             CrmTask updatedTask = taskService.updateTask(existingTask);

@@ -4,7 +4,7 @@ import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
 import com.fis.crm.crm_entity.DTO.RegisterUserDto;
 import com.fis.crm.crm_entity.DTO.Result;
-import com.fis.crm.crm_service.IUserService;
+import com.fis.crm.crm_service.CrmUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.*;
 @RequestMapping("/user")
 public class CrmUserController {
     @Autowired
-    IUserService userService;
+    CrmUserService userService;
 
 
     @GetMapping("/get-all-users")
