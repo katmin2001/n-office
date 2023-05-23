@@ -6,7 +6,7 @@ import com.fis.crm.crm_entity.DTO.CrmProjectDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
 import com.fis.crm.crm_repository.CrmProjectRequestRepo;
 import com.fis.crm.crm_service.CrmProjectService;
-import com.fis.crm.crm_util.CrmProjectMapper;
+import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +19,8 @@ import java.util.Optional;
 public class CrmProjectServiceImpl implements CrmProjectService {
     final CrmProjectRepo projectRepo;
     final CrmProjectRequestRepo projectRequestRepo;
-    final CrmProjectMapper projectMapper = new CrmProjectMapper();
 
+    final DtoMapper dtoMapper = new DtoMapper();
     public CrmProjectServiceImpl(CrmProjectRepo projectRepo, CrmProjectRequestRepo projectRequestRepo) {
         this.projectRepo = projectRepo;
         this.projectRequestRepo = projectRequestRepo;
@@ -43,7 +43,7 @@ public class CrmProjectServiceImpl implements CrmProjectService {
         List<CrmProjectDTO> projectsByManager = new ArrayList<>();
         for (CrmProject project : projects) {
             if (project.getManager().getUserid() == managerId) {
-                projectsByManager.add(projectMapper.toDTO(project));
+                projectsByManager.add(dtoMapper.projectDTOMapper(project));
             }
         }
         return projectsByManager;
@@ -55,7 +55,7 @@ public class CrmProjectServiceImpl implements CrmProjectService {
         List<CrmProjectDTO> projectsByCustomer = new ArrayList<>();
         for (CrmProject project : projects) {
             if (project.getCustomer().getId() == customerId) {
-                projectsByCustomer.add(projectMapper.toDTO(project));
+                projectsByCustomer.add(dtoMapper.projectDTOMapper(project));
             }
         }
         return projectsByCustomer;
@@ -88,6 +88,11 @@ public class CrmProjectServiceImpl implements CrmProjectService {
             if (projectUpdate.getFinishDate() != null) existingProject.setFinishDate(projectUpdate.getFinishDate());
             return projectRequestRepo.save(existingProject);
         }
+        return null;
+    }
+
+    @Override
+    public CrmProject searchProject(CrmProjectRequest projectRequest) {
         return null;
     }
 }

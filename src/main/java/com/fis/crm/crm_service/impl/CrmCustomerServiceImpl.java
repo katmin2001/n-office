@@ -4,7 +4,7 @@ import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
 import com.fis.crm.crm_repository.CrmCustomerRepo;
 import com.fis.crm.crm_service.CrmCustomerService;
-import com.fis.crm.crm_util.CrmCustomerMapper;
+import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.Optional;
 //@Transactional
 public class CrmCustomerServiceImpl implements CrmCustomerService {
     private final CrmCustomerRepo customerRepo;
+    private final DtoMapper dtoMapper = new DtoMapper();
 
     public CrmCustomerServiceImpl(CrmCustomerRepo customerRepo) {
         this.customerRepo = customerRepo;
@@ -26,7 +27,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         List<CrmCustomerDTO> customerDTOs = new ArrayList<>();
 
         for (CrmCustomer customer : customers) {
-            customerDTOs.add(CrmCustomerMapper.toDTO(customer));
+            customerDTOs.add(dtoMapper.customerDTOMapper(customer));
         }
 
         return customerDTOs;
@@ -37,7 +38,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         Optional<CrmCustomer> optionalCustomer = customerRepo.findById(customerId);
         if (optionalCustomer.isPresent()) {
             CrmCustomer customer = optionalCustomer.get();
-            return CrmCustomerMapper.toDTO(customer);
+            return dtoMapper.customerDTOMapper(customer);
         }
 
         return null;

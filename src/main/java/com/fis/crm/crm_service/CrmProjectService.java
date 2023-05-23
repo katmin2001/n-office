@@ -21,4 +21,6 @@ public interface CrmProjectService {
     public CrmProject getProjectsByCode(String projectCode);
     public CrmProjectRequest createProject(CrmProjectRequest newProject);
     public CrmProjectRequest updateProjectById(Long projectId, CrmProjectRequest project);
+
+    public CrmProject searchProject(CrmProjectRequest projectRequest);
 }

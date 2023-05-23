@@ -6,10 +6,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "crm_project")
 public class CrmProjectRequest {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_PROJECT_SEQ_GEN")
     @SequenceGenerator(name = "CRM_PROJECT_SEQ_GEN", sequenceName = "CRM_PROJECT_SEQ", allocationSize = 1)
     @Id
