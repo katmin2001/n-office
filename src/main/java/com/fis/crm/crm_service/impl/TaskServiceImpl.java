@@ -8,6 +8,7 @@ import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_repository.*;
 //import com.fis.crm.crm_repository.impl.TaskRepoImpl;
 import com.fis.crm.crm_service.CrmUserService;
+import com.fis.crm.crm_service.TaskHistoryService;
 import com.fis.crm.crm_service.TaskService;
 import com.fis.crm.crm_service.TaskStatusService;
 import com.fis.crm.crm_util.TaskMapper;
@@ -15,8 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -25,11 +26,14 @@ public class TaskServiceImpl implements TaskService {
     private final TaskStatusService statusService;
     private final IUserRepo IUserRepo;
 
-    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService, IUserRepo iUserRepo) {
+    private final TaskHistoryService historyService;
+
+    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService, IUserRepo iUserRepo, TaskHistoryServiceImpl historyService) {
         this.taskRepo = taskRepo;
         this.userService = userService;
         this.statusService = statusService;
         this.IUserRepo = iUserRepo;
+        this.historyService = historyService;
     }
 
     @Override
@@ -86,8 +90,37 @@ public class TaskServiceImpl implements TaskService {
         return taskRepo.save(task);
     }
 
-    public CrmTask updateTask(CrmTask task) {
-        return taskRepo.save(task);
+    public CrmTask updateTask(Long taskId, TaskUpdateDTO taskUpdate) {
+        CrmTask existingTask = getTaskById(taskId);
+        boolean check = true;
+        CrmTaskHistory taskHistory = new CrmTaskHistory();
+        if (check) {
+            taskHistory.setTaskid(taskId);
+            taskHistory.setStatusprev(existingTask.getStatus());
+        }
+        // Cập nhật thông tin của task từ request body
+        if (taskUpdate.getTaskname() != null) {
+            existingTask.setTaskname(taskUpdate.getTaskname());
+        }
+        if (taskUpdate.getStartdate() != null) {
+            existingTask.setStartdate(taskUpdate.getStartdate());
+        }
+        if (taskUpdate.getEnddate() != null) {
+            existingTask.setEnddate(taskUpdate.getEnddate());
+        }
+        if (statusService.getStatusCode(taskUpdate.getStatuscode()) != null) {
+            existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
+        }
+        if (IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null) != null) {
+            existingTask.setReceivertask(IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null));
+        }
+
+        if (check) {
+            taskHistory.setStatuscurrent(existingTask.getStatus());
+            taskHistory.setTimecreate(new Date());
+            historyService.saveTaskHistory(taskHistory);
+        }
+        return taskRepo.save(existingTask);
     }
 
     public void deleteTask(Long id) {

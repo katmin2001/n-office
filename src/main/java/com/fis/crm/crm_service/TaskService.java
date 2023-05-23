@@ -22,7 +22,7 @@ public interface TaskService {
 
     public CrmTask createTask(Long projectId, TaskCreateDTO createDTO);
 
-    public CrmTask updateTask(CrmTask task);
+    public CrmTask updateTask(Long taskid, TaskUpdateDTO task);
 
     public void deleteTask(Long id);
 

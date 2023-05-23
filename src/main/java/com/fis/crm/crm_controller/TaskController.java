@@ -97,36 +97,7 @@ public class TaskController {
 
     @PutMapping("/{taskId}")
     public CrmTask updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateDTO taskUpdate) {
-        CrmTask existingTask = taskService.getTaskById(taskId);
-        boolean check = true;
-        CrmTaskHistory taskHistory = new CrmTaskHistory();
-        if (check) {
-            taskHistory.setTaskid(taskId);
-            taskHistory.setStatusprev(existingTask.getStatus());
-        }
-        // Cập nhật thông tin của task từ request body
-        if (taskUpdate.getTaskname() != null) {
-            existingTask.setTaskname(taskUpdate.getTaskname());
-        }
-        if (taskUpdate.getStartdate() != null) {
-            existingTask.setStartdate(taskUpdate.getStartdate());
-        }
-        if (taskUpdate.getEnddate() != null) {
-            existingTask.setEnddate(taskUpdate.getEnddate());
-        }
-        if (statusService.getStatusCode(taskUpdate.getStatuscode()) != null) {
-            existingTask.setStatus(statusService.getStatusCode(taskUpdate.getStatuscode()));
-        }
-        if (IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null) != null) {
-            existingTask.setReceivertask(IUserRepo.findById(taskUpdate.getReceivertaskid()).orElse(null));
-        }
-//            existingTask.setStageid(taskUpdate.getStageid());
-        CrmTask updatedTask = taskService.updateTask(existingTask);
-        if (check) {
-            taskHistory.setStatuscurrent(existingTask.getStatus());
-            taskHistory.setTimecreate(new Date());
-            historyService.saveTaskHistory(taskHistory);
-        }
+        CrmTask updatedTask = taskService.updateTask(taskId, taskUpdate);
         return updatedTask;
     }
 
