@@ -15,8 +15,6 @@ public class TaskDTO {
     private String receivertaskname;
     private Date startdate;
     private Date enddate;
-    private Long stageid;
-    private String stagename;
     private Long projecid;
     private String projectname;
 
@@ -25,7 +23,7 @@ public class TaskDTO {
 
     }
 
-    public TaskDTO(Long taskid, String taskname, Long statuscode, Long givertaskid, Long receivertaskid, Date startdate, Date enddate, Long stageid, Long projecid) {
+    public TaskDTO(Long taskid, String taskname, Long statuscode, Long givertaskid, Long receivertaskid, Date startdate, Date enddate, Long projecid) {
         this.taskid = taskid;
         this.taskname = taskname;
         this.statuscode = statuscode;
@@ -33,7 +31,6 @@ public class TaskDTO {
         this.receivertaskid = receivertaskid;
         this.startdate = startdate;
         this.enddate = enddate;
-        this.stageid = stageid;
         this.projecid = projecid;
     }
 
@@ -93,13 +90,6 @@ public class TaskDTO {
         this.enddate = enddate;
     }
 
-    public Long getStageid() {
-        return stageid;
-    }
-
-    public void setStageid(Long stageid) {
-        this.stageid = stageid;
-    }
 
     public Long getProjecid() {
         return projecid;
@@ -131,14 +121,6 @@ public class TaskDTO {
 
     public void setReceivertaskname(String receivertaskname) {
         this.receivertaskname = receivertaskname;
-    }
-
-    public String getStagename() {
-        return stagename;
-    }
-
-    public void setStagename(String stagename) {
-        this.stagename = stagename;
     }
 
     public String getProjectname() {

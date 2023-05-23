@@ -62,9 +62,9 @@ public class TaskServiceImpl implements TaskService {
         String statusname = taskSearchDTO.getStatusname();
         String givertaskname = taskSearchDTO.getGivertaskname();
         String receivertaskname = taskSearchDTO.getReceivertaskname();
-        String stagename = taskSearchDTO.getStagename();
         String projectname = taskSearchDTO.getProjectname();
-        List<CrmTask> taskList = taskRepo.findTaskByKeyword(taskname, statusname, givertaskname, receivertaskname, stagename, projectname);
+        String taskProcess = taskSearchDTO.getTaskProcess();
+        List<CrmTask> taskList = taskRepo.findTaskByKeyword(taskname, statusname, givertaskname, receivertaskname, projectname, taskProcess);
         List<TaskDTO> taskDTOList = new ArrayList<>();
 
         for (CrmTask crmTask : taskList) {
