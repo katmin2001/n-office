@@ -48,10 +48,47 @@ public class DtoMapper {
         roleFuncDTO.setFuncName(roleFunction.getFunction().getFuncname());
         return roleFuncDTO;
     }
-    public CrmUserRoleDTO userRoleDTOMapper1(CrmUserRole userRole){
-        CrmUserRoleDTO userRoleDTO = new CrmUserRoleDTO();
-        userRoleDTO.setRoleId(userRole.getRole().getRoleid());
-        userRoleDTO.setRoleName(userRole.getRole().getRolename());
-        return userRoleDTO;
+
+    public CrmProjectDTO projectDTOMapper(CrmProject project) {
+        CrmProjectDTO dto = new CrmProjectDTO();
+        dto.setId(project.getId());
+        dto.setName(project.getName());
+        dto.setCode(project.getCode());
+        dto.setCustomer(project.getCustomer());
+        dto.setManager(userDtoMapper(project.getManager()));
+        dto.setPrivacy(project.getPrivacy());
+        dto.setStatus(project.getStatus());
+        dto.setDescription(project.getDescription());
+        dto.setStartDate(project.getStartDate());
+        dto.setEndDate(project.getEndDate());
+        dto.setFinishDate(project.getFinishDate());
+        return dto;
+    }
+
+    public CrmProjectDTO projectMemberPDTOMapper(CrmProjectMember projectMember) {
+        return null;
+    }
+
+    public Crm_UserDTO projectMemberMDTOMapper(CrmProjectMember projectMember) {
+        Crm_UserDTO dto = new Crm_UserDTO();
+//        dto.setUserId(projectMember.getMember().getUserid());
+//        dto.setUsername(projectMember.getMember().getUsername());
+//        dto.setFullName(projectMember.getMember().getFullname());
+//        dto.setCreateDate(projectMember.getMember().getCreatedate());
+//        dto.setPhone(projectMember.getMember().getPhone());
+//        dto.setBirthday(projectMember.getMember().getBirthday());
+//        dto.setAddress(projectMember.getMember().getAddress());
+//        dto.setStatus(projectMember.getMember().getStatus());
+        return dto;
+    }
+
+    public static CrmCustomerDTO customerDTOMapper(CrmCustomer customer) {
+        CrmCustomerDTO dto = new CrmCustomerDTO();
+        dto.setId(customer.getId());
+        dto.setName(customer.getName());
+        dto.setPhone(customer.getPhone());
+        dto.setEmail(customer.getEmail());
+        dto.setAddress(customer.getAddress());
+        return dto;
     }
 }

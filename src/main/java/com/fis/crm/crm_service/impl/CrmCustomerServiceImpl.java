@@ -2,15 +2,11 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
-import com.fis.crm.crm_entity.DTO.CrmCustomerRequestDTO;
 import com.fis.crm.crm_repository.CrmCustomerRepo;
 import com.fis.crm.crm_service.CrmCustomerService;
-import com.fis.crm.crm_util.CrmCustomerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +15,7 @@ import java.util.Optional;
 //@Transactional
 public class CrmCustomerServiceImpl implements CrmCustomerService {
     private final CrmCustomerRepo customerRepo;
+    private final DtoMapper dtoMapper = new DtoMapper();
 
     public CrmCustomerServiceImpl(CrmCustomerRepo customerRepo) {
         this.customerRepo = customerRepo;
@@ -30,7 +27,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         List<CrmCustomerDTO> customerDTOs = new ArrayList<>();
 
         for (CrmCustomer customer : customers) {
-            customerDTOs.add(CrmCustomerMapper.toDTO(customer));
+            customerDTOs.add(dtoMapper.customerDTOMapper(customer));
         }
 
         return customerDTOs;
@@ -41,14 +38,14 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         Optional<CrmCustomer> optionalCustomer = customerRepo.findById(customerId);
         if (optionalCustomer.isPresent()) {
             CrmCustomer customer = optionalCustomer.get();
-            return CrmCustomerMapper.toDTO(customer);
+            return dtoMapper.customerDTOMapper(customer);
         }
 
         return null;
     }
 
     @Override
-    public CrmCustomer createCustomer(CrmCustomerRequestDTO crmCustomerRequestDTO) {
+    public CrmCustomer createCustomer(CrmCustomerDTO crmCustomerRequestDTO) {
         CrmCustomer crmCustomer = new CrmCustomer();
         crmCustomer.setName(crmCustomerRequestDTO.getName());
         crmCustomer.setPhone(crmCustomerRequestDTO.getPhone());
@@ -58,13 +55,13 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     }
 
     @Override
-    public CrmCustomer updateCustomer(Long customerId, CrmCustomerRequestDTO crmCustomerRequestDTO) {
+    public CrmCustomer updateCustomer(Long customerId, CrmCustomerDTO crmCustomerRequest) {
         CrmCustomer existingCustomer = customerRepo.findById(customerId).orElse(null);
         if (existingCustomer != null) {
-            existingCustomer.setName(crmCustomerRequestDTO.getName());
-            existingCustomer.setEmail(crmCustomerRequestDTO.getEmail());
-            existingCustomer.setPhone(crmCustomerRequestDTO.getPhone());
-            existingCustomer.setAddress(crmCustomerRequestDTO.getAddress());
+            if (crmCustomerRequest.getName() != null) existingCustomer.setName(crmCustomerRequest.getName());
+            if (crmCustomerRequest.getEmail() != null) existingCustomer.setEmail(crmCustomerRequest.getEmail());
+            if (crmCustomerRequest.getPhone() != null) existingCustomer.setPhone(crmCustomerRequest.getPhone());
+            if (crmCustomerRequest.getAddress() != null) existingCustomer.setAddress(crmCustomerRequest.getAddress());
             return customerRepo.save(existingCustomer);
         }
         return null;

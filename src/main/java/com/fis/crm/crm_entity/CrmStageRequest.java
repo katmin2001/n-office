@@ -8,15 +8,13 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(name = "CRM_STAGE")
-public class CrmStage {
+public class CrmStageRequest {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_STAGE_SEQ_GEN")
     @SequenceGenerator(name = "CRM_STAGE_SEQ_GEN", sequenceName = "CRM_STAGE_SEQ", allocationSize = 1)
     @Id
     @Column(name = "id")
     private Long id;
-    @Column(name = "NAME")
     private String name;
-    @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "START_DATE")
     private Date startDate;
@@ -24,9 +22,8 @@ public class CrmStage {
     private Date endDate;
     @Column(name = "FINISH_DATE")
     private Date finishDate;
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private CrmProject project;
+    @Column(name = "PROJECT_ID")
+    private Long projectId;
 
     public Long getId() {
         return id;
@@ -76,11 +73,11 @@ public class CrmStage {
         this.finishDate = finishDate;
     }
 
-    public CrmProject getProject() {
-        return project;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProject(CrmProject project) {
-        this.project = project;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

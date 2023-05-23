@@ -6,17 +6,17 @@ public class CandidateDTO {
     private Long candidateId;
     private String fullname;
     private String phone;
-    private Date birthday;
+    private String birthday;
     private String address;
     private Boolean status;
-    private Date createDate;
+    private String createDate;
     private InterviewStatusDTO interviewStatusDTO;
     private Crm_UserDTO crmUserDTO;
 
     public CandidateDTO() {
     }
 
-    public CandidateDTO(Long candidateId, String fullname, String phone, Date birthday, String address, Boolean status, Date createDate, InterviewStatusDTO interviewStatusDTO, Crm_UserDTO crmUserDTO) {
+    public CandidateDTO(Long candidateId, String fullname, String phone, String birthday, String address, Boolean status, String createDate, InterviewStatusDTO interviewStatusDTO, Crm_UserDTO crmUserDTO) {
         this.candidateId = candidateId;
         this.fullname = fullname;
         this.phone = phone;
@@ -52,11 +52,11 @@ public class CandidateDTO {
         this.phone = phone;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -76,11 +76,11 @@ public class CandidateDTO {
         this.status = status;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
