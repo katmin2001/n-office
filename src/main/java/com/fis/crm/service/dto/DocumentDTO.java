@@ -9,7 +9,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.fis.crm.domain.Document} entity.
  */
 public class DocumentDTO implements Serializable {
-    
+
     private Long id;
 
     private String name;

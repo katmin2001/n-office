@@ -7,7 +7,7 @@ import java.io.Serializable;
  * A DTO for the {@link com.fis.crm.domain.DocumentPostBookmarks} entity.
  */
 public class DocumentPostBookmarksDTO implements Serializable {
-    
+
     private Long id;
 
     private Long documentPostId;
@@ -16,7 +16,7 @@ public class DocumentPostBookmarksDTO implements Serializable {
 
     private Instant createDatetime;
 
-    
+
     public Long getId() {
         return id;
     }

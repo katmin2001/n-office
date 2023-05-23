@@ -45,8 +45,9 @@ public class CrmFunctionServiceImpl implements CrmFunctionService {
     @Override
     public void deleteFuncByFuncName(CrmFunctionDTO functionDTO) {
         CrmFunction function = functionRepo.findCrmFunctionByRolename(functionDTO.getFuncName());
-        if (function!=null){
-            functionRepo.delete(function);
+        if (function==null){
+            throw new IllegalArgumentException();
         }
+            functionRepo.delete(function);
     }
 }

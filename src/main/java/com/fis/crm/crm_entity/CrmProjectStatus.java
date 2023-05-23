@@ -4,15 +4,18 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "CRM_PROJECT_STATUS")
+@Table(name = "CRM_PROJECT_STATUS", schema = "CRM_UAT", catalog = "")
 public class CrmProjectStatus {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CRM_PROJECT_SEQ_GEN")
+    @SequenceGenerator(name = "CRM_PROJECT_SEQ_GEN", sequenceName = "CRM_PROJECT_SEQ", allocationSize = 1)
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     private Byte id;
+    @Basic
     @Column(name = "NAME")
     private String name;
 
@@ -33,5 +36,18 @@ public class CrmProjectStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CrmProjectStatus that = (CrmProjectStatus) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

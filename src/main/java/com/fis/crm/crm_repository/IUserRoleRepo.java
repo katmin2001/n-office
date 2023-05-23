@@ -3,7 +3,6 @@ package com.fis.crm.crm_repository;
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.CrmUserRole;
-import com.fis.crm.domain.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

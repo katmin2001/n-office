@@ -1,6 +1,6 @@
 package com.fis.crm.crm_entity.DTO;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class CandidateRequestDTO {
     private String fullname;

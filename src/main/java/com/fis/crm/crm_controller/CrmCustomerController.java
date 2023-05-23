@@ -2,18 +2,13 @@ package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmCustomer;
 import com.fis.crm.crm_entity.DTO.CrmCustomerDTO;
-import com.fis.crm.crm_entity.DTO.CrmCustomerRequestDTO;
 import com.fis.crm.crm_service.CrmCustomerService;
 import com.fis.crm.crm_service.impl.CrmCustomerServiceImpl;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Data
 @RestController
 @RequestMapping("/customer")
 public class CrmCustomerController {
@@ -34,14 +29,14 @@ public class CrmCustomerController {
     }
 
     @PostMapping("/")
-    public CrmCustomer createCustomer(@RequestBody CrmCustomerRequestDTO crmCustomerRequestDTO) {
-        CrmCustomer crmCustomer = crmCustomerService.createCustomer(crmCustomerRequestDTO);
+    public CrmCustomer createCustomer(@RequestBody CrmCustomerDTO newCrmCustomer) {
+        CrmCustomer crmCustomer = crmCustomerService.createCustomer(newCrmCustomer);
         return crmCustomer;
     }
 
     @PutMapping("/{customerId}")
-    public CrmCustomer updateCustomer(@PathVariable("customerId") Long customerId, @RequestBody CrmCustomerRequestDTO crmCustomerRequestDTO) {
-        CrmCustomer customer = crmCustomerService.updateCustomer(customerId, crmCustomerRequestDTO);
+    public CrmCustomer updateCustomer(@PathVariable("customerId") Long customerId, @RequestBody CrmCustomerDTO crmCustomerUpdate) {
+        CrmCustomer customer = crmCustomerService.updateCustomer(customerId, crmCustomerUpdate);
         return customer;
     }
 }

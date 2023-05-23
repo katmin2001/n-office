@@ -25,7 +25,7 @@ public class CrmRoleServiceImpl implements CrmRoleService {
         CrmRole crmRole = roleRepo.findCrmRoleByRolename(roleDTO.getRoleName());
         //kiểm tra xem đối tượng role tìm kiếm theo roleName có bị trùng với dữ liệu role truyền vào để tạo mới không
         if (crmRole!=null){
-            return null;
+            throw new IllegalArgumentException();
         }
         CrmRole role = new CrmRole();
         role.setRolename(roleDTO.getRoleName());
@@ -45,8 +45,9 @@ public class CrmRoleServiceImpl implements CrmRoleService {
     @Override
     public void deleteRoleByRoleName(CrmRoleDTO roleDTO) {
         CrmRole role = roleRepo.findCrmRoleByRolename(roleDTO.getRoleName());
-        if (role!=null){
-            roleRepo.delete(role);
+        if (role==null){
+            throw new NullPointerException();
         }
+        roleRepo.delete(role);
     }
 }
