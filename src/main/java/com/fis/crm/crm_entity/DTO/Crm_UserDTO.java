@@ -25,12 +25,12 @@ public class Crm_UserDTO {
     @NotNull(message = "Trạng thái không được bỏ trống")
     private String status;
 
-    private Set<CrmUserRole> userRoles;
+    private Set<CrmRoleDTO> userRoles;
 
     public Crm_UserDTO() {
     }
 
-    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmUserRole> userRoles) {
+    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmRoleDTO> userRoles) {
         this.userId = userId;
         this.username = username;
         this.fullName = fullName;
@@ -116,11 +116,11 @@ public class Crm_UserDTO {
         this.status = status;
     }
 
-    public Set<CrmUserRole> getUserRoles() {
+    public Set<CrmRoleDTO> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<CrmUserRole> userRoles) {
+    public void setUserRoles(Set<CrmRoleDTO> userRoles) {
         this.userRoles = userRoles;
     }
 }
