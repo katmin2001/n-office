@@ -63,6 +63,9 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public CandidateDTO getCandidateById(Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
+        if(candidate == null){
+            throw new NullPointerException();
+        }
         InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
         Crm_UserDTO crmUserDTO = new Crm_UserDTO(
             candidate.getUser().getUserid(),
@@ -99,7 +102,7 @@ public class CandidateServiceImpl implements CandidateService {
 //        }
 //    }
     @Override
-    public CrmCandidate addCandidate(CandidateRequestDTO candidateDTO) {
+    public Result addCandidate(CandidateRequestDTO candidateDTO) {
         candidateDTO.setISID(Long.valueOf(1));
         CrmCandidate candidate = new CrmCandidate();
         candidate.setAddress(candidateDTO.getAddress());
@@ -113,14 +116,14 @@ public class CandidateServiceImpl implements CandidateService {
         candidate.setStatus(true);
         candidate.setUser(userRepo.findById(candidateDTO.getManageId()).orElse(null));
         candidate.setInterviewStatus(interviewStatusRepo.findById(candidateDTO.getISID()).orElse(null));
-        return candidateRepo.save(candidate);
+        return new Result("SUCCESS","Thêm thành công!",candidateRepo.save(candidate));
     }
 
     @Override
-    public CrmCandidate updateCandidate(CandidateRequestDTO candidateDTO, Long candidateId) {
+    public Result updateCandidate(CandidateRequestDTO candidateDTO, Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
-            return null;
+            throw new NullPointerException();
         }
         if(candidateDTO.getFullname() != null){
             candidate.setFullname(candidateDTO.getFullname());
@@ -132,28 +135,32 @@ public class CandidateServiceImpl implements CandidateService {
             candidate.setPhone(candidateDTO.getPhone());
         }
         if(candidateDTO.getBirthday() != null){
+            candidate.setBirthday(candidateDTO.getBirthday());
         }
         if(candidateDTO.getStatus() != null){
             candidate.setStatus(candidateDTO.getStatus());
         }
         if(candidateDTO.getManageId() != null){
+            if(userRepo.findById(candidateDTO.getManageId()).orElse(null) == null){
+                throw new NullPointerException();
+            }
             candidate.setUser(userRepo.findById(candidateDTO.getManageId()).orElse(null));
         }
-        return candidateRepo.save(candidate);
+        return new Result("SUCCESS","Cập nhật thành công!",candidateRepo.save(candidate));
     }
 
     @Override
-    public CrmCandidate deleteCandidate(Long candidateId) {
+    public Result deleteCandidate(Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
-            return null;
+            throw new NullPointerException();
         }
         candidate.setStatus(false);
-        return candidateRepo.save(candidate);
+        return new Result("SUCCESS","Xoá thành công!",candidateRepo.save(candidate));
     }
 
     @Override
-    public List<CandidateDTO> searchCandidate(SearchCandidateDTO searchCandidateDTO) {
+    public Result searchCandidate(SearchCandidateDTO searchCandidateDTO) {
         List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
@@ -179,6 +186,11 @@ public class CandidateServiceImpl implements CandidateService {
             );
             candidateDTOS.add(candidateDTO);
         }
-        return candidateDTOS;
+        if(candidateDTOS.size() == 0){
+            return new Result("NOT_FOUND","Không tồn tại kết quả!","");
+        }
+        else {
+            return new Result("OK","Tìm kiếm thành công",candidateDTOS);
+        }
     }
 }
