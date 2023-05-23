@@ -17,7 +17,7 @@ public class CrmRole {
     @Column(name = "ROLENAME")
     private String rolename;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<CrmUserRole> roleUsers;
     @OneToMany(mappedBy = "role")
     private Set<CrmRoleFunction> roleFuncs;

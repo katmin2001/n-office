@@ -3,6 +3,11 @@ package com.fis.crm.crm_util;
 import com.fis.crm.crm_entity.*;
 import com.fis.crm.crm_entity.DTO.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class DtoMapper {
 
     public Crm_UserDTO userDtoMapper(CrmUser user){
@@ -15,7 +20,16 @@ public class DtoMapper {
         userDTO.setBirthday(user.getBirthday());
         userDTO.setAddress(user.getAddress());
         userDTO.setStatus(user.getStatus());
-        userDTO.setUserRoles(user.getUserRoles());
+        //tạo 1 set chứa các roledto của 1 user
+        Set<CrmRoleDTO> set = new HashSet<>();
+        //dùng vòng lặp lấy ra các role từ userrole trong đối tượng user
+        //sau đó convert từ role => roledto và add vào set vừa tạo
+        for (CrmUserRole userRole: user.getUserRoles()) {
+            CrmRoleDTO roleDto = roleDtoMapper(userRole.getRole());
+            set.add(roleDto);
+        }
+        //gán set roledto vào set roledto của userdto
+        userDTO.setUserRoles(set);
         return userDTO;
     }
     public CrmRoleDTO roleDtoMapper(CrmRole role){
