@@ -14,19 +14,26 @@ public interface TaskRepo extends JpaRepository<CrmTask, Long> {
 
     @Query("SELECT t FROM CrmTask t WHERE t.project.id = :id")
     List<CrmTask> findTasksByProjectId(@Param("id") Long id);
-    @Query(value = "SELECT t FROM CrmTask t " +
-        "WHERE (:taskname is null OR lower(t.taskname) LIKE %:taskname%) " +
-        "AND (:statusname is null OR lower(t.status.name) LIKE %:statusname%) " +
-        "AND (:givertaskname is null OR lower(t.givertask.username) LIKE %:givertaskname%) " +
-        "AND (:receivertaskname is null OR lower(t.receivertask.username) LIKE %:receivertaskname%) " +
-        "AND (:stagename is null OR lower(t.stage.name) LIKE %:stagename%) " +
-        "AND (:projectname is null OR lower(t.project.name) LIKE %:projectname%) ")
+    @Query(value = "SELECT *\n" +
+        "FROM CRM_TASK t\n" +
+        "         LEFT JOIN CRM_PROJECT CP ON t.PROJECTID = CP.ID\n" +
+        "         LEFT JOIN CRM_TASK_STATUS CTS ON CTS.STATUSCODE = t.STATUSCODE\n" +
+        "         LEFT JOIN CRM_USER U ON U.USERID = t.GIVERTASKID AND U.USERID = t.RECEIVERTASKID\n" +
+        "         LEFT JOIN CRM_STAGE CS ON CP.ID = CS.PROJECT_ID\n" +
+        "WHERE (:taskname IS NULL OR lower(t.taskname) LIKE '%' || lower(:taskname) || '%')\n" +
+        "  AND (:statusname IS NULL OR lower(CTS.STATUSNAME) LIKE '%' || lower(:statusname) || '%')\n" +
+        "  AND (:givertaskname IS NULL OR lower(U.fullname) LIKE '%' || lower(:givertaskname) || '%')\n" +
+        "  AND (:receivertaskname IS NULL OR lower(U.fullname) LIKE '%' || lower(:receivertaskname) || '%')\n" +
+        "  AND (:stagename IS NULL OR lower(CS.name) LIKE '%' || lower(:stagename) || '%')\n" +
+        "  AND (:projectname IS NULL OR lower(CP.name) LIKE '%' || lower(:projectname) || '%')",
+        nativeQuery = true)
     List<CrmTask> findTaskByKeyword(@Param("taskname") String taskname,
                              @Param("statusname") String statusname,
                              @Param("givertaskname") String givertaskname,
                              @Param("receivertaskname") String receivertaskname,
                              @Param("stagename") String stagename,
                              @Param("projectname") String projectname);
+
     @Query("SELECT t FROM CrmTask t WHERE t.taskid = :taskid")
     CrmTask findByTaskId(@Param("taskid") Long taskid);
 }
