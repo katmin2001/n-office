@@ -25,14 +25,16 @@ public class CrmTaskServiceImpl implements CrmTaskService {
     private final CrmUserService userService;
     private final CrmTaskStatusService statusService;
     private final CrmUserRepo IUserRepo;
+    private  final CrmProjectServiceImpl projectService;
 
     private final CrmTaskHistoryService historyService;
 
-    public CrmTaskServiceImpl(CrmTaskRepo taskRepo, CrmUserServiceImpl userService, CrmTaskStatusServiceImpl statusService, CrmUserRepo iUserRepo, CrmTaskHistoryServiceImpl historyService) {
+    public CrmTaskServiceImpl(CrmTaskRepo taskRepo, CrmUserServiceImpl userService, CrmTaskStatusServiceImpl statusService, CrmUserRepo iUserRepo, CrmProjectServiceImpl projectService, CrmTaskHistoryServiceImpl historyService) {
         this.taskRepo = taskRepo;
         this.userService = userService;
         this.statusService = statusService;
         this.IUserRepo = iUserRepo;
+        this.projectService = projectService;
         this.historyService = historyService;
     }
 
@@ -77,8 +79,8 @@ public class CrmTaskServiceImpl implements CrmTaskService {
     @Override
     @Transactional
     public CrmTask createTask(Long projectId, TaskCreateDTO createDTO) {
-        createDTO.setProjecid(projectId);
         CrmTask task = new CrmTask();
+        task.setProject(projectService.getProjectById(projectId).get());
         task.setTaskname(createDTO.getTaskname());
         task.setGivertask(IUserRepo.findById(createDTO.getReceivertaskid()).orElseThrow(NullPointerException::new));
         task.setReceivertask(IUserRepo.findById(createDTO.getGivertaskid()).orElseThrow(NullPointerException::new));
