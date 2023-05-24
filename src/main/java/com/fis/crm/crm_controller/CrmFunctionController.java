@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/func")
-public class FunctionController {
+public class CrmFunctionController {
     @Qualifier("crmFunctionServiceImpl")
     @Autowired
     private CrmFunctionService functionService;

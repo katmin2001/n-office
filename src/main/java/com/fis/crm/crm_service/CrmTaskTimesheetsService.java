@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface TaskTimesheetsService {
+public interface CrmTaskTimesheetsService {
 
     public List<CrmTaskTimesheets> getAllTimesheets();
 

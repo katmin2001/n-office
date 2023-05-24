@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CrmProjectMemberMDTO {
     private CrmProjectDTO project;
-    private List<Crm_UserDTO> members;
+    private List<CrmUserDTO> members;
 
     public CrmProjectDTO getProject() {
         return project;
@@ -16,15 +16,15 @@ public class CrmProjectMemberMDTO {
         this.project = project;
     }
 
-    public List<Crm_UserDTO> getMembers() {
+    public List<CrmUserDTO> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Crm_UserDTO> members) {
+    public void setMembers(List<CrmUserDTO> members) {
         this.members = members;
     }
 
-    public CrmProjectMemberMDTO(CrmProjectDTO project, List<Crm_UserDTO> members) {
+    public CrmProjectMemberMDTO(CrmProjectDTO project, List<CrmUserDTO> members) {
         this.project = project;
         this.members = members;
     }

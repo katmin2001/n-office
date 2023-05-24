@@ -7,10 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface TaskRepo extends JpaRepository<CrmTask, Long> {
+public interface CrmTaskRepo extends JpaRepository<CrmTask, Long> {
 
     @Query("SELECT t FROM CrmTask t WHERE t.project.id = :id")
     List<CrmTask> findTasksByProjectId(@Param("id") Long id);

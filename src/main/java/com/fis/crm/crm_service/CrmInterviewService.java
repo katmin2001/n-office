@@ -1,12 +1,10 @@
 package com.fis.crm.crm_service;
 
-import com.fis.crm.crm_entity.CrmInterview;
 import com.fis.crm.crm_entity.DTO.*;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface InterviewService {
+public interface CrmInterviewService {
     public List<InterviewDTO> getAllInterview();
     public InterviewDTO getInterviewById(Long interviewId);
     public Result addInterview(InterviewRequestDTO interview);

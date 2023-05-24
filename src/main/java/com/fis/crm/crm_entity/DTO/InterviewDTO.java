@@ -10,12 +10,12 @@ public class InterviewDTO {
     private Date createDate;
     private String candidateName;
     private String interviewStatus;
-    private Set<Crm_UserDTO> crmUserDTOS;
+    private Set<CrmUserDTO> crmUserDTOS;
 
     public InterviewDTO() {
     }
 
-    public InterviewDTO(Long interviewId, Date interviewDate, Boolean status, Date createDate, String candidateName, String interviewStatus, Set<Crm_UserDTO> crmUserDTOS) {
+    public InterviewDTO(Long interviewId, Date interviewDate, Boolean status, Date createDate, String candidateName, String interviewStatus, Set<CrmUserDTO> crmUserDTOS) {
         this.interviewId = interviewId;
         this.interviewDate = interviewDate;
         this.status = status;
@@ -73,11 +73,11 @@ public class InterviewDTO {
         this.interviewStatus = interviewStatus;
     }
 
-    public Set<Crm_UserDTO> getCrmUserDTOS() {
+    public Set<CrmUserDTO> getCrmUserDTOS() {
         return crmUserDTOS;
     }
 
-    public void setCrmUserDTOS(Set<Crm_UserDTO> crmUserDTOS) {
+    public void setCrmUserDTOS(Set<CrmUserDTO> crmUserDTOS) {
         this.crmUserDTOS = crmUserDTOS;
     }
 }

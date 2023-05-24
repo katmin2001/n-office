@@ -1,7 +1,5 @@
 package com.fis.crm.crm_entity;
 
-import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
-
 import javax.persistence.*;
 import java.util.Set;
 

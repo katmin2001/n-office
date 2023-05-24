@@ -2,9 +2,9 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCandidate;
 import com.fis.crm.crm_entity.DTO.*;
-import com.fis.crm.crm_repository.CandidateRepo;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_repository.InterviewStatusRepo;
+import com.fis.crm.crm_repository.CrmCandidateRepo;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
 import com.fis.crm.crm_service.CandidateService;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ import java.util.List;
 @Service
 @Transactional
 public class CandidateServiceImpl implements CandidateService {
-    private final CandidateRepo candidateRepo;
-    private final IUserRepo userRepo;
-    private final InterviewStatusRepo interviewStatusRepo;
-    public CandidateServiceImpl(CandidateRepo candidateRepo, IUserRepo userRepo, InterviewStatusRepo interviewStatusRepo) {
+    private final CrmCandidateRepo candidateRepo;
+    private final CrmUserRepo userRepo;
+    private final CrmInterviewStatusRepo interviewStatusRepo;
+    public CandidateServiceImpl(CrmCandidateRepo candidateRepo, CrmUserRepo userRepo, CrmInterviewStatusRepo interviewStatusRepo) {
         this.candidateRepo = candidateRepo;
         this.userRepo = userRepo;
         this.interviewStatusRepo = interviewStatusRepo;
@@ -36,7 +36,7 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+            CrmUserDTO crmUserDTO = new CrmUserDTO(
                 candidate.getUser().getUserid(),
                 candidate.getUser().getUsername(),
                 candidate.getUser().getFullname(),
@@ -67,7 +67,7 @@ public class CandidateServiceImpl implements CandidateService {
             throw new NullPointerException();
         }
         InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-        Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+        CrmUserDTO crmUserDTO = new CrmUserDTO(
             candidate.getUser().getUserid(),
             candidate.getUser().getUsername(),
             candidate.getUser().getFullname(),
@@ -165,7 +165,7 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+            CrmUserDTO crmUserDTO = new CrmUserDTO(
                 candidate.getUser().getUserid(),
                 candidate.getUser().getUsername(),
                 candidate.getUser().getFullname(),

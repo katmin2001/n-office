@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/role")
-public class RoleController {
+public class CrmRoleController {
 
     @Qualifier("crmRoleServiceImpl")
     @Autowired

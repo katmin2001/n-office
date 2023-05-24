@@ -1,7 +1,7 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmUser;
-import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
+import com.fis.crm.crm_entity.DTO.CrmUserDTO;
 import com.fis.crm.crm_entity.DTO.RegisterUserDto;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_service.CrmUserService;
@@ -28,8 +28,8 @@ public class CrmUserController {
     };
 
     @PostMapping("/find-user")
-    public ResponseEntity<Result>  findUserDto(@RequestBody Crm_UserDTO crmUser){
-        List<Crm_UserDTO> list = userService.findUserDto(crmUser);
+    public ResponseEntity<Result>  findUserDto(@RequestBody CrmUserDTO crmUser){
+        List<CrmUserDTO> list = userService.findUserDto(crmUser);
         if (list.size()==0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new Result("NOT_FOUND","Không tồn tại đối tượng cần tìm",""));

@@ -3,15 +3,13 @@ package com.fis.crm.crm_util;
 import com.fis.crm.crm_entity.*;
 import com.fis.crm.crm_entity.DTO.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class DtoMapper {
 
-    public Crm_UserDTO userDtoMapper(CrmUser user){
-        Crm_UserDTO userDTO = new Crm_UserDTO();
+    public CrmUserDTO userDtoMapper(CrmUser user){
+        CrmUserDTO userDTO = new CrmUserDTO();
         userDTO.setUserId(user.getUserid());
         userDTO.setUsername(user.getUsername());
         userDTO.setFullName(user.getFullname());
@@ -83,8 +81,8 @@ public class DtoMapper {
         return null;
     }
 
-    public Crm_UserDTO projectMemberMDTOMapper(CrmProjectMember projectMember) {
-        Crm_UserDTO dto = new Crm_UserDTO();
+    public CrmUserDTO projectMemberMDTOMapper(CrmProjectMember projectMember) {
+        CrmUserDTO dto = new CrmUserDTO();
 //        dto.setUserId(projectMember.getMember().getUserid());
 //        dto.setUsername(projectMember.getMember().getUsername());
 //        dto.setFullName(projectMember.getMember().getFullname());

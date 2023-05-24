@@ -1,11 +1,10 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.CrmInterview;
 import com.fis.crm.crm_entity.DTO.InterviewDTO;
 import com.fis.crm.crm_entity.DTO.InterviewRequestDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.SearchInterviewDTO;
-import com.fis.crm.crm_service.InterviewService;
+import com.fis.crm.crm_service.CrmInterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +12,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/interview")
-public class InterviewController {
+public class CrmInterviewController {
     @Autowired
-    private InterviewService interviewService;
+    private CrmInterviewService interviewService;
     @GetMapping("/")
     public List<InterviewDTO> getAllInterview(){
         return interviewService.getAllInterview();

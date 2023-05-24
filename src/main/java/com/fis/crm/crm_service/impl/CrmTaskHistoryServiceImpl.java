@@ -1,18 +1,18 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmTaskHistory;
-import com.fis.crm.crm_repository.TaskHistoryRepo;
-import com.fis.crm.crm_service.TaskHistoryService;
+import com.fis.crm.crm_repository.CrmTaskHistoryRepo;
+import com.fis.crm.crm_service.CrmTaskHistoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TaskHistoryServiceImpl implements TaskHistoryService {
+public class CrmTaskHistoryServiceImpl implements CrmTaskHistoryService {
 
-    private final TaskHistoryRepo historyRepo;
+    private final CrmTaskHistoryRepo historyRepo;
 
-    public TaskHistoryServiceImpl(TaskHistoryRepo historyRepo) {
+    public CrmTaskHistoryServiceImpl(CrmTaskHistoryRepo historyRepo) {
         this.historyRepo = historyRepo;
     }
 

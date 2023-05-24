@@ -8,9 +8,9 @@ import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_repository.*;
 //import com.fis.crm.crm_repository.impl.TaskRepoImpl;
 import com.fis.crm.crm_service.CrmUserService;
-import com.fis.crm.crm_service.TaskHistoryService;
-import com.fis.crm.crm_service.TaskService;
-import com.fis.crm.crm_service.TaskStatusService;
+import com.fis.crm.crm_service.CrmTaskHistoryService;
+import com.fis.crm.crm_service.CrmTaskService;
+import com.fis.crm.crm_service.CrmTaskStatusService;
 import com.fis.crm.crm_util.TaskMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +20,15 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TaskServiceImpl implements TaskService {
-    private final TaskRepo taskRepo;
+public class TaskServiceImpl implements CrmTaskService {
+    private final CrmTaskRepo taskRepo;
     private final CrmUserService userService;
-    private final TaskStatusService statusService;
-    private final IUserRepo IUserRepo;
+    private final CrmTaskStatusService statusService;
+    private final CrmUserRepo IUserRepo;
 
-    private final TaskHistoryService historyService;
+    private final CrmTaskHistoryService historyService;
 
-    public TaskServiceImpl(TaskRepo taskRepo, CrmUserServiceImpl userService, TaskStatusServiceImpl statusService, IUserRepo iUserRepo, TaskHistoryServiceImpl historyService) {
+    public TaskServiceImpl(CrmTaskRepo taskRepo, CrmUserServiceImpl userService, CrmTaskStatusServiceImpl statusService, CrmUserRepo iUserRepo, CrmTaskHistoryServiceImpl historyService) {
         this.taskRepo = taskRepo;
         this.userService = userService;
         this.statusService = statusService;

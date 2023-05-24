@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CandidateRepo extends JpaRepository<CrmCandidate, Long> {
+public interface CrmCandidateRepo extends JpaRepository<CrmCandidate, Long> {
 
     @Query(value = "select distinct c.candidateid, c.manageid, c.isid, c.fullname,c.phone,c.birthday,c.address,c.status,c.create_date\n" +
         "from crm_candidate c , crm_interview i\n" +

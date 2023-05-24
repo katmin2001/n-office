@@ -4,7 +4,6 @@ import com.fis.crm.crm_entity.CrmUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface IUserRepo extends JpaRepository<CrmUser, Long> {
+public interface CrmUserRepo extends JpaRepository<CrmUser, Long> {
 
     @Query(value = "SELECT u FROM CrmUser u "+
         "where (:fullname is null or lower(u.fullname) like %:fullname%)  " +

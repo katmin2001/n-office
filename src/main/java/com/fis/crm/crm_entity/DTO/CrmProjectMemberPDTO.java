@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrmProjectMemberPDTO {
-    private Crm_UserDTO member;
+    private CrmUserDTO member;
     private List<CrmProjectDTO> projects;
 
-    public Crm_UserDTO getMember() {
+    public CrmUserDTO getMember() {
         return member;
     }
 
-    public void setMember(Crm_UserDTO member) {
+    public void setMember(CrmUserDTO member) {
         this.member = member;
     }
 
@@ -23,13 +23,13 @@ public class CrmProjectMemberPDTO {
         this.projects = projects;
     }
 
-    public CrmProjectMemberPDTO(Crm_UserDTO member, List<CrmProjectDTO> projects) {
+    public CrmProjectMemberPDTO(CrmUserDTO member, List<CrmProjectDTO> projects) {
         this.member = member;
         this.projects = projects;
     }
 
     public CrmProjectMemberPDTO() {
-        this.member = new Crm_UserDTO();
+        this.member = new CrmUserDTO();
         this.projects = new ArrayList<>();
     }
 }

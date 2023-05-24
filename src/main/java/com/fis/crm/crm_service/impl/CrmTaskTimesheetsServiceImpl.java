@@ -3,30 +3,30 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmTaskTimesheets;
 import com.fis.crm.crm_entity.DTO.TaskTimesheetsCreateDTO;
 import com.fis.crm.crm_repository.CrmProjectRepo;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_repository.TaskTimesheetsRepo;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_repository.CrmTaskTimesheetsRepo;
 import com.fis.crm.crm_service.CrmUserService;
-import com.fis.crm.crm_service.TaskService;
-import com.fis.crm.crm_service.TaskTimesheetsService;
+import com.fis.crm.crm_service.CrmTaskService;
+import com.fis.crm.crm_service.CrmTaskTimesheetsService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class TaskTimesheetsServiceImpl implements TaskTimesheetsService {
+public class CrmTaskTimesheetsServiceImpl implements CrmTaskTimesheetsService {
 
-    private final TaskService taskService;
+    private final CrmTaskService taskService;
 
     private final CrmProjectRepo projectRepo;
 
     private final CrmUserService userService;
 
-    private final TaskTimesheetsRepo timesheetsRepo;
+    private final CrmTaskTimesheetsRepo timesheetsRepo;
 
-    private final IUserRepo IUserRepo;
+    private final CrmUserRepo IUserRepo;
 
-    public TaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, TaskTimesheetsRepo timesheetsRepo, IUserRepo iUserRepo) {
+    public CrmTaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, CrmTaskTimesheetsRepo timesheetsRepo, CrmUserRepo iUserRepo) {
         this.taskService = taskService;
         this.projectRepo = projectRepo;
         this.userService = userService;

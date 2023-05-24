@@ -3,11 +3,11 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.CrmUserRole;
-import com.fis.crm.crm_entity.DTO.Crm_UserDTO;
-import com.fis.crm.crm_repository.IRoleFuncRepo;
-import com.fis.crm.crm_repository.IRoleRepo;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_repository.IUserRoleRepo;
+import com.fis.crm.crm_entity.DTO.CrmUserDTO;
+import com.fis.crm.crm_repository.CrmRoleFuncRepo;
+import com.fis.crm.crm_repository.CrmRoleRepo;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_repository.CrmUserRoleRepo;
 import com.fis.crm.crm_service.CrmRoleFuncService;
 import com.fis.crm.crm_service.CrmUserService;
 import com.fis.crm.crm_util.DtoMapper;
@@ -26,16 +26,16 @@ import java.util.*;
 @Transactional
 public class CrmUserServiceImpl implements CrmUserService {
     @Autowired
-    IUserRepo IUserRepo;
+    CrmUserRepo IUserRepo;
     @Autowired
-    IRoleFuncRepo roleFuncRepo;
+    CrmRoleFuncRepo roleFuncRepo;
     @Autowired
-    IUserRoleRepo userRoleRepo;
+    CrmUserRoleRepo userRoleRepo;
     @Qualifier("crmRoleFuncServiceImpl")
     @Autowired
     CrmRoleFuncService roleFuncService;
     @Autowired
-    IRoleRepo roleRepo;
+    CrmRoleRepo roleRepo;
     @Autowired
     CrmUserService userService;
     @Autowired
@@ -44,7 +44,7 @@ public class CrmUserServiceImpl implements CrmUserService {
     private final DtoMapper mapper = new DtoMapper();
 
     @Override
-    public CrmUser registerUser(Crm_UserDTO userDTO, String password) {
+    public CrmUser registerUser(CrmUserDTO userDTO, String password) {
         //kiem tra username da ton tai chua
         CrmUser user = IUserRepo.findCrmUserByUsername(userDTO.getUsername());
         if (user!=null){
@@ -76,13 +76,13 @@ public class CrmUserServiceImpl implements CrmUserService {
     }
 
     @Override
-    public Crm_UserDTO findByCrmUserId(Long userId) {
+    public CrmUserDTO findByCrmUserId(Long userId) {
         CrmUser crmUser = IUserRepo.findById(userId).orElseThrow(NullPointerException::new);
         return mapper.userDtoMapper(crmUser);
     }
 
     @Override
-    public List<Crm_UserDTO> findUserDto(Crm_UserDTO crmUser) {
+    public List<CrmUserDTO> findUserDto(CrmUserDTO crmUser) {
         String fullname = crmUser.getFullName();
         Date createdate = crmUser.getCreateDate();
         String phone = crmUser.getPhone();
@@ -90,7 +90,7 @@ public class CrmUserServiceImpl implements CrmUserService {
         String address = crmUser.getAddress();
         String status = crmUser.getStatus();
         List<CrmUser> crmUsers = IUserRepo.findCrmUsersByKeyword(fullname,createdate,phone,birthday,address,status);
-        List<Crm_UserDTO> list = new ArrayList<>();
+        List<CrmUserDTO> list = new ArrayList<>();
         for (CrmUser user : crmUsers){
             list.add(mapper.userDtoMapper(user));
         }
@@ -98,26 +98,26 @@ public class CrmUserServiceImpl implements CrmUserService {
     }
 
     @Override
-    public List<Crm_UserDTO> findAllUserDto() {
-        List<Crm_UserDTO> list = new ArrayList<>();
+    public List<CrmUserDTO> findAllUserDto() {
+        List<CrmUserDTO> list = new ArrayList<>();
         List<CrmUser> users = IUserRepo.findAll();
         for (CrmUser user : users){
-            Crm_UserDTO userDTO = mapper.userDtoMapper(user);
+            CrmUserDTO userDTO = mapper.userDtoMapper(user);
             list.add(userDTO);
         }
         return list;
     }
 
     @Override
-    public Crm_UserDTO getUserDetail(Long userId) {
+    public CrmUserDTO getUserDetail(Long userId) {
         CrmUser user = IUserRepo.findById(userId).orElseThrow(NullPointerException::new);
         return mapper.userDtoMapper(user);
     }
 
     @Override
-    public Set<Crm_UserDTO> findUserByFunc(Long funcId) {
-        Set<Crm_UserDTO> setCrmUser = new HashSet<>();
-        Set<Crm_UserDTO> set = new HashSet<>();
+    public Set<CrmUserDTO> findUserByFunc(Long funcId) {
+        Set<CrmUserDTO> setCrmUser = new HashSet<>();
+        Set<CrmUserDTO> set = new HashSet<>();
         Set<String> setUsername = new HashSet<>();
         //lấy ra set roleId từ funcId
         Set<CrmRole> crmRoleSet = roleFuncService.findRoleByFunc(funcId);
@@ -128,11 +128,11 @@ public class CrmUserServiceImpl implements CrmUserService {
         }
         //lấy ra các set user từ set roleid và thêm vào setCrmUsers
         for (Long roleId : setRoleId){
-            Set<Crm_UserDTO> crmUsers = findCrmUserDtoByRoleId(roleId);
+            Set<CrmUserDTO> crmUsers = findCrmUserDtoByRoleId(roleId);
             setCrmUser.addAll(crmUsers);
         }
         //loại bỏ giá trị trùng lặp qua username
-        for(Crm_UserDTO value : setCrmUser){
+        for(CrmUserDTO value : setCrmUser){
             if(!setUsername.contains(value.getUsername())){
                 setUsername.add(value.getUsername());
                 set.add(value);
@@ -142,8 +142,8 @@ public class CrmUserServiceImpl implements CrmUserService {
     }
 
     @Override
-    public Set<Crm_UserDTO> findCrmUserDtoByRoleId(Long roleId) {
-        Set<Crm_UserDTO> set = new HashSet<>();
+    public Set<CrmUserDTO> findCrmUserDtoByRoleId(Long roleId) {
+        Set<CrmUserDTO> set = new HashSet<>();
         //tạo list lấy ra toàn bộ
         List<CrmUserRole> listUserRole = userRoleRepo.findAll();
         //dùng vòng lặp lấy ra tất cả đối tượng trong listUserRole có roleId giống tham số

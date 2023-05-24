@@ -1,15 +1,15 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmTaskStatus;
-import com.fis.crm.crm_repository.TaskStatusRepo;
-import com.fis.crm.crm_service.TaskStatusService;
+import com.fis.crm.crm_repository.CrmTaskStatusRepo;
+import com.fis.crm.crm_service.CrmTaskStatusService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaskStatusServiceImpl implements TaskStatusService {
-    private final TaskStatusRepo statusRepo;
+public class CrmTaskStatusServiceImpl implements CrmTaskStatusService {
+    private final CrmTaskStatusRepo statusRepo;
 
-    public TaskStatusServiceImpl(TaskStatusRepo statusRepo) {
+    public CrmTaskStatusServiceImpl(CrmTaskStatusRepo statusRepo) {
         this.statusRepo = statusRepo;
     }
 

@@ -10,7 +10,7 @@ public class CrmProjectDTO {
     private String name;
     private String code;
     private CrmCustomer customer;
-    private Crm_UserDTO manager;
+    private CrmUserDTO manager;
     private CrmProjectPrivacy privacy;
     private CrmProjectStatus status;
     private String description;
@@ -50,11 +50,11 @@ public class CrmProjectDTO {
         this.customer = customer;
     }
 
-    public Crm_UserDTO getManager() {
+    public CrmUserDTO getManager() {
         return manager;
     }
 
-    public void setManager(Crm_UserDTO manager) {
+    public void setManager(CrmUserDTO manager) {
         this.manager = manager;
     }
 

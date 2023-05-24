@@ -1,13 +1,11 @@
 package com.fis.crm.crm_entity.DTO;
 
-import com.fis.crm.crm_entity.CrmUserRole;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Set;
 
-public class Crm_UserDTO {
+public class CrmUserDTO {
     private Long userId;
     @NotNull(message = "Tên tài khoản không được bỏ trống")
     private String username;
@@ -27,10 +25,10 @@ public class Crm_UserDTO {
 
     private Set<CrmRoleDTO> userRoles;
 
-    public Crm_UserDTO() {
+    public CrmUserDTO() {
     }
 
-    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmRoleDTO> userRoles) {
+    public CrmUserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmRoleDTO> userRoles) {
         this.userId = userId;
         this.username = username;
         this.fullName = fullName;
@@ -41,7 +39,7 @@ public class Crm_UserDTO {
         this.status = status;
         this.userRoles = userRoles;
     }
-    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
+    public CrmUserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
         this.userId = userId;
         this.username = username;
         this.fullName = fullName;

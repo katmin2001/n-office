@@ -1,7 +1,5 @@
 package com.fis.crm.crm_entity.DTO;
 
-import java.sql.Date;
-
 public class CandidateDTO {
     private Long candidateId;
     private String fullname;
@@ -11,12 +9,12 @@ public class CandidateDTO {
     private Boolean status;
     private String createDate;
     private InterviewStatusDTO interviewStatusDTO;
-    private Crm_UserDTO crmUserDTO;
+    private CrmUserDTO crmUserDTO;
 
     public CandidateDTO() {
     }
 
-    public CandidateDTO(Long candidateId, String fullname, String phone, String birthday, String address, Boolean status, String createDate, InterviewStatusDTO interviewStatusDTO, Crm_UserDTO crmUserDTO) {
+    public CandidateDTO(Long candidateId, String fullname, String phone, String birthday, String address, Boolean status, String createDate, InterviewStatusDTO interviewStatusDTO, CrmUserDTO crmUserDTO) {
         this.candidateId = candidateId;
         this.fullname = fullname;
         this.phone = phone;
@@ -92,11 +90,11 @@ public class CandidateDTO {
         this.interviewStatusDTO = interviewStatusDTO;
     }
 
-    public Crm_UserDTO getCrmUserDTO() {
+    public CrmUserDTO getCrmUserDTO() {
         return crmUserDTO;
     }
 
-    public void setCrmUserDTO(Crm_UserDTO crmUserDTO) {
+    public void setCrmUserDTO(CrmUserDTO crmUserDTO) {
         this.crmUserDTO = crmUserDTO;
     }
 }

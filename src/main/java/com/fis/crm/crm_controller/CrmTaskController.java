@@ -1,19 +1,17 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmTask;
-import com.fis.crm.crm_entity.CrmTaskHistory;
 import com.fis.crm.crm_entity.DTO.TaskCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskSearchDTO;
 import com.fis.crm.crm_entity.DTO.TaskUpdateDTO;
 import com.fis.crm.crm_entity.DTO.TaskDTO;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_service.TaskHistoryService;
-import com.fis.crm.crm_service.TaskService;
-import com.fis.crm.crm_service.TaskStatusService;
-import com.fis.crm.crm_service.impl.CrmUserServiceImpl;
-import com.fis.crm.crm_service.impl.TaskHistoryServiceImpl;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_service.CrmTaskHistoryService;
+import com.fis.crm.crm_service.CrmTaskService;
+import com.fis.crm.crm_service.CrmTaskStatusService;
+import com.fis.crm.crm_service.impl.CrmTaskHistoryServiceImpl;
 import com.fis.crm.crm_service.impl.TaskServiceImpl;
-import com.fis.crm.crm_service.impl.TaskStatusServiceImpl;
+import com.fis.crm.crm_service.impl.CrmTaskStatusServiceImpl;
 import com.fis.crm.crm_util.TaskMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +21,14 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/task")
-public class TaskController {
-    private final TaskService taskService;
-    private final TaskStatusService statusService;
-    private final TaskHistoryService historyService;
-    private final IUserRepo IUserRepo;
+public class CrmTaskController {
+    private final CrmTaskService taskService;
+    private final CrmTaskStatusService statusService;
+    private final CrmTaskHistoryService historyService;
+    private final CrmUserRepo IUserRepo;
 //    private TaskRepo taskRepo;
 
-    public TaskController(TaskServiceImpl taskService, TaskStatusServiceImpl statusService, TaskHistoryServiceImpl historyService, IUserRepo iUserRepo) {
+    public CrmTaskController(TaskServiceImpl taskService, CrmTaskStatusServiceImpl statusService, CrmTaskHistoryServiceImpl historyService, CrmUserRepo iUserRepo) {
         this.taskService = taskService;
         this.statusService = statusService;
         this.historyService = historyService;

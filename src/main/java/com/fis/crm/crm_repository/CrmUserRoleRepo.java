@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface IUserRoleRepo extends JpaRepository<CrmUserRole, Long> {
+public interface CrmUserRoleRepo extends JpaRepository<CrmUserRole, Long> {
 
     @Query(value = "select u from CrmUserRole  u where u.role.roleid = :roleId")
     public List<CrmUserRole> findCrmUserRoleByRoleId(@Param("roleId") Long roleId);

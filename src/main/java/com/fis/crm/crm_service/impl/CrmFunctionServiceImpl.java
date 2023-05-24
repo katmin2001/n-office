@@ -2,7 +2,7 @@ package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmFunction;
 import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
-import com.fis.crm.crm_repository.IFunctionRepo;
+import com.fis.crm.crm_repository.CrmFunctionRepo;
 import com.fis.crm.crm_service.CrmFunctionService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.List;
 @Transactional
 public class CrmFunctionServiceImpl implements CrmFunctionService {
     @Autowired
-    private IFunctionRepo functionRepo;
+    private CrmFunctionRepo functionRepo;
     private final Logger log = LoggerFactory.getLogger(CrmFunctionServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     @Override

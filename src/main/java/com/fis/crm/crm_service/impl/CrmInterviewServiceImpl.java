@@ -3,11 +3,11 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmInterview;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.DTO.*;
-import com.fis.crm.crm_repository.CandidateRepo;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_repository.InterviewRepo;
-import com.fis.crm.crm_repository.InterviewStatusRepo;
-import com.fis.crm.crm_service.InterviewService;
+import com.fis.crm.crm_repository.CrmCandidateRepo;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_repository.CrmInterviewRepo;
+import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
+import com.fis.crm.crm_service.CrmInterviewService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,13 +18,13 @@ import java.util.*;
 
 @Service
 @Transactional
-public class InterviewServiceImpl implements InterviewService{
-    private final CandidateRepo candidateRepo;
-    private final InterviewRepo interviewRepo;
-    private final InterviewStatusRepo interviewStatusRepo;
-    private final IUserRepo userRepo;
+public class CrmInterviewServiceImpl implements CrmInterviewService {
+    private final CrmCandidateRepo candidateRepo;
+    private final CrmInterviewRepo interviewRepo;
+    private final CrmInterviewStatusRepo interviewStatusRepo;
+    private final CrmUserRepo userRepo;
 
-    public InterviewServiceImpl(CandidateRepo candidateRepo, InterviewRepo interviewRepo, InterviewStatusRepo interviewStatusRepo, IUserRepo userRepo) {
+    public CrmInterviewServiceImpl(CrmCandidateRepo candidateRepo, CrmInterviewRepo interviewRepo, CrmInterviewStatusRepo interviewStatusRepo, CrmUserRepo userRepo) {
         this.candidateRepo = candidateRepo;
         this.interviewRepo = interviewRepo;
         this.interviewStatusRepo = interviewStatusRepo;
@@ -36,10 +36,10 @@ public class InterviewServiceImpl implements InterviewService{
         List<CrmInterview> crmInterviews = interviewRepo.findAll();
         List<InterviewDTO> interviewDTOS = new ArrayList<>();
         for(CrmInterview interview: crmInterviews){
-            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+            Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
-                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                CrmUserDTO crmUserDTO = new CrmUserDTO(
                     crmUser.getUserid(),
                     crmUser.getUsername(),
                     crmUser.getFullname(),
@@ -68,10 +68,10 @@ public class InterviewServiceImpl implements InterviewService{
     @Override
     public InterviewDTO getInterviewById(Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
-        Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+        Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
         Set<CrmUser> crmUsers = interview.getUsers();
         for (CrmUser crmUser: crmUsers){
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+            CrmUserDTO crmUserDTO = new CrmUserDTO(
                 crmUser.getUserid(),
                 crmUser.getUsername(),
                 crmUser.getFullname(),
@@ -210,10 +210,10 @@ public class InterviewServiceImpl implements InterviewService{
         List<CrmInterview> crmInterviews =  interviewRepo.searchInterview(searchInterviewDTO.getStartDay(),searchInterviewDTO.getEndDay(),searchInterviewDTO.getISID(),searchInterviewDTO.getInterviewer());
         List<InterviewDTO> interviewDTOS = new ArrayList<>();
         for(CrmInterview interview: crmInterviews){
-            Set<Crm_UserDTO> crmUserDTOS = new HashSet<>();
+            Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
-                Crm_UserDTO crmUserDTO = new Crm_UserDTO(
+                CrmUserDTO crmUserDTO = new CrmUserDTO(
                     crmUser.getUserid(),
                     crmUser.getUsername(),
                     crmUser.getFullname(),

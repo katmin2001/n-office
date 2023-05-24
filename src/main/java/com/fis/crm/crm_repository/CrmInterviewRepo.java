@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InterviewRepo extends JpaRepository<CrmInterview,Long> {
+public interface CrmInterviewRepo extends JpaRepository<CrmInterview,Long> {
     @Query(value = "select distinct i.interviewid, i.candidateid, i.isid,i.interview_date, i.status, i.create_date\n" +
         "from crm_interview i , crm_interview_detail d\n" +
         "where \n" +

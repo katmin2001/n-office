@@ -1,11 +1,9 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.CrmTask;
 import com.fis.crm.crm_entity.CrmTaskTimesheets;
-import com.fis.crm.crm_entity.DTO.TaskDTO;
 import com.fis.crm.crm_entity.DTO.TaskTimesheetsCreateDTO;
 import com.fis.crm.crm_entity.DTO.TaskTimesheetsDTO;
-import com.fis.crm.crm_service.TaskTimesheetsService;
+import com.fis.crm.crm_service.CrmTaskTimesheetsService;
 import com.fis.crm.crm_util.TaskTimesheetsMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +15,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/task-timesheets")
-public class TaskTimesheetsController {
-    private final TaskTimesheetsService timesheetsService;
+public class CrmTaskTimesheetsController {
+    private final CrmTaskTimesheetsService timesheetsService;
 
-    public TaskTimesheetsController(TaskTimesheetsService taskTimesheetsService) {
+    public CrmTaskTimesheetsController(CrmTaskTimesheetsService taskTimesheetsService) {
         this.timesheetsService = taskTimesheetsService;
     }
 

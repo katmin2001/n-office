@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface IRoleFuncRepo extends JpaRepository<CrmRoleFunction, Long> {
+public interface CrmRoleFuncRepo extends JpaRepository<CrmRoleFunction, Long> {
 
     @Query(value = "select u from CrmRoleFunction u where u.role = :role")
     public List<CrmRoleFunction> findCrmRoleFunctionsByRole(@Param("role")CrmRole role);

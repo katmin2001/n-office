@@ -1,8 +1,8 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmTaskHistory;
-import com.fis.crm.crm_service.TaskHistoryService;
-import com.fis.crm.crm_service.impl.TaskHistoryServiceImpl;
+import com.fis.crm.crm_service.CrmTaskHistoryService;
+import com.fis.crm.crm_service.impl.CrmTaskHistoryServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/task-history")
-public class TaskHistoryController {
+public class CrmTaskHistoryController {
 
-    private final TaskHistoryService historyService;
+    private final CrmTaskHistoryService historyService;
 
-    public TaskHistoryController(TaskHistoryServiceImpl historyService) {
+    public CrmTaskHistoryController(CrmTaskHistoryServiceImpl historyService) {
         this.historyService = historyService;
     }
 

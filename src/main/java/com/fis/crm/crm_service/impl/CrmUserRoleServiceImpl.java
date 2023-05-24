@@ -5,9 +5,9 @@ import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
 import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
-import com.fis.crm.crm_repository.IRoleRepo;
-import com.fis.crm.crm_repository.IUserRepo;
-import com.fis.crm.crm_repository.IUserRoleRepo;
+import com.fis.crm.crm_repository.CrmRoleRepo;
+import com.fis.crm.crm_repository.CrmUserRepo;
+import com.fis.crm.crm_repository.CrmUserRoleRepo;
 import com.fis.crm.crm_service.CrmUserRoleService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.slf4j.Logger;
@@ -23,11 +23,11 @@ import java.util.List;
 @Transactional
 public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     @Autowired
-    IUserRoleRepo userRoleRepo;
+    CrmUserRoleRepo userRoleRepo;
     @Autowired
-    IUserRepo userRepo;
+    CrmUserRepo userRepo;
     @Autowired
-    IRoleRepo roleRepo;
+    CrmRoleRepo roleRepo;
     private final Logger log = LoggerFactory.getLogger(CrmUserRoleServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 
