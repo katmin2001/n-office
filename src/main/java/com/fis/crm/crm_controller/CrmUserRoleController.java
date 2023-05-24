@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/user-role")
 public class CrmUserRoleController {
@@ -30,7 +32,7 @@ public class CrmUserRoleController {
     };
 
     @PostMapping("/find-user-role-by-role/{roleId}")
-    public ResponseEntity<Result> findUserByRole(@PathVariable Long roleId){
+    public ResponseEntity<Result> findUserByRole(@PathVariable Long roleId) {
         return ResponseEntity.status(HttpStatus.OK)
             .body(new Result("OK","Tìm kiếm thành công",userRoleService.findUserByRole(roleId)));
     }

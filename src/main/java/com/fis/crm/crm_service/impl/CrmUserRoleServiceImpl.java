@@ -12,7 +12,6 @@ import com.fis.crm.crm_service.CrmUserRoleService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,9 +21,9 @@ import java.util.List;
 @Service
 @Transactional
 public class CrmUserRoleServiceImpl implements CrmUserRoleService {
-    private CrmUserRoleRepo userRoleRepo;
-    private CrmUserRepo userRepo;
-    private CrmRoleRepo roleRepo;
+    private final CrmUserRoleRepo userRoleRepo;
+    private final CrmUserRepo userRepo;
+    private final CrmRoleRepo roleRepo;
 
     public CrmUserRoleServiceImpl(CrmUserRoleRepo userRoleRepo, CrmUserRepo userRepo, CrmRoleRepo roleRepo) {
         this.userRoleRepo = userRoleRepo;
@@ -108,6 +107,9 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         for (CrmUserRole value : userRoles){
             list.add(mapper.userRoleDTOMapper(value));
         }
+        if (list.size()==0){
+            throw new NullPointerException();
+        }
         return list;
     }
 
@@ -118,6 +120,9 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         List<CrmUserRoleDTO> list = new ArrayList<>();
         for (CrmUserRole value : userRoles){
             list.add(mapper.userRoleDTOMapper(value));
+        }
+        if (list.size()==0){
+            throw new NullPointerException();
         }
         return list;
     }

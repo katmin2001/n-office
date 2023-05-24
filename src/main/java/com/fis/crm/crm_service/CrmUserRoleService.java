@@ -6,6 +6,7 @@ import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
