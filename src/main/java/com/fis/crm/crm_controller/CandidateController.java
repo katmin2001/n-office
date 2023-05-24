@@ -1,11 +1,10 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.CrmCandidate;
 import com.fis.crm.crm_entity.DTO.CandidateDTO;
 import com.fis.crm.crm_entity.DTO.CandidateRequestDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.SearchCandidateDTO;
-import com.fis.crm.crm_service.CandidateService;
+import com.fis.crm.crm_service.CrmCandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @RequestMapping("/candidate")
 public class CandidateController {
     @Autowired
-    private CandidateService candidateService;
+    private CrmCandidateService candidateService;
 
     @GetMapping("/")
     public List<CandidateDTO> getAllCandidate(){

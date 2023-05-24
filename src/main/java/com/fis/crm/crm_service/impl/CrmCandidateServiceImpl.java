@@ -6,7 +6,7 @@ import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_repository.CrmCandidateRepo;
 import com.fis.crm.crm_repository.CrmUserRepo;
 import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
-import com.fis.crm.crm_service.CandidateService;
+import com.fis.crm.crm_service.CrmCandidateService;
 import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CrmCandidateServiceImpl implements CandidateService {
+public class CrmCandidateServiceImpl implements CrmCandidateService {
     private final CrmCandidateRepo candidateRepo;
     private final CrmUserRepo userRepo;
     private final CrmInterviewStatusRepo interviewStatusRepo;

@@ -26,7 +26,7 @@ public class CrmTaskTimesheetsServiceImpl implements CrmTaskTimesheetsService {
 
     private final CrmUserRepo IUserRepo;
 
-    public CrmTaskTimesheetsServiceImpl(TaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, CrmTaskTimesheetsRepo timesheetsRepo, CrmUserRepo iUserRepo) {
+    public CrmTaskTimesheetsServiceImpl(CrmTaskServiceImpl taskService, CrmProjectRepo projectRepo, CrmUserServiceImpl userService, CrmTaskTimesheetsRepo timesheetsRepo, CrmUserRepo iUserRepo) {
         this.taskService = taskService;
         this.projectRepo = projectRepo;
         this.userService = userService;

@@ -10,7 +10,7 @@ import com.fis.crm.crm_service.CrmTaskHistoryService;
 import com.fis.crm.crm_service.CrmTaskService;
 import com.fis.crm.crm_service.CrmTaskStatusService;
 import com.fis.crm.crm_service.impl.CrmTaskHistoryServiceImpl;
-import com.fis.crm.crm_service.impl.TaskServiceImpl;
+import com.fis.crm.crm_service.impl.CrmTaskServiceImpl;
 import com.fis.crm.crm_service.impl.CrmTaskStatusServiceImpl;
 import com.fis.crm.crm_util.TaskMapper;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class CrmTaskController {
     private final CrmUserRepo IUserRepo;
 //    private TaskRepo taskRepo;
 
-    public CrmTaskController(TaskServiceImpl taskService, CrmTaskStatusServiceImpl statusService, CrmTaskHistoryServiceImpl historyService, CrmUserRepo iUserRepo) {
+    public CrmTaskController(CrmTaskServiceImpl taskService, CrmTaskStatusServiceImpl statusService, CrmTaskHistoryServiceImpl historyService, CrmUserRepo iUserRepo) {
         this.taskService = taskService;
         this.statusService = statusService;
         this.historyService = historyService;
