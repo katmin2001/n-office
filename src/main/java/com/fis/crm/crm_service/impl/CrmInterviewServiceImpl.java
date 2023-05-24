@@ -8,6 +8,8 @@ import com.fis.crm.crm_repository.CrmUserRepo;
 import com.fis.crm.crm_repository.CrmInterviewRepo;
 import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
 import com.fis.crm.crm_service.CrmInterviewService;
+
+import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,7 +20,8 @@ import java.util.*;
 
 @Service
 @Transactional
-public class CrmInterviewServiceImpl implements CrmInterviewService {
+public class CrmInterviewServiceImpl implements CrmInterviewService{
+    private final DtoMapper mapper = new DtoMapper();
     private final CrmCandidateRepo candidateRepo;
     private final CrmInterviewRepo interviewRepo;
     private final CrmInterviewStatusRepo interviewStatusRepo;
@@ -39,16 +42,8 @@ public class CrmInterviewServiceImpl implements CrmInterviewService {
             Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
-                CrmUserDTO crmUserDTO = new CrmUserDTO(
-                    crmUser.getUserid(),
-                    crmUser.getUsername(),
-                    crmUser.getFullname(),
-                    crmUser.getCreatedate(),
-                    crmUser.getPhone(),
-                    crmUser.getBirthday(),
-                    crmUser.getAddress(),
-                    crmUser.getStatus()
-                );
+
+                CrmUserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
                 crmUserDTOS.add(crmUserDTO);
             }
             InterviewDTO interviewDTO = new InterviewDTO(
@@ -71,16 +66,7 @@ public class CrmInterviewServiceImpl implements CrmInterviewService {
         Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
         Set<CrmUser> crmUsers = interview.getUsers();
         for (CrmUser crmUser: crmUsers){
-            CrmUserDTO crmUserDTO = new CrmUserDTO(
-                crmUser.getUserid(),
-                crmUser.getUsername(),
-                crmUser.getFullname(),
-                crmUser.getCreatedate(),
-                crmUser.getPhone(),
-                crmUser.getBirthday(),
-                crmUser.getAddress(),
-                crmUser.getStatus()
-            );
+            CrmUserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
             crmUserDTOS.add(crmUserDTO);
         }
         InterviewDTO interviewDTO = new InterviewDTO(
@@ -213,16 +199,7 @@ public class CrmInterviewServiceImpl implements CrmInterviewService {
             Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
             Set<CrmUser> crmUsers = interview.getUsers();
             for (CrmUser crmUser: crmUsers){
-                CrmUserDTO crmUserDTO = new CrmUserDTO(
-                    crmUser.getUserid(),
-                    crmUser.getUsername(),
-                    crmUser.getFullname(),
-                    crmUser.getCreatedate(),
-                    crmUser.getPhone(),
-                    crmUser.getBirthday(),
-                    crmUser.getAddress(),
-                    crmUser.getStatus()
-                );
+                CrmUserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
                 crmUserDTOS.add(crmUserDTO);
             }
             InterviewDTO interviewDTO = new InterviewDTO(

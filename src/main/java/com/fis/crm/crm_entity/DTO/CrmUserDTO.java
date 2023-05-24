@@ -39,16 +39,7 @@ public class CrmUserDTO {
         this.status = status;
         this.userRoles = userRoles;
     }
-    public CrmUserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
-        this.userId = userId;
-        this.username = username;
-        this.fullName = fullName;
-        this.createDate = createDate;
-        this.phone = phone;
-        this.birthday = birthday;
-        this.address = address;
-        this.status = status;
-    }
+
 
     public Long getUserId() {
         return userId;
