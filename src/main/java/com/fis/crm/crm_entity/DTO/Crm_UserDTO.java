@@ -27,7 +27,15 @@ public class Crm_UserDTO {
 
     private Set<CrmRoleDTO> userRoles;
 
-    public Crm_UserDTO() {
+    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
+        this.userId = userId;
+        this.username = username;
+        this.fullName = fullName;
+        this.createDate = createDate;
+        this.phone = phone;
+        this.birthday = birthday;
+        this.address = address;
+        this.status = status;
     }
 
     public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status, Set<CrmRoleDTO> userRoles) {
@@ -41,15 +49,8 @@ public class Crm_UserDTO {
         this.status = status;
         this.userRoles = userRoles;
     }
-    public Crm_UserDTO(Long userId, String username, String fullName, Date createDate, String phone, Date birthday, String address, String status) {
-        this.userId = userId;
-        this.username = username;
-        this.fullName = fullName;
-        this.createDate = createDate;
-        this.phone = phone;
-        this.birthday = birthday;
-        this.address = address;
-        this.status = status;
+
+    public Crm_UserDTO() {
     }
 
     public Long getUserId() {

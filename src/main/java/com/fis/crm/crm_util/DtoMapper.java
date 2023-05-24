@@ -3,9 +3,7 @@ package com.fis.crm.crm_util;
 import com.fis.crm.crm_entity.*;
 import com.fis.crm.crm_entity.DTO.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class DtoMapper {

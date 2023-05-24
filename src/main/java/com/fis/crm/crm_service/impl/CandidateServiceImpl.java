@@ -1,11 +1,13 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmCandidate;
+import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_repository.CandidateRepo;
 import com.fis.crm.crm_repository.IUserRepo;
 import com.fis.crm.crm_repository.InterviewStatusRepo;
 import com.fis.crm.crm_service.CandidateService;
+import com.fis.crm.crm_util.DtoMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,7 +28,7 @@ public class CandidateServiceImpl implements CandidateService {
         this.userRepo = userRepo;
         this.interviewStatusRepo = interviewStatusRepo;
     }
-
+    private final DtoMapper mapper = new DtoMapper();
     public static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     public static DateFormat dateFormatHour = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static DateFormat dateFormatDB = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,15 +38,9 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
-                candidate.getUser().getUserid(),
-                candidate.getUser().getUsername(),
-                candidate.getUser().getFullname(),
-                candidate.getUser().getCreatedate(),
-                candidate.getUser().getPhone(),
-                candidate.getUser().getBirthday(),
-                candidate.getUser().getAddress(),
-                candidate.getUser().getStatus());
+            CrmUser crmUser = userRepo.findCrmUserByUserid(candidate.getUser().getUserid());
+            Crm_UserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
+
             CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
                 candidate.getFullname(),
                 candidate.getPhone(),
@@ -67,15 +63,8 @@ public class CandidateServiceImpl implements CandidateService {
             throw new NullPointerException();
         }
         InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-        Crm_UserDTO crmUserDTO = new Crm_UserDTO(
-            candidate.getUser().getUserid(),
-            candidate.getUser().getUsername(),
-            candidate.getUser().getFullname(),
-            candidate.getUser().getCreatedate(),
-            candidate.getUser().getPhone(),
-            candidate.getUser().getBirthday(),
-            candidate.getUser().getAddress(),
-            candidate.getUser().getStatus());
+        CrmUser crmUser = userRepo.findCrmUserByUserid(candidate.getUser().getUserid());
+        Crm_UserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
         CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
             candidate.getFullname(),
             candidate.getPhone(),
@@ -165,15 +154,8 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
-            Crm_UserDTO crmUserDTO = new Crm_UserDTO(
-                candidate.getUser().getUserid(),
-                candidate.getUser().getUsername(),
-                candidate.getUser().getFullname(),
-                candidate.getUser().getCreatedate(),
-                candidate.getUser().getPhone(),
-                candidate.getUser().getBirthday(),
-                candidate.getUser().getAddress(),
-                candidate.getUser().getStatus());
+            CrmUser crmUser = userRepo.findCrmUserByUserid(candidate.getUser().getUserid());
+            Crm_UserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
             CandidateDTO candidateDTO = new CandidateDTO(candidate.getCandidateid(),
                 candidate.getFullname(),
                 candidate.getPhone(),
