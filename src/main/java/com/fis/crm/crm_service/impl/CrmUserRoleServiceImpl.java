@@ -22,12 +22,16 @@ import java.util.List;
 @Service
 @Transactional
 public class CrmUserRoleServiceImpl implements CrmUserRoleService {
-    @Autowired
-    CrmUserRoleRepo userRoleRepo;
-    @Autowired
-    CrmUserRepo userRepo;
-    @Autowired
-    CrmRoleRepo roleRepo;
+    private CrmUserRoleRepo userRoleRepo;
+    private CrmUserRepo userRepo;
+    private CrmRoleRepo roleRepo;
+
+    public CrmUserRoleServiceImpl(CrmUserRoleRepo userRoleRepo, CrmUserRepo userRepo, CrmRoleRepo roleRepo) {
+        this.userRoleRepo = userRoleRepo;
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+    }
+
     private final Logger log = LoggerFactory.getLogger(CrmUserRoleServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 

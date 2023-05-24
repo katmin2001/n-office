@@ -15,8 +15,12 @@ import java.util.List;
 
 @Service
 public class CrmRoleServiceImpl implements CrmRoleService {
-    @Autowired
     private CrmRoleRepo roleRepo;
+
+    public CrmRoleServiceImpl(CrmRoleRepo roleRepo) {
+        this.roleRepo = roleRepo;
+    }
+
     private final Logger log = LoggerFactory.getLogger(CrmRoleServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 

@@ -22,12 +22,16 @@ import java.util.Set;
 
 @Service
 public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
-    @Autowired
-    CrmRoleFuncRepo roleFuncRepo;
-    @Autowired
-    CrmRoleRepo roleRepo;
-    @Autowired
-    CrmFunctionRepo functionRepo;
+    private CrmRoleFuncRepo roleFuncRepo;
+    private CrmRoleRepo roleRepo;
+    private CrmFunctionRepo functionRepo;
+
+    public CrmRoleFuncServiceImpl(CrmRoleFuncRepo roleFuncRepo, CrmRoleRepo roleRepo, CrmFunctionRepo functionRepo) {
+        this.roleFuncRepo = roleFuncRepo;
+        this.roleRepo = roleRepo;
+        this.functionRepo = functionRepo;
+    }
+
     private final Logger log = LoggerFactory.getLogger(CrmRoleFuncServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     @Override

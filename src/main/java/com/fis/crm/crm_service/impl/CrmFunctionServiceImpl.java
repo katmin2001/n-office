@@ -17,8 +17,13 @@ import java.util.List;
 @Service
 @Transactional
 public class CrmFunctionServiceImpl implements CrmFunctionService {
-    @Autowired
+
     private CrmFunctionRepo functionRepo;
+
+    public CrmFunctionServiceImpl(CrmFunctionRepo functionRepo) {
+        this.functionRepo = functionRepo;
+    }
+
     private final Logger log = LoggerFactory.getLogger(CrmFunctionServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     @Override
