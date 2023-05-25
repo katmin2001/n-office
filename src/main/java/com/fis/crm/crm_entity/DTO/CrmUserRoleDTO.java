@@ -1,31 +1,21 @@
 package com.fis.crm.crm_entity.DTO;
 
+import java.util.Set;
+
 public class CrmUserRoleDTO {
     private Long id;
     private Long userId;
-    private Long roleId;
     private String fullName;
-    private String roleName;
+    private Set<CrmRoleDTO> roleDTOS;
 
     public CrmUserRoleDTO() {
     }
 
-    public CrmUserRoleDTO(Long id, Long userId, Long roleId, String fullName, String roleName) {
+    public CrmUserRoleDTO(Long id, Long userId, String fullName, Set<CrmRoleDTO> roleDTOS) {
         this.id = id;
         this.userId = userId;
-        this.roleId = roleId;
         this.fullName = fullName;
-        this.roleName = roleName;
-    }
-
-    public CrmUserRoleDTO(Long roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
-    }
-    public CrmUserRoleDTO(Long id, Long userId, Long roleId) {
-        this.id = id;
-        this.userId = userId;
-        this.roleId = roleId;
+        this.roleDTOS = roleDTOS;
     }
 
     public Long getId() {
@@ -44,14 +34,6 @@ public class CrmUserRoleDTO {
         this.userId = userId;
     }
 
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
     public String getFullName() {
         return fullName;
     }
@@ -60,11 +42,11 @@ public class CrmUserRoleDTO {
         this.fullName = fullName;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public Set<CrmRoleDTO> getRoleDTOS() {
+        return roleDTOS;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoleDTOS(Set<CrmRoleDTO> roleDTOS) {
+        this.roleDTOS = roleDTOS;
     }
 }

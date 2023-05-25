@@ -47,8 +47,12 @@ public class DtoMapper {
         userRoleDTO.setId(userRole.getUrid());
         userRoleDTO.setUserId(userRole.getUser().getUserid());
         userRoleDTO.setFullName(userRole.getUser().getFullname());
-        userRoleDTO.setRoleId(userRole.getRole().getRoleid());
-        userRoleDTO.setRoleName(userRole.getRole().getRolename());
+        Set<CrmRoleDTO> roleDTOS = new HashSet<>();
+        for (CrmUserRole value : userRole.getUser().getUserRoles()){
+            CrmRoleDTO roleDTO = roleDtoMapper(value.getRole());
+            roleDTOS.add(roleDTO);
+        }
+        userRoleDTO.setRoleDTOS(roleDTOS);
         return userRoleDTO;
     }
     public CrmRoleFuncDTO roleFuncDTOMapper(CrmRoleFunction roleFunction){

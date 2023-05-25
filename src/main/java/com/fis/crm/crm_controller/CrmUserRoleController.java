@@ -1,6 +1,7 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
+import com.fis.crm.crm_entity.DTO.RegisterUserRoleDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
 import com.fis.crm.crm_service.CrmUserRoleService;
@@ -26,7 +27,7 @@ public class CrmUserRoleController {
     };
 
     @PostMapping("/add-user-role")
-    public ResponseEntity<Result> addUserRole(@RequestBody CrmUserRoleDTO userRoleDTO){
+    public ResponseEntity<Result> addUserRole(@RequestBody RegisterUserRoleDTO userRoleDTO){
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(new Result("OK","Thêm mới thành công",userRoleService.addUserRole(userRoleDTO)));
     };
@@ -48,10 +49,10 @@ public class CrmUserRoleController {
         return ResponseEntity.status(HttpStatus.OK)
             .body(new Result("OK","Cập nhật thành công",userRoleService.updateUserRole(newRoleForUser)));
     };
-
-    @DeleteMapping("/delete-user-role")
-    public ResponseEntity<Result> deleteUserRoleForUser(@RequestBody CrmUserRoleDTO userRoleDTO){
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Xoá thành công",userRoleService.deleteUserRoleForUser(userRoleDTO)));
-    };
+//
+//    @DeleteMapping("/delete-user-role")
+//    public ResponseEntity<Result> deleteUserRoleForUser(@RequestBody CrmUserRoleDTO userRoleDTO){
+//        return ResponseEntity.status(HttpStatus.OK)
+//            .body(new Result("OK","Xoá thành công",userRoleService.deleteUserRoleForUser(userRoleDTO)));
+//    };
 }

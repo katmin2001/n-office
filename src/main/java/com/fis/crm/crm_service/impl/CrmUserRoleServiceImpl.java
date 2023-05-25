@@ -4,6 +4,7 @@ import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
+import com.fis.crm.crm_entity.DTO.RegisterUserRoleDTO;
 import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
 import com.fis.crm.crm_repository.CrmRoleRepo;
 import com.fis.crm.crm_repository.CrmUserRepo;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,46 +36,6 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     private final Logger log = LoggerFactory.getLogger(CrmUserRoleServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
 
-    @Override
-    public CrmUserRole updateUserRole(UpdateNewRoleForUser newRoleForUser) {
-        //tìm user theo userid lấy ra từ userroledto
-        CrmUser user = userRepo.findCrmUserByUserid(newRoleForUser.getUserId());
-        //tìm role theo roleid lấy ra từ userroledto
-        CrmRole role = roleRepo.findCrmRoleByRoleid(newRoleForUser.getRoleId());
-        //lay ra userrole can update
-        CrmUserRole userRole = userRoleRepo.findCrmUserRoleByRoleAndUser(user, role);
-        if (userRole==null){
-            CrmUserRole newUserRole = new CrmUserRole();
-            newUserRole.setUser(user);
-            newUserRole.setRole(role);
-            return userRoleRepo.save(newUserRole);
-        }
-        CrmRole newRole = roleRepo.findCrmRoleByRoleid(newRoleForUser.getNewRoleId());
-        if (newRole==null){
-            throw new NullPointerException();
-        }
-        userRole.setRole(newRole);
-        return userRoleRepo.save(userRole);
-    }
-
-    @Override
-    public CrmUserRole addUserRole(CrmUserRoleDTO userRoleDTO) {
-        //tìm user theo userid lấy ra từ userroledto
-        CrmUser user = userRepo.findCrmUserByUserid(userRoleDTO.getUserId());
-        //tìm role theo roleid lấy ra từ userroledto
-        CrmRole role = roleRepo.findCrmRoleByRoleid(userRoleDTO.getRoleId());
-        //tìm userrole theo user và role
-        CrmUserRole userRole = userRoleRepo.findCrmUserRoleByRoleAndUser(user,role);
-        //nếu userrole đã tồn tại => return báo lỗi
-        if (userRole!= null){
-            throw new IllegalArgumentException();
-        }
-        //nếu không tồn tại thì tao mới 1 đối tươnng userrole, gán dữ liệu user và role cho newuserrole và lưu
-        CrmUserRole newUserRole = new CrmUserRole();
-        newUserRole.setUser(user);
-        newUserRole.setRole(role);
-        return userRoleRepo.save(newUserRole);
-    }
 
     @Override
     public CrmUserRole deleteUserRoleForUser(CrmUserRoleDTO userRoleDTO) {
@@ -82,11 +44,52 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         //tìm role theo roleid lấy ra từ userroledto
         CrmRole role = roleRepo.findCrmRoleByRoleid(userRoleDTO.getRoleId());
         //tìm userrole theo user và role
-        CrmUserRole userRole = userRoleRepo.findCrmUserRoleByRoleAndUser(user,role);
+        CrmUserRole userRole = userRoleRepo.findCrmUserRoleByUserIdAndRoleId(userRoleDTO.getUserId(), userRoleDTO.getRoleDTOS().)
         if (userRole!=null){
             userRoleRepo.delete(userRole);
         }
         throw new NullPointerException();
+    }
+
+    @Override
+    public CrmUserRole updateUserRole(UpdateNewRoleForUser newRoleUser) {
+        CrmUserRole userRole = userRoleRepo
+            .findCrmUserRoleByUserIdAndRoleName(newRoleUser.getUserId(), newRoleUser.getOldRoleName());
+        if (userRole==null){
+            CrmUserRole crmUserRole = new CrmUserRole();
+            crmUserRole.setUser(userRepo.findCrmUserByUserid(newRoleUser.getUserId()));
+            crmUserRole.setRole(roleRepo.findCrmRoleByRolename(newRoleUser.getNewRolename()));
+            return userRoleRepo.save(crmUserRole);
+        }else {
+            userRole.setRole(roleRepo.findCrmRoleByRolename(newRoleUser.getNewRolename()));
+            return userRoleRepo.save(userRole);
+        }
+    }
+
+    @Override
+    public String addUserRole(RegisterUserRoleDTO userRoleDTO) {
+        Optional<CrmUser> user = userRepo.findById(userRoleDTO.getUserId());
+        if (!user.isPresent()){
+            return "User cần set role không tồn tại";
+        }
+            for (Long value: userRoleDTO.getRoleId()){
+                CrmUserRole userRole =
+                    userRoleRepo.findCrmUserRoleByUserIdAndRoleId(userRoleDTO.getUserId(), value);
+                if (userRole!=null){
+                    log.info( "đã tồn tại cho tài khoản có roleID = " + value);
+                }else {
+                    Optional<CrmRole> role = roleRepo.findById(value);
+                    if (!role.isPresent()){
+                        log.info( "Không tồn tại roleId = " + value);
+                    }
+                    CrmUserRole newUserRole = new CrmUserRole();
+                    newUserRole.setUser(user.get());
+                    newUserRole.setRole(role.get());
+                    userRoleRepo.save(newUserRole);
+                    log.info("Thêm mới thành công với userID = "  +userRoleDTO.getUserId()+" và "+ value );
+                }
+            }
+        return " Đã thêm Role cho User";
     }
 
     @Override
