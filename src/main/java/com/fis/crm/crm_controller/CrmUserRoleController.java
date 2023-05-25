@@ -1,9 +1,6 @@
 package com.fis.crm.crm_controller;
 
-import com.fis.crm.crm_entity.DTO.CrmUserRoleDTO;
-import com.fis.crm.crm_entity.DTO.RegisterUserRoleDTO;
-import com.fis.crm.crm_entity.DTO.Result;
-import com.fis.crm.crm_entity.DTO.UpdateNewRoleForUser;
+import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_service.CrmUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,10 +46,11 @@ public class CrmUserRoleController {
         return ResponseEntity.status(HttpStatus.OK)
             .body(new Result("OK","Cập nhật thành công",userRoleService.updateUserRole(newRoleForUser)));
     };
-//
-//    @DeleteMapping("/delete-user-role")
-//    public ResponseEntity<Result> deleteUserRoleForUser(@RequestBody CrmUserRoleDTO userRoleDTO){
-//        return ResponseEntity.status(HttpStatus.OK)
-//            .body(new Result("OK","Xoá thành công",userRoleService.deleteUserRoleForUser(userRoleDTO)));
-//    };
+
+    @DeleteMapping("/delete-user-role")
+    public ResponseEntity<Result> deleteUserRoleForUser(@RequestBody DeleteUserRoleDTO userRoleDTO){
+        userRoleService.deleteUserRoleForUser(userRoleDTO);
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Xoá thành công",""));
+    };
 }

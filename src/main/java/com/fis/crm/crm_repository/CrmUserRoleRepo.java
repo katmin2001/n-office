@@ -18,6 +18,9 @@ public interface CrmUserRoleRepo extends JpaRepository<CrmUserRole, Long> {
     @Query(value = "select u from CrmUserRole  u where u.role.roleid = :roleId")
     public List<CrmUserRole> findCrmUserRoleByRoleId(@Param("roleId") Long roleId);
 
+    @Query(value = "select u from CrmUserRole  u where u.user.userid = :userid")
+    public List<CrmUserRole> findCrmUserRoleByUserId(@Param("userid") Long userid);
+
     @Query(value = "select u from CrmUserRole u where u.role = :role and u.user = :user")
     public CrmUserRole findCrmUserRoleByRoleAndUser(@Param("user")CrmUser user, @Param("role")CrmRole role);
 
@@ -32,5 +35,8 @@ public interface CrmUserRoleRepo extends JpaRepository<CrmUserRole, Long> {
 
     @Query(value = "select u from CrmUserRole u where u.user.userid = :userId and u.role.rolename = :rolename")
     public CrmUserRole findCrmUserRoleByUserIdAndRoleName(@Param("userId")Long userId, @Param("rolename")String rolename);
+
+    @Query(value = "select u from CrmUserRole u where u.user.username = :username and u.role.rolename = :rolename")
+    public CrmUserRole findCrmUserRoleByUserNameAndRoleName(@Param("username")String username, @Param("rolename")String rolename);
 
 }
