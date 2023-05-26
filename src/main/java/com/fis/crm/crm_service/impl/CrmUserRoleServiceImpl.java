@@ -48,10 +48,10 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
         for (String roleName : userRoleDTO.getRoleName()){
             CrmUserRole userRole = userRoleRepo.findCrmUserRoleByUserNameAndRoleName(userRoleDTO.getUserName(),roleName);
             if(userRole==null){
-                log.info("Không tồn tại userRole "+roleName+" cần xoá");
+                log.error("Không tồn tại userRole "+roleName+" cần xoá");
             }else {
                 userRoleRepo.delete(userRole);
-                log.info("Xoá thành công role : "+roleName);
+                log.warn("Xoá thành công role : "+roleName);
             }
         }
     }
@@ -59,15 +59,15 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     @Override
     public CrmUserRole updateUserRole(UpdateNewRoleForUser newRoleUser) {
         if (newRoleUser.getUserId()==null){
-            log.info("UserID cần cập nhật role bị bỏ trống");
+            log.warn("UserID cần cập nhật role bị bỏ trống");
             throw new NullPointerException();
         }
         if (newRoleUser.getOldRoleName().isEmpty()){
-            log.info("Role cần cập nhật bị bỏ trống");
+            log.warn("Role cần cập nhật bị bỏ trống");
             throw new NullPointerException();
         }
         if (newRoleUser.getNewRolename().isEmpty()){
-            log.info("Role mới bị bỏ trống");
+            log.warn("Role mới bị bỏ trống");
             throw new NullPointerException();
         }
         CrmUserRole userRole = userRoleRepo
@@ -76,11 +76,11 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
             CrmUserRole crmUserRole = new CrmUserRole();
             crmUserRole.setUser(userRepo.findCrmUserByUserid(newRoleUser.getUserId()));
             crmUserRole.setRole(roleRepo.findCrmRoleByRolename(newRoleUser.getNewRolename()));
-            log.info("Role cho user cần cập nhập không tồn tại , đã thêm mới role cho user");
+            log.warn("Role cho user cần cập nhập không tồn tại , đã thêm mới role cho user");
             return userRoleRepo.save(crmUserRole);
         }else {
             userRole.setRole(roleRepo.findCrmRoleByRolename(newRoleUser.getNewRolename()));
-            log.info("Cập nhật role mới thành công");
+            log.warn("Cập nhật role mới thành công");
             return userRoleRepo.save(userRole);
         }
     }
@@ -89,23 +89,24 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     public String addUserRole(RegisterUserRoleDTO userRoleDTO) {
         Optional<CrmUser> user = userRepo.findById(userRoleDTO.getUserId());
         if (!user.isPresent()){
+            log.error("User cần set role không tồn tại");
             return "User cần set role không tồn tại";
         }
             for (Long value: userRoleDTO.getRoleId()){
                 CrmUserRole userRole =
                     userRoleRepo.findCrmUserRoleByUserIdAndRoleId(userRoleDTO.getUserId(), value);
                 if (userRole!=null){
-                    log.info( "đã tồn tại cho tài khoản có roleID = " + value);
+                    log.warn( "đã tồn tại cho tài khoản có roleID = " + value);
                 }else {
                     Optional<CrmRole> role = roleRepo.findById(value);
                     if (!role.isPresent()){
-                        log.info( "Không tồn tại roleId = " + value);
+                        log.warn( "Không tồn tại roleId = " + value);
                     }
                     CrmUserRole newUserRole = new CrmUserRole();
                     newUserRole.setUser(user.get());
                     newUserRole.setRole(role.get());
                     userRoleRepo.save(newUserRole);
-                    log.info("Thêm mới thành công với userID = "  +userRoleDTO.getUserId()+" và "+ value );
+                    log.warn("Thêm mới thành công với userID = "  +userRoleDTO.getUserId()+" và "+ value );
                 }
             }
         return " Đã thêm Role cho User";
@@ -130,6 +131,7 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
             list.add(mapper.userRoleDTOMapper(value));
         }
         if (list.size()==0){
+            log.error("Không tìm thấy userrole theo roleId");
             throw new NullPointerException();
         }
         return list;
@@ -139,7 +141,7 @@ public class CrmUserRoleServiceImpl implements CrmUserRoleService {
     public List<CrmUserRoleDTO> findRoleByUser(Long userId) {
         List<CrmUserRole> userRoles = userRoleRepo.findCrmUserRoleByUserId(userId);
         if (userRoles.size()==0){
-            log.info("Không tìm thấy role nào cho user này");
+            log.error("Không tìm thấy role nào cho user này");
             throw new NullPointerException();
         }
         List<CrmUserRoleDTO> list = new ArrayList<>();

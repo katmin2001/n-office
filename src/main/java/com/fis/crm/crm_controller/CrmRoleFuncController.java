@@ -2,6 +2,7 @@ package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmRoleFunction;
 import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
+import com.fis.crm.crm_entity.DTO.RegisterRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.Result;
 import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
 import com.fis.crm.crm_service.CrmRoleFuncService;
@@ -25,10 +26,9 @@ public class CrmRoleFuncController {
     };
 
     @PostMapping("/add-user-role")
-    public ResponseEntity<Result>  addRoleFunction(@RequestBody CrmRoleFuncDTO roleFuncDTO){
-        CrmRoleFunction roleFunction = roleFuncService.addRoleFunction(roleFuncDTO);
+    public ResponseEntity<Result>  addRoleFunction(@RequestBody RegisterRoleFuncDTO roleFuncDTO){
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Thêm mới thành công",roleFunction));
+            .body(new Result("OK","Thêm mới thành công",roleFuncService.addRoleFunction(roleFuncDTO)));
     };
 
     @PutMapping("/update-role-func")
@@ -38,9 +38,8 @@ public class CrmRoleFuncController {
     };
 
     @DeleteMapping("/delete-role-func")
-    public ResponseEntity<Result>  deleteRoleFuncByRoleId(@RequestBody CrmRoleFuncDTO roleFuncDTO){
-        return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Xoá thành công",roleFuncService.deleteRoleFuncByRoleId(roleFuncDTO)));
+    public ResponseEntity<String>  deleteRoleFunc(@RequestBody RegisterRoleFuncDTO roleFuncDTO){
+        return ResponseEntity.ok(roleFuncService.deleteRoleFunc(roleFuncDTO));
     };
 
     @PostMapping("/find-func-by-role/{roleId}")

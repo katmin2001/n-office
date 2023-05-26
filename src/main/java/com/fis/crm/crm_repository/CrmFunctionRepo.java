@@ -15,4 +15,7 @@ public interface CrmFunctionRepo extends JpaRepository<CrmFunction, Long> {
 
     @Query(value = "select u from CrmFunction u where u.funcid = :id")
     CrmFunction findCrmFunctionByFuncId(@Param("id") Long id);
+
+    @Query(value = "select u from CrmFunction u where u.funcname = :funcname")
+    CrmFunction findCrmFunctionByFuncName(@Param("funcname") String funcname);
 }

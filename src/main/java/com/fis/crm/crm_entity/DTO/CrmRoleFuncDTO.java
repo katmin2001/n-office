@@ -1,27 +1,21 @@
 package com.fis.crm.crm_entity.DTO;
 
+import java.util.Set;
+
 public class CrmRoleFuncDTO {
     private Long id;
     private Long roleId;
-    private Long funcId;
     private String roleName;
-    private String funcName;
+    private Set<CrmFunctionDTO> functionDTOS;
 
     public CrmRoleFuncDTO() {
     }
 
-    public CrmRoleFuncDTO(Long id, Long roleId, String roleName,  Long funcId,  String funcName) {
+    public CrmRoleFuncDTO(Long id, Long roleId, String roleName, Set<CrmFunctionDTO> functionDTOS) {
         this.id = id;
         this.roleId = roleId;
-        this.funcId = funcId;
         this.roleName = roleName;
-        this.funcName = funcName;
-    }
-
-    public CrmRoleFuncDTO(Long id, Long roleId, Long funcId) {
-        this.id = id;
-        this.roleId = roleId;
-        this.funcId = funcId;
+        this.functionDTOS = functionDTOS;
     }
 
     public Long getId() {
@@ -40,14 +34,6 @@ public class CrmRoleFuncDTO {
         this.roleId = roleId;
     }
 
-    public Long getFuncId() {
-        return funcId;
-    }
-
-    public void setFuncId(Long funcId) {
-        this.funcId = funcId;
-    }
-
     public String getRoleName() {
         return roleName;
     }
@@ -56,11 +42,11 @@ public class CrmRoleFuncDTO {
         this.roleName = roleName;
     }
 
-    public String getFuncName() {
-        return funcName;
+    public Set<CrmFunctionDTO> getFunctionDTOS() {
+        return functionDTOS;
     }
 
-    public void setFuncName(String funcName) {
-        this.funcName = funcName;
+    public void setFunctionDTOS(Set<CrmFunctionDTO> functionDTOS) {
+        this.functionDTOS = functionDTOS;
     }
 }

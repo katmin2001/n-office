@@ -48,4 +48,5 @@ public class UpdateNewRoleForUser{
     public void setNewRolename(String newRolename) {
         this.newRolename = newRolename;
     }
+
 }

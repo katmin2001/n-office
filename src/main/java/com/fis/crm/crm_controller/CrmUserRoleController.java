@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.FileNotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user-role")
@@ -19,26 +19,40 @@ public class CrmUserRoleController {
 
     @GetMapping("/get-all-user-role")
     public ResponseEntity<Result>  getAllUserRole(){
+        List<CrmUserRoleDTO> dtoList = userRoleService.getAllUserRole();
+        if (dtoList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Result("NOT_OK","Không tồn tại đôí tượng cần tìm",""));
+        }
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Tìm kiếm thành công",userRoleService.getAllUserRole()));
+            .body(new Result("OK","Tìm kiếm thành công",dtoList));
     };
 
     @PostMapping("/add-user-role")
-    public ResponseEntity<Result> addUserRole(@RequestBody RegisterUserRoleDTO userRoleDTO){
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .body(new Result("OK","Thêm mới thành công",userRoleService.addUserRole(userRoleDTO)));
+    public ResponseEntity<String> addUserRole(@RequestBody RegisterUserRoleDTO userRoleDTO){
+        return ResponseEntity.ok(userRoleService.addUserRole(userRoleDTO));
     };
 
-    @PostMapping("/find-user-role-by-role/{roleId}")
+    @PostMapping  ("/find-user-role-by-role/{roleId}")
     public ResponseEntity<Result> findUserByRole(@PathVariable Long roleId) {
+        List<CrmUserRoleDTO> list = userRoleService.findUserByRole(roleId);
+        if (list.size()==0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Result("NOT_OK","Tìm kiếm thất bại",""));
+        }
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Tìm kiếm thành công",userRoleService.findUserByRole(roleId)));
+            .body(new Result("OK","Tìm kiếm thành công",list));
     }
 
-    @PostMapping("/find-user-role-by-user/{userId}")
+    @GetMapping("/find-user-role-by-user/{userId}")
     public ResponseEntity<Result> findUserByUser(@PathVariable Long userId){
+        List<CrmUserRoleDTO> list = userRoleService.findRoleByUser(userId);
+        if (list.size()==0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Result("NOT_OK","Tìm kiếm thất bại",""));
+        }
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new Result("OK","Tìm kiếm thành công",userRoleService.findRoleByUser(userId)));
+            .body(new Result("OK","Tìm kiếm thành công",list));
     }
 
     @PutMapping("/update-user-role")

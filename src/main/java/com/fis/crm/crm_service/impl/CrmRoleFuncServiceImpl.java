@@ -4,6 +4,7 @@ import com.fis.crm.crm_entity.CrmFunction;
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmRoleFunction;
 import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
+import com.fis.crm.crm_entity.DTO.RegisterRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
 import com.fis.crm.crm_repository.CrmFunctionRepo;
 import com.fis.crm.crm_repository.CrmRoleFuncRepo;
@@ -73,37 +74,77 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
     }
 
     @Override
-    public CrmRoleFunction deleteRoleFuncByRoleId(CrmRoleFuncDTO roleFuncDTO) {
-        //tìm role theo roleid lấy ra từ roleFunction
-        CrmRole role = roleRepo.findCrmRoleByRoleid(roleFuncDTO.getRoleId());
-        //tìm func theo funcid lấy ra từ roleFunction
-        CrmFunction function = functionRepo.findCrmFunctionByFuncId(roleFuncDTO.getFuncId());
-        //tìm rolefunc theo role và func vừa tìm đc
-        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
-
-        if (crmRoleFunction!=null){
-            roleFuncRepo.delete(crmRoleFunction);
+    public String deleteRoleFunc(RegisterRoleFuncDTO roleFuncDTO) {
+        if (roleFuncDTO.getRoleName()==null || roleFuncDTO.getFuncName().size()==0){
+            log.error("Chưa lựa chọn roleName hoặc funcName",new NullPointerException());
         }
-        throw new NullPointerException();
+        for (String value : roleFuncDTO.getFuncName()){
+            CrmRoleFunction roleFunction = roleFuncRepo
+                .findCrmRoleFunctionsByRoleNameAndFunctionName(roleFuncDTO.getRoleName(), value);
+            if (roleFunction==null){
+                log.warn("Không tồn tại đối tượng cần xoá");
+            }
+            roleFuncRepo.delete(roleFunction);
+            log.warn("Xoá thành công "+value+" của "+roleFuncDTO.getRoleName());
+        }
+        return "Xoá thành công";
     }
+
+//    @Override
+//    public CrmRoleFunction deleteRoleFunc(RegisterRoleFuncDTO roleFuncDTO) {
+//        //tìm role theo roleid lấy ra từ roleFunction
+//        CrmRole role = roleRepo.findCrmRoleByRoleid(roleFuncDTO.getRoleId());
+//        //tìm func theo funcid lấy ra từ roleFunction
+//        CrmFunction function = functionRepo.findCrmFunctionByFuncId(roleFuncDTO.getFuncId());
+//        //tìm rolefunc theo role và func vừa tìm đc
+//        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
+//
+//        if (crmRoleFunction!=null){
+//            roleFuncRepo.delete(crmRoleFunction);
+//        }
+//        throw new NullPointerException();
+//    }
 
     @Override
-    public CrmRoleFunction addRoleFunction(CrmRoleFuncDTO roleFuncDTO) {
-        //tìm role theo roleid lấy ra từ roleFunction
-        CrmRole role = roleRepo.findCrmRoleByRoleid(roleFuncDTO.getRoleId());
-        //tìm func theo funcid lấy ra từ roleFunction
-        CrmFunction function = functionRepo.findCrmFunctionByFuncId(roleFuncDTO.getFuncId());
-        //tìm rolefunc theo role và func vừa tìm đc
-        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
-        if (crmRoleFunction!=null){
-            throw new IllegalArgumentException();
+    public String addRoleFunction(RegisterRoleFuncDTO roleFuncDTO) {
+        if (roleFuncDTO.getRoleName()==null || roleFuncDTO.getFuncName().size()==0){
+            log.error("Thông tin role hoặc func bị bỏ trống");
+            throw new NullPointerException();
         }
-        //nếu rolefunc không tồn tại thì tạo mới 1 đối tượng rolefunc gán giá trị của role và func vào và lưu mới
-        CrmRoleFunction newRoleFunc = new CrmRoleFunction();
-        newRoleFunc.setFunction(function);
-        newRoleFunc.setRole(role);
-        return roleFuncRepo.save(newRoleFunc);
+        for (String value : roleFuncDTO.getFuncName()){
+            CrmRoleFunction roleFunction = roleFuncRepo
+                .findCrmRoleFunctionsByRoleNameAndFunctionName(roleFuncDTO.getRoleName(), value);
+            if (roleFunction!=null){
+                log.error("Đã tồn tại "+value+" cho "+roleFuncDTO.getRoleName());
+            }
+            CrmRole role = roleRepo.findCrmRoleByRolename(roleFuncDTO.getRoleName());
+            CrmFunction function = functionRepo.findCrmFunctionByFuncName(value);
+            CrmRoleFunction newRoleFunc = new CrmRoleFunction();
+            newRoleFunc.setRole(role);
+            newRoleFunc.setFunction(function);
+            roleFuncRepo.save(newRoleFunc);
+            log.warn("Thêm mới thành công "+value+" cho "+roleFuncDTO.getRoleName());
+        }
+        return "Đã thêm func cho role";
     }
+
+//    @Override
+//    public CrmRoleFunction addRoleFunction(CrmRoleFuncDTO roleFuncDTO) {
+//        //tìm role theo roleid lấy ra từ roleFunction
+//        CrmRole role = roleRepo.findCrmRoleByRoleid(roleFuncDTO.getRoleId());
+//        //tìm func theo funcid lấy ra từ roleFunction
+//        CrmFunction function = functionRepo.findCrmFunctionByFuncId(roleFuncDTO.getFuncId());
+//        //tìm rolefunc theo role và func vừa tìm đc
+//        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
+//        if (crmRoleFunction!=null){
+//            throw new IllegalArgumentException();
+//        }
+//        //nếu rolefunc không tồn tại thì tạo mới 1 đối tượng rolefunc gán giá trị của role và func vào và lưu mới
+//        CrmRoleFunction newRoleFunc = new CrmRoleFunction();
+//        newRoleFunc.setFunction(function);
+//        newRoleFunc.setRole(role);
+//        return roleFuncRepo.save(newRoleFunc);
+//    }
 
     @Override
     public List<CrmRoleFuncDTO> findFuncByRoleId(Long roleId) {
