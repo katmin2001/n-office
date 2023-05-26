@@ -10,6 +10,8 @@ import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
 import com.fis.crm.crm_service.CrmInterviewService;
 
 import com.fis.crm.crm_util.DtoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +23,7 @@ import java.util.*;
 @Service
 @Transactional
 public class CrmInterviewServiceImpl implements CrmInterviewService{
+    private final Logger log = LoggerFactory.getLogger(CrmInterviewServiceImpl.class);
     private final DtoMapper mapper = new DtoMapper();
     private final CrmCandidateRepo candidateRepo;
     private final CrmInterviewRepo interviewRepo;
@@ -63,6 +66,9 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
     @Override
     public InterviewDTO getInterviewById(Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
+        if(interview == null){
+            log.error("Không tồn tại buổi hẹn phỏng vấn!",new NullPointerException());
+        }
         Set<CrmUserDTO> crmUserDTOS = new HashSet<>();
         Set<CrmUser> crmUsers = interview.getUsers();
         for (CrmUser crmUser: crmUsers){
@@ -93,18 +99,21 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
             interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
         }
         else {
+            log.error("Lỗi sai lệch thời gian phỏng vấn!",new NullPointerException());
             return new Result("FAIL_DATE","Sai lệch thời gian phỏng vấn","");
         }
         interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
         interview.setCandidate(candidateRepo.findById(interviewRequestDTO.getCandidateId()).orElse(null));
         interview.setInterviewStatus(interviewStatusRepo.findById(Long.valueOf(2)).orElse(null));
-        if(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null) == null){
-            throw new NullPointerException();
+        for(Long interviewerId : interviewRequestDTO.getUserId()){
+            if(userRepo.findById(interviewerId).orElse(null) == null){
+                log.error("Không tồn tại user!",new NullPointerException());
+            }
+            else{
+                users.add(userRepo.findById(interviewerId).orElse(null));
+            }
         }
-        else {
-            users.add(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
-            interview.setUsers(users);
-        }
+        interview.setUsers(users);
         return new Result("SUCCESS","Thêm thành công!",interviewRepo.save(interview));
     }
 
@@ -112,7 +121,7 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
     public Result updateInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại buổi hẹn phỏng vấn!",new NullPointerException());
         }
         long millis=System.currentTimeMillis();
         Date date=new Date(millis);
@@ -122,6 +131,7 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
                 interview.setInterviewDate(interviewRequestDTO.getInterviewDate());
             }
             else {
+                log.error("Lỗi sai lệch thời gian phỏng vấn!",new NullPointerException());
                 return new Result("FAIL_DATE","Sai lệch thời gian phỏng vấn","");
             }
         }
@@ -135,47 +145,29 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
     }
 
     @Override
-    public Result addInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
+    public Result updateInterviewer(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại buổi hẹn phỏng vấn!",new NullPointerException());
         }
-        boolean check = true;
-        Set<CrmUser> users = interview.getUsers();
-        for(CrmUser user: users){
-            if(user.getUserid() == interviewRequestDTO.getUserId()){
-                check = false;
+        Set<CrmUser> users = new HashSet<>();
+        for(Long interviewerId: interviewRequestDTO.getUserId()){
+            if(userRepo.findById(interviewerId).orElse(null) == null){
+                log.error("Không tồn tại user!",new NullPointerException());
             }
-        }
-        if(check == true){
-            users.add(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
+            else {
+                users.add(userRepo.findById(interviewerId).orElse(null));
+            }
         }
         interview.setUsers(users);
         return new Result("SUCCESS","Cập nhật thành công!",interviewRepo.save(interview));
     }
 
     @Override
-    public Result deleteInterviewDetail(InterviewRequestDTO interviewRequestDTO, Long interviewId) {
-        CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
-        if(interview == null){
-            throw new NullPointerException();
-        }
-        Set<CrmUser> users = interview.getUsers();
-        for(CrmUser user: users){
-            if(user.getUserid() == interviewRequestDTO.getUserId()){
-                users.remove(userRepo.findById(interviewRequestDTO.getUserId()).orElse(null));
-                break;
-            }
-        }
-        interview.setUsers(users);
-        return new Result("SUCCESS","Xoá thành công!",interviewRepo.save(interview));
-    }
-
-    @Override
     public Result deleteInterview(Long interviewId) {
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại buổi hẹn phỏng vấn!",new NullPointerException());
         }
         interview.setStatus(false);
         return new Result("SUCCESS","Xoá thành công!",interviewRepo.save(interview));
@@ -184,7 +176,7 @@ public class CrmInterviewServiceImpl implements CrmInterviewService{
     public Result updateStatusInterview(InterviewRequestDTO interviewRequestDTO, Long interviewId){
         CrmInterview interview = interviewRepo.findById(interviewId).orElse(null);
         if(interview == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại buổi hẹn phỏng vấn!",new NullPointerException());
         }
         interview.setInterviewStatus(interviewStatusRepo.findById(interviewRequestDTO.getISID()).orElse(null));
         interview.getCandidate().setInterviewStatus(interviewStatusRepo.findById(interviewRequestDTO.getISID()).orElse(null));

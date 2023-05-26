@@ -10,6 +10,7 @@ public class RegisterUserDto extends CrmUserDTO {
     private String password;
 
     public RegisterUserDto() {
+        super();
     }
 
     public String getPassword() {

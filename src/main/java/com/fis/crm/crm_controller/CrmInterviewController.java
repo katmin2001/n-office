@@ -32,15 +32,10 @@ public class CrmInterviewController {
                                         @PathVariable("interviewId") Long interviewId){
         return interviewService.updateInterview(interviewRequestDTO,interviewId);
     }
-    @PostMapping("/add-interviewer/{interviewId}")
-    public Result addInterviewDetail(@RequestBody InterviewRequestDTO interviewRequestDTO,
-                                        @PathVariable("interviewId") Long interviewId){
-        return interviewService.addInterviewDetail(interviewRequestDTO,interviewId);
-    }
-    @PostMapping("/delete-interviewer/{interviewId}")
-    public Result deleteInterviewDetail(@RequestBody InterviewRequestDTO interviewRequestDTO,
+@PostMapping("/update-interviewer/{interviewId}")
+    public Result updateInterviewer(@RequestBody InterviewRequestDTO interviewRequestDTO,
                                            @PathVariable("interviewId") Long interviewId){
-        return interviewService.deleteInterviewDetail(interviewRequestDTO,interviewId);
+        return interviewService.updateInterviewer(interviewRequestDTO,interviewId);
     }
     @PostMapping("/delete/{interviewId}")
     public Result deleteInterview(@PathVariable("interviewId") Long interviewId){
