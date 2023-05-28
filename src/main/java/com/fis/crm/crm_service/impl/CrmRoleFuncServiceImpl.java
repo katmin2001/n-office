@@ -3,6 +3,7 @@ package com.fis.crm.crm_service.impl;
 import com.fis.crm.crm_entity.CrmFunction;
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmRoleFunction;
+import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
 import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.RegisterRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
@@ -50,28 +51,57 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
     }
 
     @Override
-    public CrmRoleFunction updateRoleFuncByRoleId(UpdateNewFuncForRole newFuncForRole) {
-        //tìm role theo roleid lấy ra từ roleFunction
-        CrmRole role = roleRepo.findCrmRoleByRoleid(newFuncForRole.getRoleId());
-        //tìm func theo funcid lấy ra từ roleFunction
-        CrmFunction function = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getFuncId());
-        //tìm rolefunc theo role và func vừa tìm đc
-        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
-        if (crmRoleFunction==null){
-            CrmRoleFunction newRoleFunc = new CrmRoleFunction();
-            newRoleFunc.setRole(role);
-            newRoleFunc.setFunction(function);
-            roleFuncRepo.save(newRoleFunc);
+    public List<CrmRoleFunction> updateRoleFuncByRoleId(UpdateNewFuncForRole newFuncForRole) {
+        if (newFuncForRole.getRoleName()==null){
+            log.error("Role cần cập nhật chưa được chọn", new NullPointerException());
         }
-        CrmFunction newFunc = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getNewFuncId());
-        if (newFunc==null){
-            throw new NullPointerException();
+        if (newFuncForRole.getFunctionDTOS().size()==0){
+            log.error("Func cần cập nhật chưa được chọn", new NullPointerException());
         }
-        if (crmRoleFunction!=null){
-            crmRoleFunction.setFunction(newFunc);
+        if (newFuncForRole.getNewFuncName().size()==0){
+            log.error("Func mới nhật chưa được chọn", new NullPointerException());
         }
-        return roleFuncRepo.save(crmRoleFunction);
+        CrmRole role = roleRepo.findCrmRoleByRolename(newFuncForRole.getRoleName());
+        List<CrmRoleFunction> a = roleFuncRepo.findCrmRoleFunctionsByRoleName(newFuncForRole.getRoleName());
+        for (int i = 0; i < a.size(); i++){
+            roleFuncRepo.delete(a.get(i));
+            log.info("Xoá rolefunc với rolename là "+newFuncForRole.getRoleName()+" có funcname là "+a.get(i).getFunction().getFuncname());
+        }
+        List<CrmRoleFunction> list = new ArrayList<>();
+        for (CrmFunctionDTO newFunc : newFuncForRole.getNewFuncName()){
+            CrmRoleFunction newRoleFunction = new CrmRoleFunction();
+            newRoleFunction.setRole(role);
+            newRoleFunction.setFunction(functionRepo.findCrmFunctionByFuncName(newFunc.getFuncName()));
+            roleFuncRepo.save(newRoleFunction);
+            list.add(newRoleFunction);
+            log.info("Cập nhật "+newFunc.getFuncName()+" cho "+newFuncForRole.getRoleName()+" thành công");
+        }
+        return list;
     }
+
+//    @Override
+//    public CrmRoleFunction updateRoleFuncByRoleId(UpdateNewFuncForRole newFuncForRole) {
+//        //tìm role theo roleid lấy ra từ roleFunction
+//        CrmRole role = roleRepo.findCrmRoleByRoleid(newFuncForRole.getRoleId());
+//        //tìm func theo funcid lấy ra từ roleFunction
+//        CrmFunction function = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getFuncId());
+//        //tìm rolefunc theo role và func vừa tìm đc
+//        CrmRoleFunction crmRoleFunction = roleFuncRepo.findCrmRoleFunctionsByFunctionaAndRole(function,role);
+//        if (crmRoleFunction==null){
+//            CrmRoleFunction newRoleFunc = new CrmRoleFunction();
+//            newRoleFunc.setRole(role);
+//            newRoleFunc.setFunction(function);
+//            roleFuncRepo.save(newRoleFunc);
+//        }
+//        CrmFunction newFunc = functionRepo.findCrmFunctionByFuncId(newFuncForRole.getNewFuncId());
+//        if (newFunc==null){
+//            throw new NullPointerException();
+//        }
+//        if (crmRoleFunction!=null){
+//            crmRoleFunction.setFunction(newFunc);
+//        }
+//        return roleFuncRepo.save(crmRoleFunction);
+//    }
 
     @Override
     public String deleteRoleFunc(RegisterRoleFuncDTO roleFuncDTO) {
@@ -148,8 +178,10 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
 
     @Override
     public List<CrmRoleFuncDTO> findFuncByRoleId(Long roleId) {
-        CrmRole role = roleRepo.findCrmRoleByRoleid(roleId);
-        List<CrmRoleFunction> list = roleFuncRepo.findCrmRoleFunctionsByRole(role);
+        List<CrmRoleFunction> list = roleFuncRepo.findCrmRoleFunctionsByRoleId(roleId);
+        if (list.size()==0){
+            log.error("Không tồn tại rolefunc có roleid là "+ roleId,new NullPointerException());
+        }
         List<CrmRoleFuncDTO> dtoList = new ArrayList<>();
         for (CrmRoleFunction value : list){
             dtoList.add(mapper.roleFuncDTOMapper(value));
@@ -159,8 +191,10 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
 
     @Override
     public List<CrmRoleFuncDTO> findRoleByFuncId(Long funcId) {
-        CrmFunction function = functionRepo.findCrmFunctionByFuncId(funcId);
-        List<CrmRoleFunction> list = roleFuncRepo.findCrmRoleFunctionsByFunction(function);
+        List<CrmRoleFunction> list = roleFuncRepo.findCrmRoleFunctionsByFunctionId(funcId);
+        if (list.size()==0){
+            log.error("Không tồn tại rolefunc có funcid là "+ funcId,new NullPointerException());
+        }
         List<CrmRoleFuncDTO> dtoList = new ArrayList<>();
         for (CrmRoleFunction value : list){
             dtoList.add(mapper.roleFuncDTOMapper(value));
@@ -172,6 +206,9 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
     public List<CrmRoleFuncDTO> getAllRoleFunc() {
         List<CrmRoleFuncDTO> dtoList = new ArrayList<>();
         List<CrmRoleFunction> list = roleFuncRepo.findAll();
+        if (list.size()==0){
+            log.error("Không tồn tại rolefunc nào ",new NullPointerException());
+        }
         for (CrmRoleFunction value : list){
             dtoList.add(mapper.roleFuncDTOMapper(value));
         }

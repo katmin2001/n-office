@@ -30,16 +30,20 @@ public class CrmFunctionServiceImpl implements CrmFunctionService {
     public CrmFunction registerFunc(CrmFunctionDTO functionDTO) {
         CrmFunction crmFunction = functionRepo.findCrmFunctionByRolename(functionDTO.getFuncName());
         if (crmFunction!=null){
-            throw  new NullPointerException();
+            log.warn("function đã tồn tại", new NullPointerException());
         }
         CrmFunction function = new CrmFunction();
         function.setFuncname(functionDTO.getFuncName());
+        log.info("Tạo mới thành công");
         return functionRepo.save(function);
     }
 
     @Override
     public List<CrmFunctionDTO> getAllFuncs() {
         List<CrmFunction> functionList = functionRepo.findAll();
+        if (functionList.size()==0){
+            log.error("Không tồn tại func nào cả", new NullPointerException());
+        }
         List<CrmFunctionDTO> dtoList = new ArrayList<>();
         for (CrmFunction function : functionList){
             dtoList.add(mapper.functionDTOMapper(function));
@@ -51,8 +55,9 @@ public class CrmFunctionServiceImpl implements CrmFunctionService {
     public void deleteFuncByFuncName(CrmFunctionDTO functionDTO) {
         CrmFunction function = functionRepo.findCrmFunctionByRolename(functionDTO.getFuncName());
         if (function==null){
-            throw new IllegalArgumentException();
+            log.error("Đối tượng cần xoá không tồn tại", new IllegalArgumentException());
         }
-            functionRepo.delete(function);
+        functionRepo.delete(function);
+        log.info("XOá thành công");
     }
 }

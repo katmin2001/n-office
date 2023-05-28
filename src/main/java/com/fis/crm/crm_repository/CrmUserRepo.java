@@ -34,5 +34,6 @@ public interface CrmUserRepo extends JpaRepository<CrmUser, Long> {
 
     @Query(value = "select u from CrmUser u where u.userid = :id")
     CrmUser findCrmUserByUserid(@Param("id") Long id);
+
 }
 

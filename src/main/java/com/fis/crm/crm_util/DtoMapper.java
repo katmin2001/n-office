@@ -60,8 +60,11 @@ public class DtoMapper {
         roleFuncDTO.setId(roleFunction.getRfid());
         roleFuncDTO.setRoleId(roleFunction.getRole().getRoleid());
         roleFuncDTO.setRoleName(roleFunction.getRole().getRolename());
-        roleFuncDTO.setFuncId(roleFunction.getFunction().getFuncid());
-        roleFuncDTO.setFuncName(roleFunction.getFunction().getFuncname());
+        Set<CrmFunctionDTO> functionDTOS = new HashSet<>();
+        for (CrmRoleFunction value : roleFunction.getFunction().getFuncRoles()){
+            CrmFunctionDTO functionDTO = functionDTOMapper(value.getFunction());
+            functionDTOS.add(functionDTO);
+        }
         return roleFuncDTO;
     }
 

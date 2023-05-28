@@ -18,6 +18,15 @@ public interface CrmRoleFuncRepo extends JpaRepository<CrmRoleFunction, Long> {
     @Query(value = "select u from CrmRoleFunction u where u.role = :role")
     public List<CrmRoleFunction> findCrmRoleFunctionsByRole(@Param("role")CrmRole role);
 
+    @Query(value = "select u from CrmRoleFunction u where u.role.rolename = :rolename")
+    public List<CrmRoleFunction> findCrmRoleFunctionsByRoleName(@Param("rolename")String rolename);
+
+    @Query(value = "select u from CrmRoleFunction u where u.role.roleid = :roleid")
+    public List<CrmRoleFunction> findCrmRoleFunctionsByRoleId(@Param("roleid")Long roleid);
+
+    @Query(value = "select u from CrmRoleFunction u where u.function.funcid = :funcid")
+    public List<CrmRoleFunction> findCrmRoleFunctionsByFunctionId(@Param("funcid")Long funcid);
+
     @Query(value = "select u from CrmRoleFunction u where u.function = :function")
     public List<CrmRoleFunction> findCrmRoleFunctionsByFunction(@Param("function")CrmRole function);
 

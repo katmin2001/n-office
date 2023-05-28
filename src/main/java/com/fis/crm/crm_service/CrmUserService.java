@@ -14,7 +14,7 @@ public interface CrmUserService {
     public List<CrmUserDTO> findUserDto(CrmUserDTO crmUser);                  //xong  da test => chua hop li
     public List<CrmUserDTO> findAllUserDto();                                  //xong  da test
     public CrmUserDTO getUserDetail(Long userId);                              //xong  da test
-    public Set<CrmUserDTO> findUserByFunc(Long funcId);                        //xong  da test
-    public Set<CrmUserDTO> findCrmUserDtoByRoleId(Long roleId);
+    public List<CrmUserDTO> findUserByFunc(Long funcId);                        //xong  da test
+    public List<CrmUserDTO> findCrmUserDtoByRoleId(Long roleId);
 
 }

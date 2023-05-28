@@ -1,6 +1,7 @@
 package com.fis.crm.crm_service.impl;
 
 import com.fis.crm.crm_entity.CrmRole;
+import com.fis.crm.crm_entity.CrmRoleFunction;
 import com.fis.crm.crm_entity.CrmUser;
 import com.fis.crm.crm_entity.CrmUserRole;
 import com.fis.crm.crm_entity.DTO.CrmUserDTO;
@@ -48,7 +49,7 @@ public class CrmUserServiceImpl implements CrmUserService {
         //kiem tra username da ton tai chua
         CrmUser user = IUserRepo.findCrmUserByUsername(userDTO.getUsername());
         if (user!=null){
-            throw new IllegalArgumentException();
+            log.error("User cần tạo đã tồn tại", new IllegalArgumentException());
         }
         CrmUser newUser = new CrmUser();
         String encryptPassword = passwordEncoder.encode(password);
@@ -60,18 +61,23 @@ public class CrmUserServiceImpl implements CrmUserService {
         newUser.setBirthday(userDTO.getBirthday());
         newUser.setAddress(userDTO.getAddress());
         newUser.setStatus(userDTO.getStatus());
+        log.info("Tạo mới thành công");
         return IUserRepo.save(newUser);
     }
 
     @Override
     public CrmUser updateCrmUser(Long userId,CrmUser user) {
         CrmUser crmUser = IUserRepo.findCrmUserByUserid(userId);
+        if (crmUser==null){
+            log.error("Đối tượng cần cập nhật không tồn tại", new NullPointerException());
+        }
         crmUser.setFullname(user.getFullname());
         crmUser.setAddress(user.getAddress());
         crmUser.setBirthday(user.getBirthday());
         crmUser.setCreatedate(user.getCreatedate());
         crmUser.setPhone(user.getPhone());
         crmUser.setStatus(user.getStatus());
+        log.info(" Cập nhật thành công");
         return IUserRepo.save(crmUser);
     }
 
@@ -90,6 +96,9 @@ public class CrmUserServiceImpl implements CrmUserService {
         String address = crmUser.getAddress();
         String status = crmUser.getStatus();
         List<CrmUser> crmUsers = IUserRepo.findCrmUsersByKeyword(fullname,createdate,phone,birthday,address,status);
+        if (crmUsers.size()==0){
+            log.error("Không tìm thấy đối tượng yêu cầu", new NullPointerException());
+        }
         List<CrmUserDTO> list = new ArrayList<>();
         for (CrmUser user : crmUsers){
             list.add(mapper.userDtoMapper(user));
@@ -101,6 +110,9 @@ public class CrmUserServiceImpl implements CrmUserService {
     public List<CrmUserDTO> findAllUserDto() {
         List<CrmUserDTO> list = new ArrayList<>();
         List<CrmUser> users = IUserRepo.findAll();
+        if (users.size()==0){
+            log.error("Không tìm thấy đối tượng yêu cầu", new NullPointerException());
+        }
         for (CrmUser user : users){
             CrmUserDTO userDTO = mapper.userDtoMapper(user);
             list.add(userDTO);
@@ -111,48 +123,77 @@ public class CrmUserServiceImpl implements CrmUserService {
     @Override
     public CrmUserDTO getUserDetail(Long userId) {
         CrmUser user = IUserRepo.findById(userId).orElseThrow(NullPointerException::new);
+        log.error("Không tìm thấy đối tượng yêu cầu");
         return mapper.userDtoMapper(user);
     }
 
     @Override
-    public Set<CrmUserDTO> findUserByFunc(Long funcId) {
-        Set<CrmUserDTO> setCrmUser = new HashSet<>();
-        Set<CrmUserDTO> set = new HashSet<>();
+    public List<CrmUserDTO> findUserByFunc(Long funcId) {
+//        Set<CrmUserDTO> setCrmUser = new HashSet<>();
+//        //lấy ra set roleId từ funcId
+//        Set<CrmRole> crmRoleSet = roleFuncService.findRoleByFunc(funcId);
+//        //lấy ra roleId
+//        Set<Long> setRoleId = new HashSet<>();
+//        for (CrmRole role : crmRoleSet){
+//            setRoleId.add(role.getRoleid());
+//        }
+//        //lấy ra các set user từ set roleid và thêm vào setCrmUsers
+//        for (Long roleId : setRoleId){
+//            Set<CrmUserDTO> crmUsers = findCrmUserDtoByRoleId(roleId);
+//            setCrmUser.addAll(crmUsers);
+//        }
+//        //loại bỏ giá trị trùng lặp qua username
+//        for(CrmUserDTO value : setCrmUser){
+//            if(!setUsername.contains(value.getUsername())){
+//                setUsername.add(value.getUsername());
+//                set.add(value);
+//            }
+//        }
+//        return set;
+        List<CrmUserDTO> userDTOList = new ArrayList<>();
         Set<String> setUsername = new HashSet<>();
-        //lấy ra set roleId từ funcId
-        Set<CrmRole> crmRoleSet = roleFuncService.findRoleByFunc(funcId);
-        //lấy ra roleId
-        Set<Long> setRoleId = new HashSet<>();
-        for (CrmRole role : crmRoleSet){
-            setRoleId.add(role.getRoleid());
+        List<CrmUserDTO> list = new ArrayList<>();
+        List<CrmRoleFunction> roleFunctions = roleFuncRepo.findCrmRoleFunctionsByFunctionId(funcId);
+        if (roleFunctions.size()==0){
+            log.error("Không tồn tại rolefunc với funcid cho trước", new NullPointerException());
         }
-        //lấy ra các set user từ set roleid và thêm vào setCrmUsers
-        for (Long roleId : setRoleId){
-            Set<CrmUserDTO> crmUsers = findCrmUserDtoByRoleId(roleId);
-            setCrmUser.addAll(crmUsers);
+        for (CrmRoleFunction value : roleFunctions){
+            list.addAll(userService.findCrmUserDtoByRoleId(value.getRole().getRoleid()));
         }
-        //loại bỏ giá trị trùng lặp qua username
-        for(CrmUserDTO value : setCrmUser){
+        if (list.size()==0){
+            log.error("Không tồn tại user với roleid cho trước", new NullPointerException());
+        }
+//        loại bỏ giá trị trùng lặp qua username
+        for(CrmUserDTO value : list){
             if(!setUsername.contains(value.getUsername())){
                 setUsername.add(value.getUsername());
-                set.add(value);
+                userDTOList.add(value);
             }
         }
-        return set;
+        return userDTOList;
     }
 
     @Override
-    public Set<CrmUserDTO> findCrmUserDtoByRoleId(Long roleId) {
-        Set<CrmUserDTO> set = new HashSet<>();
-        //tạo list lấy ra toàn bộ
-        List<CrmUserRole> listUserRole = userRoleRepo.findAll();
-        //dùng vòng lặp lấy ra tất cả đối tượng trong listUserRole có roleId giống tham số
-        for (CrmUserRole userRole : listUserRole){
-            if (userRole.getRole().getRoleid().equals(roleId)){
-                set.add(mapper.userDtoMapper(userRole.getUser()));
-            }
+    public List<CrmUserDTO> findCrmUserDtoByRoleId(Long roleId) {
+//        Set<CrmUserDTO> set = new HashSet<>();
+//        //tạo list lấy ra toàn bộ
+//        List<CrmUserRole> listUserRole = userRoleRepo.findAll();
+//        //dùng vòng lặp lấy ra tất cả đối tượng trong listUserRole có roleId giống tham số
+//        for (CrmUserRole userRole : listUserRole){
+//            if (userRole.getRole().getRoleid().equals(roleId)){
+//                set.add(mapper.userDtoMapper(userRole.getUser()));
+//            }
+//        }
+//        return set;
+        List<CrmUserRole> userRoles = userRoleRepo.findCrmUserRoleByRoleId(roleId);
+        if (userRoles.size()==0){
+            log.error("Không tồn tại userrole nào có role id này", new NullPointerException());
         }
-        return set;
+        List<CrmUserDTO> userDTOS = new ArrayList<>();
+        for (CrmUserRole value : userRoles){
+            userDTOS.add(mapper.userDtoMapper(IUserRepo.findCrmUserByUsername(value.getUser().getUsername())));
+        }
+        return userDTOS;
     }
 
 }
