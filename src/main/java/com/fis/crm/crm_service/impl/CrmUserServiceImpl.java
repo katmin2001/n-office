@@ -154,13 +154,13 @@ public class CrmUserServiceImpl implements CrmUserService {
         Set<String> setUsername = new HashSet<>();
         List<CrmUserDTO> list = new ArrayList<>();
         List<CrmRoleFunction> roleFunctions = roleFuncRepo.findCrmRoleFunctionsByFunctionId(funcId);
-        if (roleFunctions.size()==0){
+        if (roleFunctions.isEmpty()){
             log.error("Không tồn tại rolefunc với funcid cho trước", new NullPointerException());
         }
         for (CrmRoleFunction value : roleFunctions){
             list.addAll(userService.findCrmUserDtoByRoleId(value.getRole().getRoleid()));
         }
-        if (list.size()==0){
+        if (list.isEmpty()){
             log.error("Không tồn tại user với roleid cho trước", new NullPointerException());
         }
 //        loại bỏ giá trị trùng lặp qua username

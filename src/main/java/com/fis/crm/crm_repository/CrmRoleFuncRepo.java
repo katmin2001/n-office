@@ -3,6 +3,7 @@ package com.fis.crm.crm_repository;
 import com.fis.crm.crm_entity.CrmFunction;
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmRoleFunction;
+import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -40,4 +41,7 @@ public interface CrmRoleFuncRepo extends JpaRepository<CrmRoleFunction, Long> {
     @Query(value = "select u from CrmRoleFunction u where u.role.rolename = :rolename and u.function.funcname = :funcname")
     public CrmRoleFunction findCrmRoleFunctionsByRoleNameAndFunctionName(@Param("rolename") String rolename,
                                                                   @Param("funcname") String funcname);
+
+    @Query(value = "select u from CrmRoleFunction u where u.role.roleid = :roleid")
+    public List<CrmFunction> findCrmFunctionsByRoleId(@Param("roleid")Long roleid);
 }

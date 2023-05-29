@@ -215,4 +215,15 @@ public class CrmRoleFuncServiceImpl implements CrmRoleFuncService {
         return dtoList;
     }
 
+
+    @Override
+    public List<CrmFunctionDTO> findFuncDTOByRoleId(Long roleId) {
+        List<CrmFunctionDTO> list = new ArrayList<>();
+        List<CrmRoleFunction> roleFuncList = roleFuncRepo.findCrmRoleFunctionsByRoleId(roleId);
+        for (CrmRoleFunction value : roleFuncList){
+            list.add(mapper.functionDTOMapper(value.getFunction()));
+        }
+        return list;
+    }
+
 }

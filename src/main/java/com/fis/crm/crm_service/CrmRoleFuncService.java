@@ -3,6 +3,7 @@ package com.fis.crm.crm_service;
 
 import com.fis.crm.crm_entity.CrmRole;
 import com.fis.crm.crm_entity.CrmRoleFunction;
+import com.fis.crm.crm_entity.DTO.CrmFunctionDTO;
 import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.RegisterRoleFuncDTO;
 import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
@@ -21,6 +22,7 @@ public interface CrmRoleFuncService {
     public List<CrmRoleFuncDTO> findFuncByRoleId(Long roleId);                              //xong
     public List<CrmRoleFuncDTO> findRoleByFuncId(Long funcId);                              //XONG
     public List<CrmRoleFuncDTO > getAllRoleFunc();                                          //xong
+    public List<CrmFunctionDTO> findFuncDTOByRoleId(Long roleId);
 
 
 }

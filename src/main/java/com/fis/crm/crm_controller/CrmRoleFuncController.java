@@ -1,16 +1,15 @@
 package com.fis.crm.crm_controller;
 
 import com.fis.crm.crm_entity.CrmRoleFunction;
-import com.fis.crm.crm_entity.DTO.CrmRoleFuncDTO;
-import com.fis.crm.crm_entity.DTO.RegisterRoleFuncDTO;
-import com.fis.crm.crm_entity.DTO.Result;
-import com.fis.crm.crm_entity.DTO.UpdateNewFuncForRole;
+import com.fis.crm.crm_entity.DTO.*;
 import com.fis.crm.crm_service.CrmRoleFuncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/role-func")
@@ -53,6 +52,12 @@ public class CrmRoleFuncController {
         return ResponseEntity.status(HttpStatus.OK)
             .body(new Result("OK","Tìm kiếm thành công",roleFuncService.findRoleByFuncId(funcId)));
     };
+
+    @GetMapping("/find-func-by-roleid/{roleId}")
+    public ResponseEntity<Result>  findFuncDTOByRoleId(@PathVariable Long roleId){
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new Result("OK","Tìm kiếm thành công",roleFuncService.findFuncDTOByRoleId(roleId)));
+    }
 
 }
 

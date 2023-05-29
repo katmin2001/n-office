@@ -13,4 +13,5 @@ public interface CrmFunctionService {
     public CrmFunction registerFunc(CrmFunctionDTO function);       //xong          da test
     public List<CrmFunctionDTO> getAllFuncs();                      //xong          da test
     public void deleteFuncByFuncName(CrmFunctionDTO funtion);       //xong          da test
+    public List<CrmFunctionDTO> findByUserId(Long userId);
 }
