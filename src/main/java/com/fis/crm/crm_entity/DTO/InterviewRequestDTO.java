@@ -1,18 +1,19 @@
 package com.fis.crm.crm_entity.DTO;
 
 import java.sql.Date;
+import java.util.List;
 
 public class InterviewRequestDTO {
     private Date interviewDate;
     private Boolean status;
     private Long candidateId;
     private Long ISID;
-    private Long userId;
+    private List<Long> userId;
 
     public InterviewRequestDTO() {
     }
 
-    public InterviewRequestDTO(Date interviewDate, Boolean status, Long candidateId, Long ISID, Long userId) {
+    public InterviewRequestDTO(Date interviewDate, Boolean status, Long candidateId, Long ISID, List<Long> userId) {
         this.interviewDate = interviewDate;
         this.status = status;
         this.candidateId = candidateId;
@@ -52,11 +53,11 @@ public class InterviewRequestDTO {
         this.ISID = ISID;
     }
 
-    public Long getUserId() {
-        return userId;
+    public void setUserId(List<Long> userId) {
+        this.userId = userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public List<Long> getUserId() {
+        return userId;
     }
 }

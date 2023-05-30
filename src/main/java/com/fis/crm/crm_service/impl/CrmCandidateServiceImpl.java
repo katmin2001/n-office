@@ -8,6 +8,9 @@ import com.fis.crm.crm_repository.CrmUserRepo;
 import com.fis.crm.crm_repository.CrmInterviewStatusRepo;
 import com.fis.crm.crm_service.CrmCandidateService;
 import com.fis.crm.crm_util.DtoMapper;
+import com.fis.crm.service.impl.ActionLogServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +23,7 @@ import java.util.List;
 @Service
 @Transactional
 public class CrmCandidateServiceImpl implements CrmCandidateService {
+    private final Logger log = LoggerFactory.getLogger(CrmCandidateServiceImpl.class);
     private final CrmCandidateRepo candidateRepo;
     private final CrmUserRepo userRepo;
     private final CrmInterviewStatusRepo interviewStatusRepo;
@@ -59,7 +63,7 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
     public CandidateDTO getCandidateById(Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại ứng viên!", new NullPointerException());
         }
         InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
         CrmUser crmUser = userRepo.findCrmUserByUserid(candidate.getUser().getUserid());
@@ -111,7 +115,7 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
     public Result updateCandidate(CandidateRequestDTO candidateDTO, Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại ứng viên!", new NullPointerException());
         }
         if(candidateDTO.getFullname() != null){
             candidate.setFullname(candidateDTO.getFullname());
@@ -130,7 +134,7 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
         }
         if(candidateDTO.getManageId() != null){
             if(userRepo.findById(candidateDTO.getManageId()).orElse(null) == null){
-                throw new NullPointerException();
+                log.error("Không tồn tại user!", new NullPointerException());
             }
             candidate.setUser(userRepo.findById(candidateDTO.getManageId()).orElse(null));
         }
@@ -141,7 +145,7 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
     public Result deleteCandidate(Long candidateId) {
         CrmCandidate candidate = candidateRepo.findById(candidateId).orElse(null);
         if(candidate == null){
-            throw new NullPointerException();
+            log.error("Không tồn tại ứng viên!", new NullPointerException());
         }
         candidate.setStatus(false);
         return new Result("SUCCESS","Xoá thành công!",candidateRepo.save(candidate));
@@ -149,7 +153,12 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
 
     @Override
     public Result searchCandidate(SearchCandidateDTO searchCandidateDTO) {
-        List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),searchCandidateDTO.getEndDayCreate(),searchCandidateDTO.getStartDay(), searchCandidateDTO.getEndDay(), searchCandidateDTO.getISID(), searchCandidateDTO.getManageId());
+        List<CrmCandidate> crmCandidates =  candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),
+        searchCandidateDTO.getEndDayCreate(),
+        searchCandidateDTO.getStartDay(),
+        searchCandidateDTO.getEndDay(),
+        searchCandidateDTO.getISID(),
+        searchCandidateDTO.getManageId());
         List<CandidateDTO> candidateDTOS = new ArrayList<>();
         for(CrmCandidate candidate:crmCandidates){
             InterviewStatusDTO interviewStatusDTO = new InterviewStatusDTO(candidate.getInterviewStatus().getIsid(),candidate.getInterviewStatus().getStatusName(),candidate.getInterviewStatus().getDescription());
@@ -167,6 +176,19 @@ public class CrmCandidateServiceImpl implements CrmCandidateService {
             );
             candidateDTOS.add(candidateDTO);
         }
+//        List<CandidateDTO> candidateDTOS = candidateRepo.searchCandidate(searchCandidateDTO.getStartDayCreate(),
+//                                                                        searchCandidateDTO.getEndDayCreate(),
+//                                                                        searchCandidateDTO.getStartDay(),
+//                                                                        searchCandidateDTO.getEndDay(),
+//                                                                        searchCandidateDTO.getISID(),
+//                                                                        searchCandidateDTO.getManageId());
+//        for(CandidateDTO candidateDTO: candidateDTOS){
+//            CrmCandidate candidate = candidateRepo.findById(candidateDTO.getCandidateId()).orElseThrow(NullPointerException::new);
+//            CrmUser crmUser = userRepo.findCrmUserByUserid(candidate.getUser().getUserid());
+//            CrmUserDTO crmUserDTO = mapper.userDtoMapper(crmUser);
+//            candidateDTO.setCrmUserDTO(crmUserDTO);
+//        }
+
         if(candidateDTOS.size() == 0){
             return new Result("NOT_FOUND","Không tồn tại kết quả!","");
         }
